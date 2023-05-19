@@ -1,0 +1,179 @@
+%%
+% This file is a sample of the main body of a dissertation
+% at the Graduate School of Systems and Information Engineering,
+% University of Tsukuba.
+% You can rewrite this file to make a thesis body
+% with the same format as this example using LaTeX.
+% Depending on your PC environment and
+% the settings of your LaTeX environment,
+% you may need to change the kanji code and line feed code.
+%%
+
+\documentclass[12pt, a4paper]{report}
+%\usepackage[utf8]{inputenc}
+
+% IMPORTANT
+\usepackage{sie-en}
+
+\usepackage{graphicx} 
+\usepackage{times}
+\usepackage{xurl}
+\usepackage[scale=0.85]{noto-mono}
+
+\setcounter{tocdepth}{3}
+\setcounter{page}{-1}
+
+\title{The Example of Thesis \\ at the Graduate School of \\ Systems and Information Engineering}
+
+\author{Luca Foppiano}
+
+\programfield{Master’s Program in Computer Science}
+
+\advisor{Daijiro Tsukuba}
+
+%% Name of department + year and month
+%% Please rewrite as necessary.
+\majorfield{the Degree of Master of XXXXXX}
+
+\graduateyear{20XX}
+\graduatemonth{March}
+
+\abstract{
+    \noindent
+    This is a sample document for writing a thesis which will be submitted to the Degree
+    Programs in Systems and Information. 
+    %
+    The main purpose of this document is to reduce the author's trouble in making title.
+    %
+    Of course you can create your title page from scratch. 
+    %
+    But your style must fulfill the requirements such as margins.
+}
+%%%%%
+
+\begin{document}
+
+\maketitle
+\makeabstract
+\maketableofcontents
+
+%\pagenumbering{roman} % I, II, III, IV 
+%{
+%  \setlength{\parskip}{0pt}
+%  \tableofcontents
+%  \listoffigures
+%  \listoftables
+%}
+%\pagebreak \setcounter{page}{1}
+%\pagenumbering{arabic} % 1,2,3
+
+\chapter{Introduction}
+
+This is a sample document for writing a thesis which will be submitted to the Degree
+Programs in Systems and Information. The main purpose of this document is to reduce
+the author's trouble in making title. Of course you can create your title page from
+scratch. But your style must fulfill the requirements such as margins.
+
+This document is also prepared for intention of unifying the thesis style. You can
+write your thesis based on this document. This document does not include how to
+write good thesis. So, you should consult advisor(s) about the concrete example of thesis
+and other details.
+
+\chapter{Format}
+
+This chapter describes how to write the cover and body of the paper.
+
+\section{Cover Page}
+
+The cover page is created by {\tt $\backslash$maketitle}, which should
+contain a string corresponding to each of the following items.
+
+
+\begin{description} \parskip=1pt
+\item{Title:}
+  The title should appear in {\tt $\backslash$title}.  To change the line, enter $\backslash\backslash$.
+  %
+  If the title is more than four lines long, the cover page will be overflowed and the style file ``sie-en.sty'' will have to be changed.
+\item{Author:}
+  Name of author should be entered in {\tt $\backslash$author}.
+\item{Advisor:}
+  Name of your advisor should be entered in {\tt $\backslash$advisor}.
+\item{Major Field:}
+  Name of your major field should be entered in {\tt $\backslash$majorfield}.
+\item{Degree Program:}
+  Name of degree program should be entered in {\tt $\backslash$programfield}.
+\item{Date:}
+  Month and year of completion should be entered in {\tt $\backslash$graduatemonth} and {\tt $\backslash$graduateyear}, respectively. 
+\end{description}
+
+\section{Main body}
+
+The body of the text should be in one column.
+
+Tables and figures are numbered, captioned and referred to in the
+text. Tables \ref{table:fundamental_data_type} and figure
+ref{figure:sample} are examples of tables and figures
+respectively.
+%
+The description of the table is often written above and the
+description of the figure below.
+%
+The package used to insert the figure The package used to insert the
+figure should be chosen freely according to the environment in which
+it is used.
+
+\begin{table}[hbt]
+\caption{Sample of Table}
+\label{table:fundamental_data_type}
+\begin{center}
+\begin{tabular}{| c | r | r | r | r |}
+\hline
+Fiscal Year & 1st & 2nd & 3rd & 4th \\
+\hline
+1995 & 85 & 92 & 86 & 88 \\
+1996 & 83 & 89 & 90 & 102 \\
+1997 & 88 & 87 & 91 & 112 \\
+1998 & 144 & 93 & 90 & 115 \\
+\hline 
+\end{tabular}
+\end{center}
+\end{table}
+\medskip
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=3cm]{sample.eps}
+%\psfig{file=sample.eps,scale=0.6}
+%\epsfile{file=sample.eps,scale=0.6}
+\end{center}
+\caption{Example of figure}
+\label{figure:sample}
+\end{figure}
+
+For more information, see the (slightly outdated)
+\cite{rakuraku,jiyu-jizai} reference book. Also, see Haruhiko
+Okumura's ``Japanese TeX FAQ'' at 
+\url{http://www.matsusaka-u.ac.jp/~okumura/texfaq/} is a good source of
+information on \TeX in Japanese. It is a good source of information on
+Japanese TeX. The following are examples of references to specific
+papers \cite{bryant-ieeetc86}.
+
+\chapter{Automatic identification and normalization of physical quantities from scientific publications}
+
+
+\chapter{SuperMat: a linked dataset }
+
+\chapter{Automatic extraction of materials and related properties from scientific articles}
+
+\chapter{Domain adaptation: from superconductors to magnetic materials}
+
+
+\chapter*{Acknowledgements}
+\addcontentsline{toc}{chapter}{Acknowledgements}
+\newpage
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{unsrt}
+\bibliography{sample.bib}
+
+\end{document}
