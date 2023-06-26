@@ -29,7 +29,7 @@
 
 \programfield{Master’s Program in Computer Science}
 
-\advisor{Daijiro Tsukuba}
+\advisor{Yoshiyuki Amagasa}
 
 %% Name of department + year and month
 %% Please rewrite as necessary.
@@ -40,14 +40,7 @@
 
 \abstract{
     \noindent
-    This is a sample document for writing a thesis which will be submitted to the Degree
-    Programs in Systems and Information. 
-    %
-    The main purpose of this document is to reduce the author's trouble in making title.
-    %
-    Of course you can create your title page from scratch. 
-    %
-    But your style must fulfill the requirements such as margins.
+    ...
 }
 %%%%%
 
@@ -57,116 +50,217 @@
 \makeabstract
 \maketableofcontents
 
-%\pagenumbering{roman} % I, II, III, IV 
-%{
+% \pagenumbering{roman} % I, II, III, IV 
+% {
 %  \setlength{\parskip}{0pt}
 %  \tableofcontents
 %  \listoffigures
 %  \listoftables
-%}
-%\pagebreak \setcounter{page}{1}
-%\pagenumbering{arabic} % 1,2,3
+% }
+% \pagebreak \setcounter{page}{1}
+% \pagenumbering{arabic} % 1,2,3
 
 \chapter{Introduction}
 
-This is a sample document for writing a thesis which will be submitted to the Degree
-Programs in Systems and Information. The main purpose of this document is to reduce
-the author's trouble in making title. Of course you can create your title page from
-scratch. But your style must fulfill the requirements such as margins.
+% Dependency between concepts
+% General introduction: 
+% -> Knowledge and how is created 
+% -> Publications/Patents 
+% -> Publication rate growing 
+% -> text 
+% -> TDM 
+% -> ML
 
-This document is also prepared for intention of unifying the thesis style. You can
-write your thesis based on this document. This document does not include how to
-write good thesis. So, you should consult advisor(s) about the concrete example of thesis
-and other details.
-
-\chapter{Format}
-
-This chapter describes how to write the cover and body of the paper.
-
-\section{Cover Page}
-
-The cover page is created by {\tt $\backslash$maketitle}, which should
-contain a string corresponding to each of the following items.
+% Material science-related introduction: 
+% -> computational science 
+% -> life science 
+% -> materials science 
+% -> Materials informatics 
+% -> superconductivity 
+% -> SuperCon
 
 
-\begin{description} \parskip=1pt
-\item{Title:}
-  The title should appear in {\tt $\backslash$title}.  To change the line, enter $\backslash\backslash$.
-  %
-  If the title is more than four lines long, the cover page will be overflowed and the style file ``sie-en.sty'' will have to be changed.
-\item{Author:}
-  Name of author should be entered in {\tt $\backslash$author}.
-\item{Advisor:}
-  Name of your advisor should be entered in {\tt $\backslash$advisor}.
-\item{Major Field:}
-  Name of your major field should be entered in {\tt $\backslash$majorfield}.
-\item{Degree Program:}
-  Name of degree program should be entered in {\tt $\backslash$programfield}.
-\item{Date:}
-  Month and year of completion should be entered in {\tt $\backslash$graduatemonth} and {\tt $\backslash$graduateyear}, respectively. 
-\end{description}
+% Discuss information explosion, the growing publication rate and easier data availability (Open access?)
 
-\section{Main body}
+The majority of scientific knowledge is created by research and experimentation and is subsequently recorded and shared through publications and patents. 
+The advent of the internet and information and communication technologies has led to an explosion of information and a rapid increase in the publication rate [ref]. 
+This has made it easier for researchers to access and share information, leading to the growth of open access journals and repositories [ref]. 
+Open access allows for the free and unrestricted access to scientific publications, making knowledge more accessible to researchers, policymakers, and the general public [ref]. 
 
-The body of the text should be in one column.
+% What is good about having large quantity of data? 
+Having a large quantity of data can provide several benefits. Firstly, it allows for more comprehensive and robust analyses, leading to more accurate and reliable results [ref]. 
+Large datasets enable researchers to identify patterns, trends, and correlations that may not be apparent in smaller datasets [ref] and this can accelerate discovering.
 
-Tables and figures are numbered, captioned and referred to in the
-text. Tables \ref{table:fundamental_data_type} and figure
-ref{figure:sample} are examples of tables and figures
-respectively.
-%
-The description of the table is often written above and the
-description of the figure below.
-%
-The package used to insert the figure The package used to insert the
-figure should be chosen freely according to the environment in which
-it is used.
+% This can lead to new insights and discoveries in various fields, including medicine, environmental science, and social sciences [ref]. Additionally, large datasets can be used to train and develop machine learning algorithms, which can automate processes, make predictions, and improve decision-making [ref].
 
-\begin{table}[hbt]
-\caption{Sample of Table}
-\label{table:fundamental_data_type}
-\begin{center}
-\begin{tabular}{| c | r | r | r | r |}
-\hline
-Fiscal Year & 1st & 2nd & 3rd & 4th \\
-\hline
-1995 & 85 & 92 & 86 & 88 \\
-1996 & 83 & 89 & 90 & 102 \\
-1997 & 88 & 87 & 91 & 112 \\
-1998 & 144 & 93 & 90 & 115 \\
-\hline 
-\end{tabular}
-\end{center}
-\end{table}
-\medskip
+% Why is hard to manage large quantity of data? 
 
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics[width=3cm]{sample.eps}
-%\psfig{file=sample.eps,scale=0.6}
-%\epsfile{file=sample.eps,scale=0.6}
-\end{center}
-\caption{Example of figure}
-\label{figure:sample}
-\end{figure}
+% e.g. Impossible to keep up with all the articles 
+% e.g. It's difficult to find information that are pertinent to the context (Examples:  information about German Army in WW1 (imperial army) or WW2 (Wehrmacht)
+% e.g. structured information cannot be extracted manually (ref to point 1)
 
-For more information, see the (slightly outdated)
-\cite{rakuraku,jiyu-jizai} reference book. Also, see Haruhiko
-Okumura's ``Japanese TeX FAQ'' at 
-\url{http://www.matsusaka-u.ac.jp/~okumura/texfaq/} is a good source of
-information on \TeX in Japanese. It is a good source of information on
-Japanese TeX. The following are examples of references to specific
-papers \cite{bryant-ieeetc86}.
+
+However, managing large quantities of data poses several challenges. 
+Firstly, it is becoming more difficult for researchers to keep up with the sheer volume of scientific articles being published [ref]. 
+This can lead to information overload and difficulties in staying up-to-date with the latest research findings [ref]. Secondly, finding relevant information within a large dataset can be challenging, especially when searching for specific contextual information [ref].
+
+% Why text is hard to understand for machines? 
+The inherent ambiguity of language makes it difficult for machines to accurately interpret and comprehend text sentences which require context and nuanced understanding. 
+%the complexity of scientific literature and specialised domains 
+Additionally, scientific texts in specialised domains often contain expert-level knowledge, technical terminology, conventions and specific abbreviations making it challenging for machines to process and comprehend such texts accurately. 
+%Finally, machines need to infer diacritics, understand the context, and interpret the meaning of the text accurately. 
+
+% What is a language? 
+
+% TDM introduction? 
+% is an fields that focuses on extracting meaningful information and insights from large quantities of text data. 
+Text and data mining (TDM), also known as text analytic, is the process of extracting information from written resources such as websites, books, emails, and articles.
+
+It involves structuring the input text, identifying patterns and trends, and interpreting the output. Text mining tasks include categorisation, clustering, entity extraction, sentiment analysis, summarisation, and entity relation modelling. The goal is to transform text into a structured data that can be easily understood by machines using natural language processing (NLP), algorithms, and analytical methods.
+NLP is a field that focuses on understanding and processing human language by computerised systems. It involves techniques and algorithms that enable computers to analyse, interpret, and generate natural language text.
+
+[...]
+
+Documents serve as the fundamental units of analysis in text mining, and the gathered information is interpreted to derive insights and make informed decisions.
+
+[...]
+
+By applying computational techniques, such as natural language processing and machine learning, TDM enables the extraction of patterns, trends, and relationships within the text.
+
+% What is Machine learning? Discussion about different machine learning approaches, etc... 
+
+Machine learning is a field that utilises algorithms and computational techniques to automatically learn patterns and make predictions from data. 
+It involves training models on large datasets to identify complex patterns and relationships, enabling applications in various domains such as predictive toxicology, material analysis, social networks, and healthcare. Machine learning methods, including support vector machines, random forest, neural networks, and decision trees, have been used for tasks such as classification, regression, sentiment analysis, and recommendation systems. 
+It has proven to be particularly effective in analyzing large and noisy datasets, making it valuable for medical and biological applications, including cancer detection and diagnosis. Machine learning plays a crucial role in automating analytical models and improving efficiency in data-driven decision-making processes.
+
+
+
+
+\section{Motivation}
+\section{Problem definition}
+\section{Background}
+\section{Contributions}
+
+
+
+% \begin{table}[hbt]
+% \caption{Sample of Table}
+% \label{table:fundamental_data_type}
+% \begin{center}
+% \begin{tabular}{| c | r | r | r | r |}
+% \hline
+% Fiscal Year & 1st & 2nd & 3rd & 4th \\
+% \hline
+% 1995 & 85 & 92 & 86 & 88 \\
+% 1996 & 83 & 89 & 90 & 102 \\
+% 1997 & 88 & 87 & 91 & 112 \\
+% 1998 & 144 & 93 & 90 & 115 \\
+% \hline 
+% \end{tabular}
+% \end{center}
+% \end{table}
+% \medskip
+
+% \begin{figure}[htbp]
+% \begin{center}
+% \includegraphics[width=3cm]{sample.eps}
+% %\psfig{file=sample.eps,scale=0.6}
+% %\epsfile{file=sample.eps,scale=0.6}
+% \end{center}
+% \caption{Example of figure}
+% \label{figure:sample}
+% \end{figure}
+
+% For more information, see the (slightly outdated)
+% \cite{rakuraku,jiyu-jizai} reference book. Also, see Haruhiko
+% Okumura's ``Japanese TeX FAQ'' at 
+% \url{http://www.matsusaka-u.ac.jp/~okumura/texfaq/} is a good source of
+% information on \TeX in Japanese. It is a good source of information on
+% Japanese TeX. The following are examples of references to specific
+% papers \cite{bryant-ieeetc86}.
+
+\chapter{Terminology}
+\chapter{Related work}
+In this chapter we discuss the work related to our study. This chapter is divided into sections characterising different aspect of this research, from each of the main contributions. 
+
+
+\section{Physical measurement extraction}
+Attempts to extract measurements from text have been made using rule-based (formal grammars engines, lookup in terminological databases), ML approaches, including DL. 
+
+Rule based approaches~\cite{10.1145/2766462.2767789, 10.1109/asid50160.2020.9271745}
+
+A known commercial tool, Quantalyze\footnote{https://www.quantalyze.com/}, was reported by \cite{hundman2017measurement} showing weak recall and supporting only a limited subset of units~\cite{aras2014applications}. 
+Another approach~\cite{agatonovic2008large}, using GATE (General Architecture for Text Engineering), addressed the identification of numeric properties from patents. 
+
+\cite{am2013processing} investigated issues applied to Russian-derived languages. These approaches lack either the generalisation to an extensive corpus or deal mainly with specific languages. 
+
+\cite{berrahou2013extract} described an attempt to recognise units by looking up terms from an ontology, using ML in combination with pattern matching and string metrics. 
+
+Other ML-based approaches exist, although limited to specific domains: \cite{kang_extracting_2013} and \cite{dieb2015framework} describe measurements extraction from experimental results in biology and nanocrystal device development, respectively. 
+
+Our work is not restricted to a specific domain or subset of measurements and includes a normalisation process. 
+
+% Related work for SuperMat
+
+The vast majority of scientific knowledge exists as published articles~\cite{Grigas2017JustGI, Khabsa2014TheNO, OrduaMalea2015MethodsFE, Bjrk2009ScientificJP}. 
+These publications are presented mainly as text, which is challenging to be used as a machine-readable structure. 
+Meanwhile, as a part of the text and data mining (TDM) discipline, computer-assisted information collection from the literature has become a supportive asset for scientific research~\cite{doi:10.1063/5.0021106}. 
+In the past decades, new TDM processes were developed for several natural science disciplines to achieve automatic document processing such as information retrieval, entity extraction, and clustering.  
+TDM has been applied in biology for identifying interactions between agents (e.g. bacteria, viruses, genes, and proteins)~\cite{10.1371/journal.pone.0004554, Krallinger2010, Krallinger2009ExtractionOH} to support the research on serious diseases including cancer~\cite{Krasnitz2019CancerB}. 
+In chemistry, it was used for the disambiguation of chemical compounds names, synthesis extraction, and retrieval~\cite{Hawizy2011ChemicalTaggerAT}.
+In both domains, the application of TDM was based on manually curated datasets (corpora) that functioned as infrastructures. Examples are the BioCreative IV CHEMDNER corpus~\cite{Krallinger2015TheCC} in chemistry, and Genia~\cite{Kim2003GENIAC} and GENETAG~\cite{Tanabe2005GENETAGAT, Ohta2009IncorporatingGA} in biology. Such datasets are crucial for developing, training, and evaluating TDM systems.
+
+In comparison, such resources in the materials science domain are rather limited. 
+Reported cases include NaDev~\cite{Dieb2016} on nanocrystal devices research, a corpus for extracting synthesis recipes~\cite{kononova_text-mined_2019}, and ChemDataExtractor~\cite{court2018auto} which focuses only on chemical entities. In the superconductors domain, we could identify MagDb~\cite{court_magnetic_2020} focusing on magnetic materials with limited information categories. Another project is SC-CoMIcs~\cite{yamaguchi-etal-2020-sc}.
+SuperMat is different from SC-CoMIcs based on the following reasons: (a) it provides full papers instead of abstracts which contain more detailed information about the research on superconducting materials, and (b) it contains linked entities. 
+
+To address this shortage of infrastructure, experimental data is extracted manually~\cite{doi:10.1021/cm400893e}, or ab-initio calculations are used~\cite{Jain2013CommentaryTM_materialsProject} but they might not accurately describe the real system.
+Several challenges still hinder the data-driven exploration of materials (also called Materials Informatics (MI)), namely: the lack of data standard, infant stage of the data-driven culture, a wide variety of conflicting stakeholders, and missing incentives for researchers to contribute to large collaborative initiatives~\cite{Hill2016MaterialsSW}. 
+To bridge these gaps, it is necessary to create infrastructural resources to support TDM processes in materials science through the automatic construction of databases for materials and their properties. 
+Such application can minimise the need for humans to read the new papers and extract the key information therein. 
+Equally importantly, it enables scientists to focus and leverage computing power and human resources to find deeper relationships between superficially unrelated information. 
+Other applications include providing semantically enriched search engines that accept fine-grain queries~\cite{Liu2019SurfaceMR} to reduce the time needed to access specific information. 
+These processes cannot be established without essential resources such as dictionaries, lexicons, and datasets. 
+
+% Superconductors domain
+Research on superconducting materials has been growing rapidly towards both fundamental science as well as practical applications. Superconductors display many intriguing phenomena including zero-resistivity, the ability to host a high magnetic field, quantisation of the magnetic flux, and vortex pinning.  
+Current applications of superconductors include medical instruments, high-speed trains, quantum computers, and the Linear Hadron Collider (LHC)~\cite{PhilippeBook, Kizu2010ConstructionOT, Cardani2017NewAO}. 
+However, discovering a new superconductor is a challenging task~\cite{PhysRevB.103.014509}. For example, in a previous work~\cite{doi:10.1088/1468-6996/16/3/033503} out of $\sim$1000 studied materials, only 3\% were found to be superconducting. 
+The National Institute for Materials Science (NIMS) in Japan has been manually constructing databases to support material research, and SuperCon (\url{http://supercon.nims.go.jp}) is a manually curated data source for the superconductor domain.
+These databases would help researchers design new superconducting materials with a higher superconducting critical temperature (\textit{T\textsubscript{c}}) (ideally up to room temperature)~\cite{Hamlin2019SuperconductivityNR,stanev2017machine}.
+However, the current resources are very limited and not dynamic enough to incorporate the information from new publications in a timely manner. 
+
+% Related work for grobid-superonductors
+
+In recent years, with the creation of computational databases, such as the Materials Project (MP)~\cite{materialsprojectJain2013} and the Open Quantum Materials Database (OQMD)~\cite{oqmdkirklin2015open}, and then experimental data repositories such as NIMS MDR (\url{http://mdr.nims.go.jp})~\cite{ranganathan_anusha_2019_3553963}, focus has been steadily shifting towards a data-driven design of materials, which is often called Materials Informatics (MI).
+Such an approach is expected to accelerate the exploration of functional materials because it is not limited to the intuition or experience of very little genius researchers.
+In this new paradigm, the efficient use of data to guide experiments and material property prediction through the use of machine learning methods takes center stage.
+For example, data-driven methods have been used to search/design magneto-caloric materials~\cite{Bocarsly2017,Castro2020-12,court2021inverse}, photo-catalysts for hydrogen splitting~\cite{xiong2021optimizing}, thermoelectrics~\cite{iwasaki2019machine}, and superconductors~\cite{stanev_machine_2017}.
+In such a data-driven search, one of the most important keys lies in the availability of the data, which should at least should consist of compositions of materials and their physical properties.
+In the specific case of superconductivity, most of the data-driven works~\cite{stanev_machine_2017, le2020critical,Hamlin2019SuperconductivityNR} rely on a single database: SuperCon (\url{http://supercon.nims.go.jp}).
+
+SuperCon is a structured database of superconductor materials and properties;it was developed at the National Institute for Materials Science (NIMS) in Japan.
+At the time of writing this paper, SuperCon contained about 33000 inorganic and 600 organic materials and is the ``de-facto'' standard in data-driven research for superconductors materials (about 4400 articles contain the mention ``\textit{SuperCon database}'' in Google Scholar).
+However, the SuperCon harvesting process is currently fully manual ``from scratch'': humans have to read the human-readable printed matter such as PDF documents and enter the information into the system.
+The efficiency is directly proportional to the number of available human curators.
+Considering the cost of database construction, it is necessary to consider an assisted or alternative system that improves throughput while ensuring data quality equivalent to that of manual extraction.
+
 
 \chapter{Automatic identification and normalization of physical quantities from scientific publications}
+\section{Introduction}
+\section{Main contributions}
+\section{Experiments}
+\section{Conclusion}
 
-
-\chapter{SuperMat: a linked dataset }
+\chapter{SuperMat: Construction of a linked annotated dataset from superconductors-related publications}
 
 \chapter{Automatic extraction of materials and related properties from scientific articles}
 
 \chapter{Domain adaptation: from superconductors to magnetic materials}
 
+\chapter{Conclusion}
+\section{Conclusion}
+\section{Future work}
 
 \chapter*{Acknowledgements}
 \addcontentsline{toc}{chapter}{Acknowledgements}
@@ -174,6 +268,6 @@ papers \cite{bryant-ieeetc86}.
 
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{unsrt}
-\bibliography{sample.bib}
+\bibliography{references.bib}
 
 \end{document}
