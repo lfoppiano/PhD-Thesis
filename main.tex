@@ -245,7 +245,10 @@ After the publication of our contribution~\cite{foppiano2019quantities}, other w
 
 While \cite{ning2022ameta} focuses on the temporal aspect quantities extracted from news feeds. 
 
-\cite{epp2021stereo} focuses on the extraction of statistical results and topics from scientific papers, 
+\cite{epp2021stereo} describe a framework for extracting results from documents . They extract three main information: statistical results, condition information and topics from scientific papers. Although they aim to document following the American Psychological Association (APA) guidelines, there are small variations in many cases. 
+Their system exploit a flexible wrapper induction approach for extraction of statistics and conditions, which is a Grammar-based condition extraction (GBCE) by inferring a set of rules from a subset of papers, and apply them to the rest of the dataset. The experiment topics are extracted using an adaptation of the unsupervised Attention-based Aspect Extraction (ABAE) approach. 
+The authors use the CORD-19 dataset, 500 documents (0.25\%) are used for learning the rules with the GBCE and extract information with 99\% precision for APA-compliant documents and 95\% precision for non-APA compliant documents. 
+The rule-base nature is strongly dictated by the uniform structure of the writing style, and possibly to a limited amount of units and measurement that are expected to be extracted. 
 
 \cite{hao2016} focuses on lab tests reports, 
 
