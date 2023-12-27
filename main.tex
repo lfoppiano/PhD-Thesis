@@ -20,23 +20,30 @@
 \usepackage{xurl}
 \usepackage[scale=0.85]{noto-mono}
 \usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{csquotes}
+\usepackage{booktabs}
+\usepackage[caption=false]{subfig}
+
+\usepackage{pdflscape}
+\usepackage{afterpage}
+\usepackage{tabularray}
+\usepackage{makecell}
+
+\newcommand{\tc}{T$_{c}$}
 
 \setcounter{tocdepth}{3}
 \setcounter{page}{-1}
 
-\title{The Example of Thesis \\ at the Graduate School of \\ Systems and Information Engineering}
+\title{Automated Extraction and Curation of Materials Information from Scientific Literature}
 
 \author{Luca Foppiano}
 
-\programfield{Master’s Program in Computer Science}
+\programfield{Doctoral Program in Computer Science}
 
-\advisor{Yoshiyuki Amagasa}
-
-%% Name of department + year and month
-%% Please rewrite as necessary.
-\majorfield{the Degree of Master of XXXXXX}
-
-\graduateyear{20XX}
+\graduateyear{2024}
 \graduatemonth{March}
 
 \abstract{
@@ -61,272 +68,25 @@
 % \pagebreak \setcounter{page}{1}
 % \pagenumbering{arabic} % 1,2,3
 
-\chapter{Introduction}
+\input{introduction}
 
+\input{related_works}
 
-% Dependency between concepts
-% General introduction: 
-% -> Knowledge and how is created 
-% -> Publications/Patents 
-% -> Publication rate growing 
-% -> text 
-% -> TDM 
-% -> ML
+\input{automatic_extraction_supercon.tex}
 
-% Material science-related introduction: 
-% -> computational science 
-% -> life science 
-% -> materials science 
-% -> Materials informatics 
-% -> superconductivity 
-% -> SuperCon
+\input{supermat.tex}
 
+\input{measurements.tex}
 
-% Discuss information explosion, the growing publication rate and easier data availability (Open access?)
+\input{curation.tex}
 
-The majority of scientific knowledge is created by research and experimentation and is subsequently recorded and shared through publications and patents. 
-The advent of the internet and information and communication technologies has led to an explosion of information and a rapid increase in the publication rate [ref]. 
-This has made it easier for researchers to access and share information, leading to the growth of open access journals and repositories [ref]. 
-Open access allows for the free and unrestricted access to scientific publications, making knowledge more accessible to researchers, policymakers, and the general public [ref]. 
-
-% What is good about having large quantity of data? 
-Having a large quantity of data can provide several benefits. Firstly, it allows for more comprehensive and robust analyses, leading to more accurate and reliable results [ref]. 
-Large datasets enable researchers to identify patterns, trends, and correlations that may not be apparent in smaller datasets [ref] and this can accelerate discovering.
-
-% This can lead to new insights and discoveries in various fields, including medicine, environmental science, and social sciences [ref]. Additionally, large datasets can be used to train and develop machine learning algorithms, which can automate processes, make predictions, and improve decision-making [ref].
-
-% Why is hard to manage large quantity of data? 
-
-% e.g. Impossible to keep up with all the articles 
-% e.g. It's difficult to find information that are pertinent to the context (Examples:  information about German Army in WW1 (imperial army) or WW2 (Wehrmacht)
-% e.g. structured information cannot be extracted manually (ref to point 1)
-
-
-However, managing large quantities of data poses several challenges. 
-Firstly, it is becoming more difficult for researchers to keep up with the sheer volume of scientific articles being published [ref]. 
-This can lead to information overload and difficulties in staying up-to-date with the latest research findings [ref]. Secondly, finding relevant information within a large dataset can be challenging, especially when searching for specific contextual information [ref].
-
-% Why text is hard to understand for machines? 
-The inherent ambiguity of language makes it difficult for machines to accurately interpret and comprehend text sentences which require context and nuanced understanding. 
-%the complexity of scientific literature and specialised domains 
-Additionally, scientific texts in specialised domains often contain expert-level knowledge, technical terminology, conventions and specific abbreviations making it challenging for machines to process and comprehend such texts accurately. 
-%Finally, machines need to infer diacritics, understand the context, and interpret the meaning of the text accurately. 
-
-% What is a language? 
-
-% TDM introduction? 
-% is an fields that focuses on extracting meaningful information and insights from large quantities of text data. 
-Text and data mining (TDM), also known as text analytic, is the process of extracting information from written resources such as websites, books, emails, and articles.
-
-It involves structuring the input text, identifying patterns and trends, and interpreting the output. Text mining tasks include categorisation, clustering, entity extraction, sentiment analysis, summarisation, and entity relation modelling. The goal is to transform text into a structured data that can be easily understood by machines using natural language processing (NLP), algorithms, and analytical methods.
-NLP is a field that focuses on understanding and processing human language by computerised systems. It involves techniques and algorithms that enable computers to analyse, interpret, and generate natural language text.
-
-[...]
-
-Documents serve as the fundamental units of analysis in text mining, and the gathered information is interpreted to derive insights and make informed decisions.
-
-[...]
-
-By applying computational techniques, such as natural language processing and machine learning, TDM enables the extraction of patterns, trends, and relationships within the text.
-
-% What is Machine learning? Discussion about different machine learning approaches, etc... 
-
-Machine learning is a field that utilises algorithms and computational techniques to automatically learn patterns and make predictions from data. 
-It involves training models on large datasets to identify complex patterns and relationships, enabling applications in various domains such as predictive toxicology, material analysis, social networks, and healthcare. Machine learning methods, including support vector machines, random forest, neural networks, and decision trees, have been used for tasks such as classification, regression, sentiment analysis, and recommendation systems. 
-It has proven to be particularly effective in analysing large and noisy datasets, making it valuable for medical and biological applications, including cancer detection and diagnosis. Machine learning plays a crucial role in automating analytical models and improving efficiency in data-driven decision-making processes.
-
-
-
-
-\section{Motivation}
-\section{Problem definition}
-\section{Background}
-\section{Contributions}
-
-
-
-% \begin{table}[hbt]
-% \caption{Sample of Table}
-% \label{table:fundamental_data_type}
-% \begin{center}
-% \begin{tabular}{| c | r | r | r | r |}
-% \hline
-% Fiscal Year & 1st & 2nd & 3rd & 4th \\
-% \hline
-% 1995 & 85 & 92 & 86 & 88 \\
-% 1996 & 83 & 89 & 90 & 102 \\
-% 1997 & 88 & 87 & 91 & 112 \\
-% 1998 & 144 & 93 & 90 & 115 \\
-% \hline 
-% \end{tabular}
-% \end{center}
-% \end{table}
-% \medskip
-
-% \begin{figure}[htbp]
-% \begin{center}
-% \includegraphics[width=3cm]{sample.eps}
-% %\psfig{file=sample.eps,scale=0.6}
-% %\epsfile{file=sample.eps,scale=0.6}
-% \end{center}
-% \caption{Example of figure}
-% \label{figure:sample}
-% \end{figure}
-
-% For more information, see the (slightly outdated)
-% \cite{rakuraku,jiyu-jizai} reference book. Also, see Haruhiko
-% Okumura's ``Japanese TeX FAQ'' at 
-% \url{http://www.matsusaka-u.ac.jp/~okumura/texfaq/} is a good source of
-% information on \TeX in Japanese. It is a good source of information on
-% Japanese TeX. The following are examples of references to specific
-% papers \cite{bryant-ieeetc86}.
-
-\chapter{Terminology}
-\chapter{Related work}
-This chapter is divided into different contributions and aspects of this research, organised from basic to specific and temporally. 
-This section begins to illustrate the related work to properties and measurement extraction. We then discuss the relative work in materials science. 
-
-\section{Extraction of quantified properties and measurements from scientific paper} 
-NER of physical measurement is a fundamental application in scientific text and relevant in other disciplines, including humanistic or social science. 
-
-Attempts to extract measurements from text have been made using many approaches. At the time of this contribution was made we identified the following related work. 
-
-~\cite{aras2014applications} built a tool for quantities extraction based on Apache UIMA (Unstructured Information Management Architecture) in combination with pattern matching which is circling a Finite State Automata (FSA). 
-The authors claims that UIMA and the FSA are faster and better suited for processing large quantity of text.
-Their work supports multiple constructs: values, intervals, enumerations. The units are normalised toward the International System of Standard (SI). 
-The units are loaded from a configuration file, which includes the normalised format. In the same work they also combine keyword extraction and text segmentation which are interesting challenges in the analysis of patent text. 
-The authors used Quantalyze\footnote{\url{https://www.quantalyze.com/}}, a commercial tool built to process patents, for comparison. They reported Quantlyze had limited units support. 
-
-\cite{maiya2015mining} propose a search engine called MQSearch. Their work propose a rule-base extractor for quantities and units including the measured object. The extractor models each measurement using the 5-tuple: (sign, number, error, scientific notation, units) where only number and units are mandatory. 
-The data flow is comprised of four phases: pre-processing to mitigate noisy and incorrect characters extraction. 
-Then, to recognise units they expanded an ontology of units from the OBO Foundry with additional information from external sources and defined one associated rule for each unit. The ontology is exploited to recognise the measured object. 
-Quantities are extracted similarly with a set of regular expressions. 
-The last phase is the post-processing which is used to discard possible wrong or invalid values. 
-They also present a search engine based on SoLR that allow search using the extracted units, values and measured objects. 
-
-Another group built an extractor for patents~\cite{agatonovic2008large} using GATE (General Architecture for Text Engineering). 
-Although GATE provide plugins for machine learning, they implemented their extraction using a lookup to a gazetteer and a database containing the transformation rules between one unit to another. 
-The gazetteer was built from a set of units published by the GNU (Gnu's not Unix) Foundation and that comprises a set of 30000 units. In additions they also recognise references within the text, and patent information (e.g. patent number, country code). 
-They built then the annotations rules using JAPE language which is structured as a matching rule and action to perform. 
-%The authors evaluate their tool on two aspects: throughput and accuracy. They created a Gold Standard corpus of 51 documents, reporting an accuracy of 
-
-While most of the works are based on the English, there are also some contributions focusing on specific languages: \cite{hetsevich2014processing} investigated issues applied to Russian-derived languages (Russian and Belarusian). 
-The authors make a consistent analysis to the challenges with the Russian-derived languages. 
-They propose a solution based on a finite-state automation with 350 graphs that are running on top of the linguistic processor NooJ. 
-The grammar covers threes out of the six grammar constructs (genitive, accusative, and nominative). 
-The evaluation was made on a mixed corpus of 100000 words and resulted in F1-score of 82\%. 
-
-\cite{berrahou2013extract} combine the use of an Ontological and
-Terminological Resource (OTR) with the use of ML.
-The OTR is used as a reference and can be updated with new units that are not extracted correctly or completely. 
-Their aim is to use a modified string matching function to extract measurements and units. Thus, the main problem they try to solve is to  reduce the space of search using the string matching functions. 
-They propose a two-steps process. 
-First they use a classifier to determine whether a sentence contains unit or not. The classifier is built on a bag-of-words where the words are counted using three methods: TF, TF/IDF and BM25. The model is then built with three different algorithms which are then compared: Naive Bayes, a decision three (J48), and Support vector machines (SVM) and DMNB.
-In the second step they match potential candidates in the OTR and use the string function to select the item that is more likely to represent the extracted one. Based on the similarity, they defined two thresholds for which they can consider as a variant of an existing unit or a new unit or to enrich the OTR and improve the future recognition.
-
-\cite{kang_extracting_2013} describe another rule-base solution where their outperform the ML-based respective system. 
-Their goal is to extract targeted information from laboratory test results of diagnostic devices examined by  the U.S. Food and Drug Administration (FDA). 
-The authors developed a symbolic information extraction (SIE) system for extracting four type of entities: analytes (substance considered), specimens (where the analyte is measured from) , units of measures of the analyte, and detection limits of the diagnostic device in exam.
-The SIE is based on a combination of rules and dictionaries. First the candidates are extracted, and then ranked so that the most plausible are selected from the set. The unit of measures targeted in this work are only a subset of all the units and specific for this particular sub-domain in biology. 
-They evaluated their SIE against three probabilistic learning approaches: CRF, SVM, and HMM. The SIE outperform the ML based models, except for the unit of measures where the CRF obtained the best scores. 
-
-More related to materials science \cite{dieb2015framework} proposes to integrate relevant unit of measurement when composing a small dataset (392 sentences) for nanocrystal device development. 
-The dataset focuses on identifying several properties including the property value and units that are common in the domain. 
-This work also leverages ML using a set of CRF engines focusing only on few entities type are applied in cascade. 
-
-~\cite{hundman2017measurement} describes an integrated measurement extraction that focuses on scientific literature in earth science. 
-They developed a novel method that extracts context related information to measurements. Instead of developing their own measurement extraction tool, they evaluated three options for reuse. Quantalyze showed low recall in both extracted measurement and measured object and had technical limitations in integration, such as lack of REST API. ~\cite{agatonovic2008large}, discussed previously, was discarded because of the needs of maintenance of rules. 
-Therefore they chose our tool, Grobid-quantities which had the advantage to require only labelled data and provided acceptable results in term of precision, recall and f-score. 
-
-After the publication of our contribution~\cite{foppiano2019quantities}, other works have been published, often focusing on a limited scope or specific language. 
-
-\cite{petersen2021geoquantities} follow our approach based on Grobid~\cite{GROBID} to extract geographical locations.
-
-
-While \cite{ning2022ameta} focuses on the temporal aspect quantities extracted from news feeds. 
-
-\cite{epp2021stereo} describe a framework for extracting results from documents . They extract three main information: statistical results, condition information and topics from scientific papers. Although they aim to document following the American Psychological Association (APA) guidelines, there are small variations in many cases. 
-Their system exploit a flexible wrapper induction approach for extraction of statistics and conditions, which is a Grammar-based condition extraction (GBCE) by inferring a set of rules from a subset of papers, and apply them to the rest of the dataset. The experiment topics are extracted using an adaptation of the unsupervised Attention-based Aspect Extraction (ABAE) approach. 
-The authors use the CORD-19 dataset, 500 documents (0.25\%) are used for learning the rules with the GBCE and extract information with 99\% precision for APA-compliant documents and 95\% precision for non-APA compliant documents. 
-The rule-base nature is strongly dictated by the uniform structure of the writing style, and possibly to a limited amount of units and measurement that are expected to be extracted. 
-
-\cite{hao2016} focuses on lab tests reports, 
-
-and \cite{taha2021identifying, ho2021qute} focuses on tables.
-
-
-\section{Text and data mining in materials science}
-
-\cite{pranav2023a} propose a material-property extraction for polymers, based on a fine-tuned BERT model on 2.4 million abstracts. They report their NER system to achieve higher results as compared with other Material-based pre-trained BERT models. The properties are connected to materials using a heuristic approach of finding the closer entities.
-With their system, they extract more than 300000 records of polymers and properties from the 2.4 millions abstracts. 
-The paper, however, does not provide information about data contamination between pre-training and evaluation: we don't know whether the evaluation datasets - PolymerAbstract~\cite{huan2016a} or the training set of 768 abstracts - are overlapping. 
-Moreover, is not indicated whether their model can generalise properly, providing out-of-domain information of their evaluation dataset as compared with the training set. 
-
-
-~\cite{kononova_text-mined_2019}, 
-
-~\cite{court2018auto} which focuses only on chemical entities. 
-
-MagDb~\cite{court_magnetic_2020}
-
-SC-CoMIcs~\cite{yamaguchi-etal-2020-sc} which is limited to entities identification.
-
-Reference \cite{cruse2022text}: , "Text-mined dataset of gold nanoparticle synthesis procedures, morphologies, and size entities,"  (2022).
-
-Reference \cite{band2022ghosh}: , "Band gap information extraction from materials science literature – a pilot study," aslib journal of information management (2022).
-
-Reference \cite{yue2023ahigh}: , "A high-quality dataset construction method for text mining in materials science," acta physica sinica (2023). 
-
-Reference \cite{venugopal2021looking}: , "Looking through glass: Knowledge discovery from materials science literature using natural language processing," patterns (2021). 
-
-Reference \cite{park2018text}: , "Text Mining Metal–Organic Framework Papers," journal of chemical information and modeling (2018).
-
-Reference \cite{keith2021combining}: , "Combining Machine Learning and Computational Chemistry for Predictive Insights Into Chemical Systems," chemical reviews (2021). 
-
-
-\cite{mitsui2023automatic} described a similar system than our, but only applicable to abstracts, while our system works with full-text. This enure higher recall of information. 
-
-
-
-\section{Relation extraction}
-
-\cite{wu2019enriching} discuss R-BERT, an enhanced BERT architecture that incorporate relation information and combine them by concatenating before the activation function. 
-This problem is part of the Semeval 2010 task 8 challenge~\cite{hendrickx2019semeval}, and is limited to relation classification considering that a relation has already been identified.
-
-
-
-----
-
-Despite the rapid growth in scientific publications, including the exponential rise in materials science~\cite{Pratheepan_2019}, there is a scarcity of accumulated datasets of experimental data. 
-The limited resources available, such as the Pauling File~\cite{Blokhin2018ThePF_paulingFile} and SuperCon~\cite{SuperCon}, have resulted in the reliance on manual extraction methods.
-
-
-
-\chapter{Automatic extraction of materials and related properties from scientific articles}
-
-\chapter{SuperMat: Construction of a linked annotated dataset from superconductors-related publications}
-
-
-\chapter{Automatic identification and normalization of physical quantities from scientific publications}
-\section{Introduction}
-\section{Main contributions}
-\section{Experiments}
-\section{Conclusion}
-
-\chapter{Semi-automatic staging area for high-quality structured data extraction from scientific literature}
-
-\chapter{Domain adaptation: from superconductors to magnetic materials (?)}
-
-\chapter{Conclusion}
-\section{Conclusion}
-\section{Future work}
-
-\chapter*{Acknowledgements}
-\addcontentsline{toc}{chapter}{Acknowledgements}
+% \chapter*{Acknowledgements}
+% \addcontentsline{toc}{chapter}{Acknowledgements}
 \newpage
 
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{unsrt}
 \bibliography{references.bib}
+
 
 \end{document}
