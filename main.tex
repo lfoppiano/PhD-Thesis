@@ -1,84 +1,211 @@
-%%
-% This file is a sample of the main body of a dissertation
-% at the Graduate School of Systems and Information Engineering,
-% University of Tsukuba.
-% You can rewrite this file to make a thesis body
-% with the same format as this example using LaTeX.
-% Depending on your PC environment and
-% the settings of your LaTeX environment,
-% you may need to change the kanji code and line feed code.
-%%
+\documentclass[a4paper,12pt]{report}
 
-\documentclass[12pt, a4paper]{report}
-%\usepackage[utf8]{inputenc}
-
-% IMPORTANT
-\usepackage{sie-en}
-
-\usepackage{graphicx} 
 \usepackage{times}
-\usepackage{xurl}
-\usepackage[scale=0.85]{noto-mono}
-\usepackage{hyperref}
-\usepackage{tabularx}
+%\usepackage[dvipdfmx]{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{listliketab}
+\usepackage{lipsum}
+\usepackage{calc}
 \usepackage{multirow}
-\usepackage{multicol}
-\usepackage{csquotes}
-\usepackage{booktabs}
-\usepackage[caption=false]{subfig}
-
-\usepackage{pdflscape}
+\usepackage{here}
+\usepackage{amsthm} 
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{lscape}
+\usepackage{tikz}
+\usepackage{esvect}
+\usepackage{wrapfig}
+\usepackage{tabularx}
+\usepackage{rotating}
+\mathchardef\mhyphen="2D
 \usepackage{afterpage}
 \usepackage{tabularray}
 \usepackage{makecell}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{csquotes}
 
 \newcommand{\tc}{T$_{c}$}
 
-\setcounter{tocdepth}{3}
+\ifpdf
+  \DeclareGraphicsExtensions{.eps,.pdf,.png,.jpg}
+\else
+  \DeclareGraphicsExtensions{.eps}
+\fi
+
+
+\usepackage{enumitem}
+\setlist[enumerate]{leftmargin=.5in}
+\setlist[itemize]{leftmargin=.5in}
+
+
+\usepackage[subrefformat=parens,labelformat=parens]{subfig}
+%\usepackage{algorithm}
+%\usepackage{algorithmic}
+\usepackage{iitem}
+%\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+%\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\usepackage{url}
+\newtheorem{Definition}{\bf Definition}[section]
+\newtheorem{Theorem}{\bf Theorem}[section]
+\newtheorem{Lemma}{\bf Lemma}[section]
+\newtheorem{Proof}{\bf Proof}[section]
+\newcommand{\fig}[1]{{\gt fig.\ref{#1}}}
+\newcommand{\eq}[1]{{\gt eq.\ref{#1}}}
+\newcommand{\minmin}{\mathop{\rm min}\limits}
+\newcommand{\bhline}[1]{\noalign{\hrule height #1}}  
+\newcommand{\bvline}[1]{\vrule width #1}  
+
+\usepackage{amsopn}
+\DeclareMathOperator{\diag}{diag}
+
+% \usepackage[top=20truemm,bottom=25truemm,left=25truemm,right=25truemm]{geometry}
+
+
+\newtheorem{definition}{\textbf{Definition}}
+\newtheorem{lemma}{\textbf{Lemma}}
+\newtheorem{observation}{\textbf{Observation}}
+\newtheorem{example}{\textbf{Example}}
+\newtheorem{theorem}{\textbf{Theorem}}
+\newtheorem{problem}{\textbf{Problem}}
+% \newtheorem{proof}{\textbf{Proof}}
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+
+\setcounter{tocdepth}{3} %目次の深さ, toc: table of contents
 \setcounter{page}{-1}
 
-\title{Automated Extraction and Curation of Materials Information from Scientific Literature}
+\setlength{\oddsidemargin}{9mm}
+\setlength{\evensidemargin}{9mm}
+\setlength{\topmargin}{5mm}
+\setlength{\textwidth}{140mm}
+\setlength{\textheight}{200mm}
 
-\author{Luca Foppiano}
+\setlength{\parskip}{1em}
+\setlength{\topsep}{0em}
 
-\programfield{Doctoral Program in Computer Science}
+\renewcommand{\baselinestretch}{1.0}
 
-\graduateyear{2024}
-\graduatemonth{March}
+\newcommand{\vect}[1]{\mbox{\boldmath ${#1}$}}
+\newcommand{\mat}[1]{\mbox{\bf {#1}}}
+\newcommand{\unitvect}{\mbox{\bf 1}}
 
-\abstract{
-    \noindent
-    ...
+\newcommand{\eat}[1]{}
+
+\newcommand{\authorlarge}{
+  \vspace{35mm}\\
+  {\LARGE March 2024}\\
+  \vspace{10mm}\\
+  {\Huge Luca Foppiano}
 }
-%%%%%
+\newcommand\normx[1]{\left\Vert#1\right\Vert}
+\makeatletter
+\newcommand{\maketitleouter}{\newpage
+\null
+\vskip 5em 
+\begin{center}
+{\LARGE \@title \par} \vskip 1.5em {\large \lineskip .5em
+\begin{tabular}[t]{c}\authorlarge
+\end{tabular}\par}
+\vskip 1em {\large \@date} 
+\end{center}
+\par
+\vskip 1.5em
+\thispagestyle{empty}
+}
+\makeatother
+
+\title{\vspace{-15mm}{Automated Extraction and Curation of Materials Information from Scientific Literature}\vspace{65mm}}
+\author{
+  {\Large Graduate School of Science and Technology}\vspace{4mm}\\
+  {\Large Degree Programs in Systems and Information Engineering}\vspace{4mm}\\
+  {\LARGE University of Tsukuba}\vspace{10mm}\\
+  {\LARGE March 2024}\\
+  \vspace{10mm}\\
+  {\Huge Luca Foppiano}
+}
+\date{}
+
+\renewcommand{\baselinestretch}{1.}
+
+\usepackage[colorlinks = true, linkcolor = black, citecolor=black]{hyperref}%
 
 \begin{document}
 
+\maketitleouter
 \maketitle
-\makeabstract
-\maketableofcontents
 
-% \pagenumbering{roman} % I, II, III, IV 
-% {
-%  \setlength{\parskip}{0pt}
-%  \tableofcontents
-%  \listoffigures
-%  \listoftables
-% }
-% \pagebreak \setcounter{page}{1}
-% \pagenumbering{arabic} % 1,2,3
+% \thispagestyle{empty} % no page number
+% \include{01_cover}
 
+\pagenumbering{roman} % page number : i, ii, iii, iv
+\setcounter{page}{1}
+%\newpage\thispagestyle{empty}\mbox{}\newpage
+
+
+
+\addcontentsline{toc}{chapter}{Abstract}
+\include{abstract.tex}
+\newpage\thispagestyle{empty}\mbox{}\newpage
+
+
+\pagebreak
+\tableofcontents
+
+
+\pagebreak
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+
+\pagebreak
+\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
+
+\pagebreak
+\setcounter{page}{1}
+\pagenumbering{arabic} % page number : 1,2,3
+
+\chapter{Introduction}
 \input{introduction}
 
+\chapter{Related work}
+\label{cha:related_work}
 \input{related_works}
 
+\chapter{Automatic extraction of materials and related properties from scientific articles}
+\label{cha:automatic}
 \input{automatic_extraction_supercon.tex}
 
+\chapter{SuperMat: Construction of a linked annotated dataset from superconductors-related publications}
+\label{cha:supermat}
 \input{supermat.tex}
 
+\chapter{Automatic identification and normalization of physical quantities from scientific publications}
+\label{cha:measurements}
 \input{measurements.tex}
 
+\chapter{Semi-automatic staging area for high-quality structured data extraction from scientific literature}
+\label{cha:curation}
 \input{curation.tex}
+
+\chapter{Conclusion}
+We propose an end-to-end pipeline for extracting material information from the scientific literature to improve the efficiency and quality of materials databases.
+
+In Chapter~\ref{cha:automatic} we described the automatic system that reads PDF documents, extracts information and stores them in a tabular format where each entry represents a material and its related properties (\tc, applied pressure, measurement methods, etc.) using a combination with Grobid-quantities: a general system for identification and standardisation of physical quantities and measurements, described in Chapter~\ref{cha:measurements}.
+ML models have been trained and evaluated using SuperMat (Chapter~\ref{cha:supermat}), a dataset we developed with domain experts that provides annotations and relations between entities in 142 scientific documents from superconductor research.
+
+Material expressions are carefully managed with a specific material parser that combines different methods to decompose mixed information (doping, shape, formula, name, etc.). 
+Using this framework We automatically collected from 37000 articles a "SuperCon\textsuperscript{2} Database" containing 40324 records of materials and properties.
+
+In Chapter~\ref{cha:curation} we described a staging area using the obtained "SuperCon\textsuperscript{2} Database" with machine-collected entities. Using a user interface "SuperCon\textsuperscript{2} Interface", we allow domain experts to examine and correct the data by accessing the exact location in the original PDF document decorated with the extracted information. 
+Our interface significantly improves the curation quality by increasing both precision and recall by approximately 6\% and +47\%, respectively.
+
 
 % \chapter*{Acknowledgements}
 % \addcontentsline{toc}{chapter}{Acknowledgements}

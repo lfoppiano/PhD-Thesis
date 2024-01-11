@@ -1,4 +1,4 @@
-\chapter{Related work}
+
 This chapter is divided into different contributions and aspects of this research, organised from basic to specific and temporary. 
 This section begins to illustrate the related work to properties and measurement extraction. We then discuss the relative work in materials science. 
 
@@ -75,7 +75,7 @@ From the perspective of vocabulary, it's indeed demonstrated in comparing scores
 \cite{su2022investigation} tested biomedical-trained BERT models on relation extraction in biomedical data. They demonstrate that downstream tasks on overlapping data that were used in pre-training bias the results for RE. In classification, they demonstrate that using only the information in the "CLS" token can be improved by adding complementary information from other layers. 
 
 \cite{hong2022ScholarBERT} demonstrate that training with multi-disciplinary corpus gives better results than a transformer based on a domain-specific dataset. In addition, they also found that larger models do not always perform better. However, these results might be due to other issues they have introduced with their pre-training process. 
-Previous work from~\cite{lample2019cross} has suggested a similar concept applied to translation tasks, where  including cross-training information and in particular the addition of data in different languages boost not only the performances in translation but also help the performance in non-translation tasks. 
+Previous work from~\cite{lample2019cross} has suggested a similar concept applied to translation tasks, where including cross-training information and in particular the addition of data in different languages boost not only the performances in translation but also help the performance in non-translation tasks. 
 
 \cite{huang2020batterybert} is another specialised set of specialised BERT models focusing on Battery-related scientific articles. In this work the authors experiment with different approaches for fine-tuning, continuing a generic BERT training (batterybert), a SciBERT training (batteryscibert) or training from scratch a new model based only on text from battery research (batteryonlybert). The main differences are provided by the different vocabularies, where batterybert and batteryscibert are constrained by the original vocabulary, batteryonlybert vocabulary was trained from scratch and could model more accurately the terminology used in the battery research articles. 
 The outcome is that on document classification, batteryscibert obtained the higher score. SQuad evaluation (extractive Q\&A dataset) surprisingly showed better scores with batteryBERT. This work demonstrated the importance of having a solid base with general text as well as scientific information to provide a model that can generalise and adapt to multiple sets of situations where it could be used. 
@@ -100,10 +100,10 @@ d) Big models should be preferred if training for several days. e) sequence leng
 The authors compare a pre-trained BERT (baseline) with the corresponding fine-tuned models using 5 GLUE datasets of different sizes and other characteristics.
 To measure the amount of linguistic knowledge retained by the model, they designed a set of probes: bigram shift, object number, etc. They run the probes with frozen models and measure that up to layer 6 each subsequent layer retains more linguistic knowledge than the previous one. However, for fine-tuned models on large datasets, such information is lost as we move to higher layers. 
 
-\cite{hoffer2017train} suggests that adjusting the learning rate and batch normalisation can reduce the generalisation gap (comparison between training error and validation error). Generalisation keeps improving for a longer time even without any observable change in the training or validation errors. Large or small batch generalise the same if the number of iterations are adapted. 
-Finally they claim that the change in the generalisation gap depends more on the number of updates rather than the batch size. 
+\cite{hoffer2017train} suggests that adjusting the learning rate and batch normalisation can reduce the generalisation gap (comparison between training error and validation error). Generalisation keeps improving for a longer time even without any observable change in the training or validation errors. Large or small batches generalise the same if the number of iterations are adapted. 
+Finally, they claim that the change in the generalisation gap depends more on the number of updates rather than the batch size. 
 
-\section{Named Entities Recognition}
+% \section{Named Entities Recognition}
 
 \section{Extraction of quantified properties and measurements from scientific paper} 
 NER of physical measurement is a fundamental application in scientific text and relevant in other disciplines, including humanistic or social science. 

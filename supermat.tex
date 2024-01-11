@@ -1,7 +1,4 @@
-
-\chapter{SuperMat: Construction of a linked annotated dataset from superconductors-related publications}
-
-\section{Introduction}
+% \section{Introduction}
 
 \label{content-acquisition}
 \section{Content acquisition}
@@ -17,12 +14,13 @@ Although the published version may be different from the pre-print version of a 
 
 \section{Preliminary annotation study}
 \label{subsec:preliminary-annotation-study}
-Preliminary annotation study was carried out to assess the effort required from the annotators to reach an acceptable Inter Annotation Agreement (IAA \textgreater 0.7) .
+A preliminary annotation study was carried out to assess the effort required from the annotators to reach an acceptable Inter Annotation Agreement (IAA \textgreater 0.7) .
 We annotated two randomly selected OA papers, by using a preliminary version of the guidelines with a limited tag-set of four labels: \texttt{<material>}, \texttt{<tc>} (expression describing the presence or absence of superconductivity), \texttt{<tcValue>} (value of \textit{T\textsubscript{c}}), and \texttt{<doping>} (amount of substitution, such as stochiometric values, usually expressed as functions of x or y).
 The process was iterated multiple times.
 Each iteration ended with computing the IAA using the Krippendorff's alpha coefficient~\cite{Krippendorff2004ReliabilityIC,Zapf2016MeasuringIR}, while annotators discussed the disagreements, and updated the guidelines.
 
 \begin{table}[ht]
+    \centering
     \caption{Summary of the IAA for each annotation iteration.}
     \begin{tabular}{ ccc } 
     \toprule
@@ -193,6 +191,7 @@ Although the links are conceptually non-directed, we have defined a practical co
 The script also computes the statistics (Table \ref{table:summary-content}) for the number of entities (total, unique, by class), the number of links (total, intra- and inter-paragraph, between paragraphs), and other statistical information. 
 
 \begin{table}[ht]
+    \centering\small
      \caption{Inconsistencies resulting from the overlapping of \texttt{<material>} and \texttt{<class>} labels.}
      
     \begin{tabular}{ ccccc } 
@@ -209,6 +208,7 @@ The script also computes the statistics (Table \ref{table:summary-content}) for 
 \end{table}
 
 \begin{table}[ht]
+    \centering\small
     \caption{Inconsistencies resulting from human mistakes.}
     \begin{tabular}{ ccccc } 
     \toprule
