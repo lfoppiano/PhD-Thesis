@@ -91,18 +91,29 @@ This collaborative effort is challenging due to different work methodologies; ho
 The construction of an automatic process is needed to accelerate the extraction of information from scientific papers. In this dissertation, we discuss our work including the main contributions. 
 
 \section{Contributions}
+In the following section we discuss the various contribution of this dissertation, highlighting their main relevancy. 
 
 \subsection{Extraction from full-text body of PDF documents}
 % PDF document extraction
-One pivotal facet of the problem involves the exploration of extracting information from PDF documents, a novel approach not previously employed in related works that predominantly relied on web scraping or publisher API access. 
-The latter methods are often hindered by the necessity of agreements with publishers, making the gathered content difficult to share and challenging to replicate.
-Using the abundance of open-access data, the ability to extract insights from PDF documents opens avenues for application in diverse use cases. 
-The main motivation is rooted in the frequent presence of experimental results in related works, thereby enhancing the potential for recall compared to extraction solely from abstracts. 
+One pivotal facet of the problem involves the exploration of extracting information from PDF documents, a novel approach not previously employed in related works that predominantly relied on web scraping or through publisher API.
+While web scraping is often not allowed, or very limited to published information (e.g., abstract), API access are often hindered by the necessity of agreements with publishers, making the gathered content difficult to share and challenging to replicate.
+
+The increasing abundance of open-access literature~\cite{laakso2011the} together with the large widespread of PDF format in scientific publication require to develop means to extract structured information that can be exploited in a large set of applications. 
+Furthermore, data extraction from PDF documents allow access to a variety of informaiton, full-text body, tables and figures and reduce the human necessity in transforming such information in machine-readable databases.
+
+In our work, we focus on the full-text body, which differently from other approaches~\cite{} frequent presence of experimental results in related works, thereby enhancing the potential for recall compared to extraction solely from abstracts. 
 However, it is acknowledged that abstracts, being synthetic and possessing a simpler structure, also play a role in data extraction.
 
 
-\subsection{Extraction of Materials and properties}
 
+PDF is a widely accepted format for sharing and presenting documents, as it ensures that the layout and formatting of the document remain consistent across different devices and operating systems. This is particularly important in scientific publications, where complex figures, tables, and equations need to be accurately represented.
+Secondly, PDFs are often used to create documents that are intended for print, and scientific journals traditionally required high-resolution print-ready files for publication. PDFs are well-suited for this purpose, as they can embed fonts and high-quality images, ensuring that the final printed output is of high quality.
+Furthermore, PDFs can be digitally signed, providing a level of security and authenticity to scientific publications. This is important for ensuring the integrity and trustworthiness of research findings, particularly in fields where reproducibility and transparency are paramount.
+However, it is important to note that while PDF has been widely used in scientific publication, there are emerging trends and technologies that are challenging its status as the de facto format. For example, the rise of open access publishing has led to the adoption of HTML and XML formats for online articles, allowing for greater interactivity, accessibility, and searchability of scientific content.
+Additionally, the increasing use of preprint servers and repositories has seen the dissemination of scientific findings in formats other than PDF, such as plain text or Markdown. These formats offer greater flexibility and ease of dissemination, particularly in the early stages of research communication.
+
+
+\subsection{Extraction of long complex materials sequences}
 
 
 \subsection{Extraction of measurement and physical quantities}
@@ -110,15 +121,15 @@ However, it is acknowledged that abstracts, being synthetic and possessing a sim
 As the project is developed around SuperCon we face the challenge to think in a general way, for example considering possible evolution in the properties that are needed, or application in different domains. For this reason, the extraction of properties and conditions needs to be decoupled from any specific domain and addressed in a specific project focused on measurements and physical quantity identification.
 This is facilitated by its generic applicability across scientific disciplines. 
 
-\subsection{Parsing long complex materials sequences}
-
 \subsection{SuperMat: a linked annotated dataset of superconductors research papers}
 % SuperMat
 A critical gap identified in existing resources is the absence of datasets consolidating relevant entities such as materials, conditions, properties, and their interrelations. 
 Currently, no dataset offers a centralised solution for machine learning models, considering the intricate and inconsistent terminology prevalent in this domain. 
 To rectify this deficiency, constructing a dataset is deemed imperative, forming the foundation for a methodology that involves iterative data collection and correction. This dissertation contributes to this endeavour by expanding the data set for superconductor materials. 
-The inclusion of measurement methods, which enable the selection of experimental properties, and the incorporation of applied pressure, an underexplored area, holds the potential to pave the way for groundbreaking advancements soon.
+The inclusion of measurement methods, which enable the selection of experimental properties, and the incorporation of applied pressure, an under-explored area, holds the potential to pave the way for groundbreaking advancements soon.
 
 
 \subsection{Curation workflow and interface}
+
+
 
