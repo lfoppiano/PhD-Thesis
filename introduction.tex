@@ -96,40 +96,68 @@ In the following section we discuss the various contribution of this dissertatio
 \subsection{Extraction from full-text body of PDF documents}
 % PDF document extraction
 One pivotal facet of the problem involves the exploration of extracting information from PDF documents, a novel approach not previously employed in related works that predominantly relied on web scraping or through publisher API.
-While web scraping is often not allowed, or very limited to published information (e.g., abstract), API access are often hindered by the necessity of agreements with publishers, making the gathered content difficult to share and challenging to replicate.
-
+While web scraping is often not allowed, or very limited to published information (e.g., abstract), API access is often hindered by the necessity of agreements with publishers, making the gathered content difficult to share and challenging to replicate.
 The increasing abundance of open-access literature~\cite{laakso2011the} together with the large widespread of PDF format in scientific publication require to develop means to extract structured information that can be exploited in a large set of applications. 
-Furthermore, data extraction from PDF documents allow access to a variety of informaiton, full-text body, tables and figures and reduce the human necessity in transforming such information in machine-readable databases.
+Furthermore, data extraction from PDF documents allow access to a variety of information, full-text body, tables and figures and reduce the human necessity in transforming such information in machine-readable databases.
 
-In our work, we focus on the full-text body, which differently from other approaches~\cite{} frequent presence of experimental results in related works, thereby enhancing the potential for recall compared to extraction solely from abstracts. 
+In our work, we focus on the full text body, which, differently from other approaches~\cite{yamaguchi-etal-2020-sc}, is characterised by the frequent presence of experimental results in related works, thus improving the potential for recall compared to extraction solely from abstracts. 
 However, it is acknowledged that abstracts, being synthetic and possessing a simpler structure, also play a role in data extraction.
 
+\subsection{Extraction of experimental data}
 
+The scope of this work is to create databases of experimental data that are reported in the scientific literature. 
+The structure to represent such information can be complex and depend strongly on each sub-domain, which has its own characteristics and conventions. 
+However, we can simplify the structure of the experimental data using three main information: material expressions, properties, and conditions. 
+Materials expression is a relatively loose concept that strongly depends on the domain of application. On the other hand, properties and conditions, can be decomposed down to expressions of measurements of physical units. 
 
-PDF is a widely accepted format for sharing and presenting documents, as it ensures that the layout and formatting of the document remain consistent across different devices and operating systems. This is particularly important in scientific publications, where complex figures, tables, and equations need to be accurately represented.
-Secondly, PDFs are often used to create documents that are intended for print, and scientific journals traditionally required high-resolution print-ready files for publication. PDFs are well-suited for this purpose, as they can embed fonts and high-quality images, ensuring that the final printed output is of high quality.
-Furthermore, PDFs can be digitally signed, providing a level of security and authenticity to scientific publications. This is important for ensuring the integrity and trustworthiness of research findings, particularly in fields where reproducibility and transparency are paramount.
-However, it is important to note that while PDF has been widely used in scientific publication, there are emerging trends and technologies that are challenging its status as the de facto format. For example, the rise of open access publishing has led to the adoption of HTML and XML formats for online articles, allowing for greater interactivity, accessibility, and searchability of scientific content.
-Additionally, the increasing use of preprint servers and repositories has seen the dissemination of scientific findings in formats other than PDF, such as plain text or Markdown. These formats offer greater flexibility and ease of dissemination, particularly in the early stages of research communication.
+\subsubsection{Identification of complex material sequences}
+The field of materials science encompasses various disciplines, including chemistry, physics, and engineering. 
+Material expressions within this field are typically lengthy and intricate sequences of characters. Materials themselves can be represented by chemical formulas, which may also include additional information such as the material's shape (e.g., crystal, single crystal, wire) and doping details (e.g., 2\% Zn-doped). It is common for scientists to define samples and assign arbitrary names to them. Chemical formulas often involve substitutions in either the amount of an element (e.g., La x Fe 1-x O 7) or the element itself (e.g., RE x Fe 1-x O 7 with RE = La, Cu) to represent multiple rare earth compounds. Frequently, samples are denoted by their doping variable amount (e.g., x = 0.1).
 
+Identification and extraction of these entities is extremely challenging. 
+We use machine learning (ML) techniques to implement the named entity recognition (NER) system. This approach offers several advantages such as context awareness, increased robustness to noise, and better generalisation to unseen examples compared to rule-based methods. Additionally, we discuss evaluation of three different architectures: Conditional Random Fields (CRF), Recurrent Neural Networks (RNN), and BERT-based models.
 
-\subsection{Extraction of long complex materials sequences}
+Differently from other works we apply cascade approach where the original text is first processed and the main entities are extracted: materials and classes, properties (pressure, Tc), conditions (measurement methods). 
+Then, material entities are further processed by a specialised material parser, where different modifiers such as doping, shape, substrate, chemical formula, and name are identified. 
+Our approach also applies positive sampling; at training, we boost the recall of entities by providing examples with valid entities. This results in a gain of F1 score of a few percentage scores. 
+In the end, we incorporate the use of characteristics consisting of text patterns (such as uppercase and lowercase) and layout details (such as superscript, subscript, bold, and italic) that are exclusively extracted from the PDF structure.
 
+\subsubsection{Extraction of properties and conditions as measurements of physical quantities}
 
-\subsection{Extraction of measurement and physical quantities}
-% Grobid quantities
-As the project is developed around SuperCon we face the challenge to think in a general way, for example considering possible evolution in the properties that are needed, or application in different domains. For this reason, the extraction of properties and conditions needs to be decoupled from any specific domain and addressed in a specific project focused on measurements and physical quantity identification.
-This is facilitated by its generic applicability across scientific disciplines. 
+Properties and conditions within the realm of science and engineering are often expressed through measurements of physical quantities. These measurements serve as a universal language, providing a standardised way to convey information about various aspects of the physical world. Whether it's the length of an object, the temperature of a substance, or the intensity of a force, these measurements encapsulate essential characteristics that form the basis of scientific understanding and technological advancements.
+The measurement of physical quantities forms the backbone of scientific inquiry, fostering a collective language that transcends boundaries and enables collaborative efforts in the pursuit of knowledge and innovation.
+
+The use of distinct tools for identifying materials and properties enhances flexibility in handling and interpreting information, paving the way for broader support and the integration of additional data in the future. By employing specialized tools for material identification and property analysis, researchers and professionals can adapt to evolving research needs and technological advancements. This modular approach not only facilitates the incorporation of new measurement techniques but also encourages interdisciplinary collaboration.
+
+While measurements are, in appearance, consolidated information, their treatment is challenging: measurement units are often used differently in different disciplines, different systems (miles instead of meters, ATM instead of Pascal) of unit may be used because they are easier to understand for humans, but creating great confusion for machines (one of the most famous event in history was the Mars Climate Orbiter explosion). 
+
+In this contribution, we grobid-quantities, focused on physical quantities and measurement identification and normalisation. At the time of development, grobid-quantities was the first ML-based, open-source project aiming to cover multiple disciplines (from biology to materials science) and system of units (SI base, SI extended, imperial, etc.). 
+
 
 \subsection{SuperMat: a linked annotated dataset of superconductors research papers}
 % SuperMat
 A critical gap identified in existing resources is the absence of datasets consolidating relevant entities such as materials, conditions, properties, and their interrelations. 
 Currently, no dataset offers a centralised solution for machine learning models, considering the intricate and inconsistent terminology prevalent in this domain. 
 To rectify this deficiency, constructing a dataset is deemed imperative, forming the foundation for a methodology that involves iterative data collection and correction. This dissertation contributes to this endeavour by expanding the data set for superconductor materials. 
-The inclusion of measurement methods, which enable the selection of experimental properties, and the incorporation of applied pressure, an under-explored area, holds the potential to pave the way for groundbreaking advancements soon.
+The inclusion of measurement methods, which enable the selection of experimental properties, and the incorporation of applied pressure, an underexplored area, holds the potential to pave the way for groundbreaking advancements soon.
 
+
+\subsection{SuperCon~\textsuperscript{2}}
+
+The grobid-superconductors extraction tool marks a significant advancement in the efficiency and scale of data extraction, particularly evident in the creation of the SuperCon2 database. 
+This TDM process has proven to be remarkably efficient, taking only a few days to achieve what would have required years of manual effort. 
+Originally, the SuperCon database, cultivated over two decades, encompassed approximately 33,000 elements. grobid-superconductors has burgeoned to a staggering 40,324 records, demonstrating a substantial increase in the volume of data processed. 
+The SuperCon2 database serves as an invaluable staging ground for the automatic extraction, acting as an intermediary step before integration into the original SuperCon database. 
+The tool's proficiency is evident in its ability to not only match the scope of the original database but also exceed it, capturing intricate details such as applied pressure and measurement methods. 
+Once curated and validated, the data within SuperCon2 can seamlessly enrich the SuperCon database, ensuring a continuous evolution in the accessibility and depth of the stored scientific information.
 
 \subsection{Curation workflow and interface}
 
-
-
+Validating the automatically collected data poses significant challenges due to the potential inaccuracies and errors inherent in automated processes. 
+To address this, we have designed a robust solution that features a staging area (SuperCon2) that is accessed through a curation workflow with a user-friendly interface. 
+The interface offers functions to control the content of the database records, triggering the state transition to the underlying workflow. 
+Requirements form domain experts demand that the underlying data is persisted and the modification can be traced back to the original record. For this reason, our workflow generate new record at each modification maintaining a history which can be inspected at a later time. 
+In addition, our system provides an enhanced visualisation of the original PDF document, allowing users to inspect and cross-reference the data efficiently. 
+Furthermore, to continually improve the automated data collection process, our solution incorporates machine learning (ML) capabilities. 
+Specifically, the system accumulates training data based on corrections made during the validation process, ensuring a continuous refinement and optimisation of the automated data collection through iterative ML training cycles.
+In this work we experimented and demonstrated that our workflow and interface can boost the curation recall of missed information from 45\% to 92\% and the F1-score from 52\% to 92\%. 

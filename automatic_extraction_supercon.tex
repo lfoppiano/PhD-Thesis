@@ -1,5 +1,12 @@
 \section{Introduction}
 
+
+% PDF is a widely accepted format for sharing and presenting documents, as it ensures that the layout and formatting of the document remain consistent across different devices and operating systems. This is particularly important in scientific publications, where complex figures, tables, and equations need to be accurately represented.
+% Secondly, PDFs are often used to create documents that are intended for print, and scientific journals traditionally required high-resolution print-ready files for publication. PDFs are well-suited for this purpose, as they can embed fonts and high-quality images, ensuring that the final printed output is of high quality.
+% Furthermore, PDFs can be digitally signed, providing a level of security and authenticity to scientific publications. This is important for ensuring the integrity and trustworthiness of research findings, particularly in fields where reproducibility and transparency are paramount.
+% However, it is important to note that while PDF has been widely used in scientific publication, there are emerging trends and technologies that are challenging its status as the de facto format. For example, the rise of open access publishing has led to the adoption of HTML and XML formats for online articles, allowing for greater interactivity, accessibility, and searchability of scientific content.
+% Additionally, the increasing use of preprint servers and repositories has seen the dissemination of scientific findings in formats other than PDF, such as plain text or Markdown. These formats offer greater flexibility and ease of dissemination, particularly in the early stages of research communication.
+
 % Overview from the other paper, what are the differences and some repetition on the previous paper 
 We developed Grobid-superconductors as a Grobid module following principles (multi-step, sentence-based, full-text-based) discussed in a previous preliminary study~\cite{foppiano:hal-02870896}.
 Grobid has several advantages: 1) it can be integrated with pdfalto (\url{https://github.com/kermitt2/pdfalto}), a specialised tool for converting PDF to XML, which mitigates extraction issues such as the resolution of embedded fonts, invalid character encoding, and the reconstruction of the correct reading order, 2) it allows access to PDF document layout information for both machine learning and document decoration (e.g., coordinates in the PDF document); and, 3) it provides access to a set of high-quality, pre-trained machine learning models for structuring documents.
