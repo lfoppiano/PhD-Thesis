@@ -1,0 +1,20 @@
+\begin{abstract}
+
+The scientific literature, which contains vast human knowledge, is rapidly expanding, posing challenges in organising and retrieving information. 
+Big data methods aid in uncovering patterns and making predictions and have long been applied in chemistry and biology, with other disciplines, such as Materials Science falling behind.
+Materials Informatics (MI) is a discipline that leverages computational power to accelerate research in Materials Science by employing techniques like Density Functional Theory (DFT) computations and Machine Learning (ML) for material discovery. 
+Despite advances, limited experimental datasets, such as SuperCon, hinder progress. 
+SuperCon, a complex database for superconductor materials, faces challenges in consistent data collection. 
+Automated processes are needed to extract data from new publications in a timely manner, and manual curation, which is prone to errors, requires careful tools and feature selection.
+
+In this dissertation, we propose an end-to-end pipeline for extracting material information from the scientific literature to improve the efficiency and quality of material databases.
+Our work aims to increase automated tasks to reduce the dependency on human intelligence to the minimum. 
+The main contributions consist of developing ML-based models for recognising complex material expressions and other information from scientific text that is obtained directly from PDF documents. 
+Material expressions are further processed with a parser that decomposes granular information such as name, formulas, doping, shape, etc. 
+The extraction of properties is performed by combining with a general model for extracting physical quantities and measurements, called Grobid-quantities which support the identification and normalisation of units to the SI system. 
+For evaluation and training, we developed SuperMat, a dataset of 142 superconductor articles. The dataset contains both entities and relations between them and was validated by domain experts.  
+The automatic process collected a database with over 40000 extracted material-properties records from the related scientific articles from ArXiv. 
+Finally, we proposed a curation interface to validate extracted data by combining an enhanced PDF viewer and a simple and sleek interface. Overall, the use of such an interface as compared with the traditional manual approach improved precision by 6\% and recall by 47\%. 
+The models, dataset, and interface developed in this work will help increase the automation and accuracy of the processing of materials databases such as SuperCon from the scientific literature.
+
+\end{abstract}

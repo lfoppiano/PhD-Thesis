@@ -243,13 +243,17 @@
 	title        = {Perspective: Materials informatics and big data: Realization of the “fourth paradigm” of science in materials science},
 	author       = {Agrawal,Ankit  and Choudhary,Alok},
 	year         = 2016,
+	month        = 5,
 	journal      = {APL Materials},
 	volume       = 4,
 	number       = 5,
 	pages        = {053208},
 	doi          = {10.1063/1.4946894},
+	issn         = {2166-532X},
 	url          = {https://aip.scitation.org/doi/abs/10.1063/1.4946894},
-	eprint       = {https://aip.scitation.org/doi/pdf/10.1063/1.4946894}
+	eprint       = {https://aip.scitation.org/doi/pdf/10.1063/1.4946894},
+	abstract     = {2016 Author s . Our ability to collect big data has greatly surpassed our capability to analyze it underscoring the emergence of the fourth paradigm of science which is data-driven discovery. The need for data informatics is also emphasized by the Materials Genome Initiative MGI further boosting the emerging field of materials informatics. In this article we look at how data-driven techniques are playing a big role in deciphering processing-structure-property-performance relationships in materials with illustrative examples of both forward models property prediction and inverse models materials discovery . Such analytics can significantly reduce time-to-insight and accelerate cost-effective materials discovery which is the goal of MGI.},
+	issue        = 5
 }
 @article{Grigas2017JustGI,
 	title        = {'Just Google it' - the scope of freely available information sources for doctoral thesis writing},
@@ -313,7 +317,10 @@
 	pages        = {011002},
 	doi          = {10.1063/1.4812323},
 	issn         = {2166532X},
-	url          = {http://link.aip.org/link/AMPADS/v1/i1/p011002/s1\&Agg=doi}
+	url          = {http://link.aip.org/link/AMPADS/v1/i1/p011002/s1\&Agg=doi},
+	abstract     = {Accelerating the discovery of advanced materials is essential for human welfare and sustainable clean energy. In this paper we introduce the Materials Project www.materialsproject.org a core program of the Materials Genome Initiative that uses high-throughput computing to uncover the properties of all known inorganic materials. This open dataset can be accessed through multiple channels for both interactive exploration and data mining. The Materials Project also seeks to create open-source platforms for developing robust sophisticated materials analyses. Future efforts will enable users to perform rapid-prototyping of new materials in silico and provide researchers with new avenues for cost-effective data-driven materials design.},
+	issue        = 1,
+	eprint       = {https://doi.org/10.1063/1.4812323}
 }
 @article{material_genome_initiative,
 	title        = {Research Update: The materials genome initiative: Data sharing and the impact of collaborative ab initio databases},
@@ -432,7 +439,11 @@
 	journal      = {npj Computational Materials},
 	volume       = 4,
 	pages        = {},
-	doi          = {10.1038/s41524-018-0085-8}
+	doi          = {10.1038/s41524-018-0085-8},
+	issn         = {2057-3960},
+	url          = {http://www.nature.com/articles/s41524-018-0085-8},
+	abstract     = {Superconductivity has been the focus of enormous research effort since its discovery more than a century ago. Yet some features of this unique phenomenon remain poorly understood prime among these is the connection between superconductivity and chemical/structural properties of materials. To bridge the gap several machine learning schemes are developed herein to model the critical temperatures T mathrm c of the 12 000 known superconductors available via the SuperCon database. Materials are first divided into two classes based on their T mathrm c values above and below 10 K and a classification model predicting this label is trained. The model uses coarse-grained features based only on the chemical compositions. It shows strong predictive power with out-of-sample accuracy of about 92 . Separate regression models are developed to predict the values of T mathrm c for cuprate iron-based and low- T mathrm c compounds. These models also demonstrate good performance with learned predictors offering potential insights into the mechanisms behind superconductivity in different families of materials. To improve the accuracy and interpretability of these models new features are incorporated using materials data from the AFLOW Online Repositories. Finally the classification and regression models are combined into a single integrated pipeline and employed to search the entire Inorganic Crystallographic Structure Database ICSD for potential new superconductors. We identify more than 30 non-cuprate and non-iron-based oxides as candidate materials.},
+	issue        = 1
 }
 @inproceedings{Krasnitz2019CancerB,
 	title        = {Cancer Bioinformatics},
@@ -773,7 +784,7 @@
 	language     = {eng},
 	keywords     = {*Clinical Trials as Topic, *Natural Language Processing, Analysis of Variance, clinical trial announcements, Humans, Information Extraction, Information Storage and Retrieval/*methods, named entity recognition, Natural Language Processing, Pre-annotation, Time and Motion Studies, umls}
 }
-@article{Lample2016NeuralAF,
+@article{lample2016neural,
 	title        = {Neural Architectures for Named Entity Recognition},
 	author       = {Guillaume Lample and Miguel Ballesteros and Sandeep Subramanian and K. Kawakami and Chris Dyer},
 	year         = 2016,
@@ -893,33 +904,6 @@
 	abstract     = {MapReduce is a programming model and an associated implementation for processing and generating large datasets that is amenable to a broad variety of real-world tasks. Users specify the computation in terms of a map and a reduce function, and the underlying runtime system automatically parallelizes the computation across large-scale clusters of machines, handles machine failures, and schedules inter-machine communication to make efficient use of the network and disks. Programmers find the system easy to use: more than ten thousand distinct MapReduce programs have been implemented internally at Google over the past four years, and an average of one hundred thousand MapReduce jobs are executed on Google's clusters every day, processing a total of more than twenty petabytes of data per day.},
 	issue_date   = {January 2008},
 	numpages     = 7
-}
-@article{aflowcurtarolo2012aflow,
-	title        = {AFLOW: An automatic framework for high-throughput materials discovery},
-	author       = {Stefano Curtarolo and Wahyu Setyawan and Gus L.W. Hart and Michal Jahnatek and Roman V. Chepulskii and Richard H. Taylor and Shidong Wang and Junkai Xue and Kesong Yang and Ohad Levy and Michael J. Mehl and Harold T. Stokes and Denis O. Demchenko and Dane Morgan},
-	year         = 2012,
-	journal      = {Computational Materials Science},
-	volume       = 58,
-	pages        = {218--226},
-	doi          = {https://doi.org/10.1016/j.commatsci.2012.02.005},
-	issn         = {0927-0256},
-	url          = {https://www.sciencedirect.com/science/article/pii/S0927025612000717},
-	abstract     = {Recent advances in computational materials science present novel opportunities for structure discovery and optimization, including uncovering of unsuspected compounds and metastable structures, electronic structure, surface, and nano-particle properties. The practical realization of these opportunities requires systematic generation and classification of the relevant computational data by high-throughput methods. In this paper we present Aflow (Automatic Flow), a software framework for high-throughput calculation of crystal structure properties of alloys, intermetallics and inorganic compounds. The Aflow software is available for the scientific community on the website of the materials research consortium, aflowlib.org. Its geometric and electronic structure analysis and manipulation tools are additionally available for online operation at the same website. The combination of automatic methods and user online interfaces provide a powerful tool for efficient quantum computational materials discovery and characterization.},
-	keywords     = {High-throughput, Combinatorial materials science, Ab initio, AFLOW}
-}
-@article{Agrawal2016,
-	title        = {Perspective: Materials informatics and big data: Realization of the fourth paradigm of science in materials science},
-	author       = {Ankit Agrawal and Alok Choudhary},
-	year         = 2016,
-	month        = 5,
-	journal      = {APL Materials},
-	volume       = 4,
-	pages        = 053208,
-	doi          = {10.1063/1.4946894},
-	issn         = {2166-532X},
-	url          = {http://aip.scitation.org/doi/10.1063/1.4946894},
-	abstract     = {2016 Author s . Our ability to collect big data has greatly surpassed our capability to analyze it underscoring the emergence of the fourth paradigm of science which is data-driven discovery. The need for data informatics is also emphasized by the Materials Genome Initiative MGI further boosting the emerging field of materials informatics. In this article we look at how data-driven techniques are playing a big role in deciphering processing-structure-property-performance relationships in materials with illustrative examples of both forward models property prediction and inverse models materials discovery . Such analytics can significantly reduce time-to-insight and accelerate cost-effective materials discovery which is the goal of MGI.},
-	issue        = 5
 }
 @article{agrawal2016perspective,
 	title        = {Perspective: Materials informatics and big data: Realization of the “fourth paradigm” of science in materials science},
@@ -1574,19 +1558,6 @@
 	pages        = {309--316},
 	issue        = {July}
 }
-@inproceedings{foppiano:hal-02870896,
-	title        = {{Proposal for Automatic Extraction Framework of Superconductors Related Information from Scientific Literature}},
-	author       = {Foppiano, Luca and Dieb, Thaer M and Suzuki, Akira and Ishii, Masashi},
-	year         = 2019,
-	month        = May,
-	booktitle    = {{The Institute of Electronics, Information and Communication (IEICE) - Services Computing Research Group - 2019, First Research Meeting , The 43rd Joint Meeting of MaDIS Research Exchange Group}},
-	address      = {Tsukuba, Japan},
-	url          = {https://hal.archives-ouvertes.fr/hal-02870896},
-	hal_id       = {hal-02870896},
-	hal_version  = {v1},
-	keywords     = {Material Informatics ; Superconductors ; Machine Learning ; NLP ; TDM},
-	pdf          = {https://hal.archives-ouvertes.fr/hal-02870896/file/Proposal_for_Automatic_Extraction_Framework_of_Superconductors_related_Information_from_Scientific_literature.pdf}
-}
 @article{foppiano2021supermat,
 	title        = {SuperMat: construction of a linked annotated dataset from superconductors-related publications},
 	author       = {Luca Foppiano and Sae Dieb and Akira Suzuki and Pedro Baptista de Castro and Suguru Iwasaki and Azusa Uzuki and Miren Garbine Esparza Echevarria and Yan Meng and Kensei Terashima and Laurent Romary and Yoshihiko Takano and Masashi Ishii},
@@ -2193,17 +2164,6 @@
 	issue        = 9,
 	keywords     = {Alloys Ceramics Crystallography Powder diffraction Thermodynamics}
 }
-@generic{Jain2013,
-	title        = {Commentary: The materials project: A materials genome approach to accelerating materials innovation},
-	author       = {Anubhav Jain and Shyue Ping Ong and Geoffroy Hautier and Wei Chen and William Davidson Richards and Stephen Dacek and Shreyas Cholia and Dan Gunter and David Skinner and Gerbrand Ceder and Kristin A. Persson},
-	year         = 2013,
-	journal      = {APL Materials},
-	volume       = 1,
-	doi          = {10.1063/1.4812323},
-	issn         = {2166532X},
-	abstract     = {Accelerating the discovery of advanced materials is essential for human welfare and sustainable clean energy. In this paper we introduce the Materials Project www.materialsproject.org a core program of the Materials Genome Initiative that uses high-throughput computing to uncover the properties of all known inorganic materials. This open dataset can be accessed through multiple channels for both interactive exploration and data mining. The Materials Project also seeks to create open-source platforms for developing robust sophisticated materials analyses. Future efforts will enable users to perform rapid-prototyping of new materials in silico and provide researchers with new avenues for cost-effective data-driven materials design.},
-	issue        = 1
-}
 @article{Johnston2005,
 	title        = {Hydrogen: the energy source for the 21st century},
 	author       = {Brenda Johnston and Michael C. Mayo and Anshuman Khare},
@@ -2274,19 +2234,6 @@
 	abstract     = {HoAl2 undergoes a first order spin reorientation transition at 20 K which is accompanied by a sharp peak in the heat capacity data. Here we have explored the effect of Dy doping on the spin reorientation transitions in Ho1-xDyxAl2 alloys by heat capacity measurements. The first order spin reorientation transition in HoAl2 changes to a second order transition as Ho is partially replaced by Dy in Ho1-xDyxAl2. The Curie temperature shifts to higher temperatures while the spin reorientation transition shifts to lower temperatures with increasing Dy concentration. The observations are interpreted by taking into consideration the higher order Stevens factors that significantly contribute to the free energy of the system. The magnetocaloric properties of the Ho1-xDyxAl2 alloys have also been calculated. 2011 American Institute of Physics.},
 	issue        = 10,
 	keywords     = {Curie temperature aluminium alloys doping profiles dysprosium alloys free energy holmium alloys magnetocaloric effects specific heat spin dynamics}
-}
-@inproceedings{khemakhem:hal-01508868,
-	title        = {{Automatic Extraction of TEI Structures in Digitized Lexical Resources using Conditional Random Fields}},
-	author       = {Khemakhem, Mohamed and Foppiano, Luca and Romary, Laurent},
-	year         = 2017,
-	month        = Sep,
-	booktitle    = {{electronic lexicography, eLex 2017}},
-	address      = {Leiden, Netherlands},
-	url          = {https://hal.archives-ouvertes.fr/hal-01508868},
-	hal_id       = {hal-01508868},
-	hal_version  = {v2},
-	keywords     = {digitized dictionaries  ;  automatic structuring ;  CRF ;  TEI ; machine learning},
-	pdf          = {https://hal.archives-ouvertes.fr/hal-01508868v2/file/eLex-2017-Template.pdf}
 }
 @article{kimmig2021digital,
 	title        = {Digital Transformation in Materials Science: A Paradigm Change in Material's Development},
@@ -2821,18 +2768,6 @@
 	number       = 1,
 	pages        = {1--12}
 }
-@article{materialsprojectJain2013,
-	title        = {Commentary: The Materials Project: A materials genome approach to accelerating materials innovation},
-	author       = {Jain,Anubhav  and Ong,Shyue Ping  and Hautier,Geoffroy  and Chen,Wei  and Richards,William Davidson  and Dacek,Stephen  and Cholia,Shreyas  and Gunter,Dan  and Skinner,David  and Ceder,Gerbrand  and Persson,Kristin A.},
-	year         = 2013,
-	journal      = {APL Materials},
-	volume       = 1,
-	number       = 1,
-	pages        = {011002},
-	doi          = {10.1063/1.4812323},
-	url          = {https://doi.org/10.1063/1.4812323},
-	eprint       = {https://doi.org/10.1063/1.4812323}
-}
 @article{matplotlib-Hunter:2007,
 	title        = {Matplotlib: A 2D graphics environment},
 	author       = {Hunter, J. D.},
@@ -2880,12 +2815,16 @@
 	journal      = {Science and Technology of Advanced Materials},
 	publisher    = {Taylor and Francis Ltd.},
 	volume       = 19,
+	number       = 1,
 	pages        = {909--916},
 	doi          = {10.1080/14686996.2018.1548885},
 	issn         = 18785514,
+	url          = {https://doi.org/10.1080/14686996.2018.1548885},
+	note         = {PMID: 30636994},
 	abstract     = {ABSTRACTCandidate compounds for new thermoelectric and superconducting materials which have narrow band gap and flat bands near band edges were exhaustively searched by the high-throughput first-principles calculation from an inorganic materials database named AtomWork. We focused on PbBi2Te4 which has the similar electronic band structure and the same crystal structure with those of a pressure-induced superconductor SnBi2Se4 explored by the same data-driven approach. The PbBi2Te4 was successfully synthesized as single crystals using a melt and slow cooling method. The core level X-ray photoelectron spectroscopy analysis revealed Pb2 Bi3 and Te2- valence states in PbBi2Te4. The thermoelectric properties of the PbBi2Te4 sample were measured at ambient pressure and the electrical resistance was also evaluated under high pressure using a diamond anvil cell with boron-doped diamond electrodes. The resistance decreased with increasing of the pressure and pressure-induced superconducting transitions were ...},
 	issue        = 1,
-	keywords     = {210 Thermoelectronics / Thermal transport / insula 302 Crystallization / Heat treatment / Crystal gro 404 Materials informatics / Genomics 60 New topics / Others Data-driven high-pressure superconductivity}
+	keywords     = {210 Thermoelectronics / Thermal transport / insula 302 Crystallization / Heat treatment / Crystal gro 404 Materials informatics / Genomics 60 New topics / Others Data-driven high-pressure superconductivity},
+	eprint       = {https://doi.org/10.1080/14686996.2018.1548885}
 }
 @inproceedings{mckinney-proc-scipy-2010,
 	title        = {{D}ata {S}tructures for {S}tatistical {C}omputing in {P}ython},
@@ -3965,28 +3904,6 @@
 	abstract     = {In this article we provide an overview of data mining informatics and machine learning approaches for thermoelectrics. We describe how the initial development of a thermoelectric materials database has enabled the creation of a recommendation engine governed by machine learning and how this engine introduces a new paradigm in thermoelectric materials development. Performance probability is generated based on training models. A demonstration of the data mining approach is set forth in a ternary intermetallic system where we report new materials.},
 	keywords     = {Data mining Machine learning Materials discovery Rapid screening Thermoelectric materials}
 }
-@article{stanev_machine_2017,
-	title        = {Machine learning modeling of superconducting critical temperature},
-	author       = {Stanev, Valentin and Oses, Corey and Kusne, A. and Rodriguez, Efrain and Paglione, Johnpierre and Curtarolo, Stefano and Takeuchi, I.},
-	year         = 2017,
-	journal      = {npj Computational Materials},
-	volume       = 4,
-	doi          = {10.1038/s41524-018-0085-8}
-}
-@article{Stanev2018,
-	title        = {Machine learning modeling of superconducting critical temperature},
-	author       = {Valentin Stanev and Corey Oses and A. Gilad Kusne and Efrain Rodriguez and Johnpierre Paglione and Stefano Curtarolo and Ichiro Takeuchi},
-	year         = 2018,
-	month        = 12,
-	journal      = {npj Computational Materials},
-	volume       = 4,
-	pages        = 29,
-	doi          = {10.1038/s41524-018-0085-8},
-	issn         = {2057-3960},
-	url          = {http://www.nature.com/articles/s41524-018-0085-8},
-	abstract     = {Superconductivity has been the focus of enormous research effort since its discovery more than a century ago. Yet some features of this unique phenomenon remain poorly understood prime among these is the connection between superconductivity and chemical/structural properties of materials. To bridge the gap several machine learning schemes are developed herein to model the critical temperatures T mathrm c of the 12 000 known superconductors available via the SuperCon database. Materials are first divided into two classes based on their T mathrm c values above and below 10 K and a classification model predicting this label is trained. The model uses coarse-grained features based only on the chemical compositions. It shows strong predictive power with out-of-sample accuracy of about 92 . Separate regression models are developed to predict the values of T mathrm c for cuprate iron-based and low- T mathrm c compounds. These models also demonstrate good performance with learned predictors offering potential insights into the mechanisms behind superconductivity in different families of materials. To improve the accuracy and interpretability of these models new features are incorporated using materials data from the AFLOW Online Repositories. Finally the classification and regression models are combined into a single integrated pipeline and employed to search the entire Inorganic Crystallographic Structure Database ICSD for potential new superconductors. We identify more than 30 non-cuprate and non-iron-based oxides as candidate materials.},
-	issue        = 1
-}
 @article{stein2019progress,
 	title        = {Progress and prospects for accelerating materials science with automated and autonomous workflows},
 	author       = {Stein, Helge S and Gregoire, John M},
@@ -5036,13 +4953,6 @@
 	journal      = {Proceedings of the Web Conference 2021},
 	doi          = {10.1145/3442381.3450072}
 }
-@article{lample2016neural,
-	title        = {Neural Architectures For Named Entity Recognition},
-	author       = {Lample, G. and Ballesteros, M. and Subramanian, S. K. and Kawakami, K. and Dyer, C.},
-	year         = 2016,
-	journal      = {Proceedings of the 2016 Conference of the North American Chapter of the Association for Computational Linguistics: Human Langua},
-	doi          = {10.18653/v1/n16-1030}
-}
 @article{joulin2016fasttext,
 	title        = {FastText.zip: Compressing text classification models},
 	author       = {Joulin, Armand and Grave, Edouard and Bojanowski, Piotr and Douze, Matthijs and J{\'e}gou, H{\'e}rve and Mikolov, Tomas},
@@ -5273,36 +5183,19 @@
 	url          = {https://doi.org/10.1080/14686996.2019.1603885},
 	eprint       = {https://doi.org/10.1080/14686996.2019.1603885}
 }
-
-
 @article{overcoming-kirkpatrick-etal-2016,
-  author       = {James Kirkpatrick and
-                  Razvan Pascanu and
-                  Neil C. Rabinowitz and
-                  Joel Veness and
-                  Guillaume Desjardins and
-                  Andrei A. Rusu and
-                  Kieran Milan and
-                  John Quan and
-                  Tiago Ramalho and
-                  Agnieszka Grabska{-}Barwinska and
-                  Demis Hassabis and
-                  Claudia Clopath and
-                  Dharshan Kumaran and
-                  Raia Hadsell},
-  title        = {Overcoming catastrophic forgetting in neural networks},
-  journal      = {CoRR},
-  volume       = {abs/1612.00796},
-  year         = {2016},
-  url          = {http://arxiv.org/abs/1612.00796},
-  eprinttype    = {arXiv},
-  eprint       = {1612.00796},
-  timestamp    = {Mon, 13 Aug 2018 16:46:13 +0200},
-  biburl       = {https://dblp.org/rec/journals/corr/KirkpatrickPRVD16.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+	title        = {Overcoming catastrophic forgetting in neural networks},
+	author       = {James Kirkpatrick and Razvan Pascanu and Neil C. Rabinowitz and Joel Veness and Guillaume Desjardins and Andrei A. Rusu and Kieran Milan and John Quan and Tiago Ramalho and Agnieszka Grabska{-}Barwinska and Demis Hassabis and Claudia Clopath and Dharshan Kumaran and Raia Hadsell},
+	year         = 2016,
+	journal      = {CoRR},
+	volume       = {abs/1612.00796},
+	url          = {http://arxiv.org/abs/1612.00796},
+	eprinttype   = {arXiv},
+	eprint       = {1612.00796},
+	timestamp    = {Mon, 13 Aug 2018 16:46:13 +0200},
+	biburl       = {https://dblp.org/rec/journals/corr/KirkpatrickPRVD16.bib},
+	bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
-
-
 @misc{Label_Studio,
 	title        = {{Label Studio}: Data labeling software},
 	author       = {Maxim Tkachenko and Mikhail Malyuk and Andrey Holmanyuk and Nikolai Liubimov},
@@ -5310,19 +5203,683 @@
 	url          = {https://github.com/heartexlabs/label-studio},
 	note         = {Open source software available from https://github.com/heartexlabs/label-studio}
 }
-
 @article{laakso2011the,
-    doi = {10.1371/journal.pone.0020961},
-    author = {Laakso, Mikael AND Welling, Patrik AND Bukvova, Helena AND Nyman, Linus AND Björk, Bo-Christer AND Hedlund, Turid},
-    journal = {PLOS ONE},
-    publisher = {Public Library of Science},
-    title = {The Development of Open Access Journal Publishing from 1993 to 2009},
-    year = {2011},
-    month = {06},
-    volume = {6},
-    url = {https://doi.org/10.1371/journal.pone.0020961},
-    pages = {1-10},
-    abstract = {Open Access (OA) is a model for publishing scholarly peer reviewed journals, made possible by the Internet. The full text of OA journals and articles can be freely read, as the publishing is funded through means other than subscriptions. Empirical research concerning the quantitative development of OA publishing has so far consisted of scattered individual studies providing brief snapshots, using varying methods and data sources. This study adopts a systematic method for studying the development of OA journals from their beginnings in the early 1990s until 2009. Because no comprehensive index of OA articles exists, systematic manual data collection from journal web sites was conducted based on journal-level data extracted from the Directory of Open Access Journals (DOAJ). Due to the high number of journals registered in the DOAJ, almost 5000 at the time of the study, stratified random sampling was used. A separate sample of verified early pioneer OA journals was also studied. The results show a very rapid growth of OA publishing during the period 1993–2009. During the last year an estimated 191 000 articles were published in 4769 journals. Since the year 2000, the average annual growth rate has been 18% for the number of journals and 30% for the number of articles. This can be contrasted to the reported 3,5% yearly volume increase in journal publishing in general. In 2009 the share of articles in OA journals, of all peer reviewed journal articles, reached 7,7%. Overall, the results document a rapid growth in OA journal publishing over the last fifteen years. Based on the sampling results and qualitative data a division into three distinct periods is suggested: The Pioneering years (1993–1999), the Innovation years (2000–2004), and the Consolidation years (2005–2009).},
-    number = {6},
+	title        = {The Development of Open Access Journal Publishing from 1993 to 2009},
+	author       = {Laakso, Mikael AND Welling, Patrik AND Bukvova, Helena AND Nyman, Linus AND Björk, Bo-Christer AND Hedlund, Turid},
+	year         = 2011,
+	month        = {06},
+	journal      = {PLOS ONE},
+	publisher    = {Public Library of Science},
+	volume       = 6,
+	number       = 6,
+	pages        = {1--10},
+	doi          = {10.1371/journal.pone.0020961},
+	url          = {https://doi.org/10.1371/journal.pone.0020961},
+	abstract     = {Open Access (OA) is a model for publishing scholarly peer reviewed journals, made possible by the Internet. The full text of OA journals and articles can be freely read, as the publishing is funded through means other than subscriptions. Empirical research concerning the quantitative development of OA publishing has so far consisted of scattered individual studies providing brief snapshots, using varying methods and data sources. This study adopts a systematic method for studying the development of OA journals from their beginnings in the early 1990s until 2009. Because no comprehensive index of OA articles exists, systematic manual data collection from journal web sites was conducted based on journal-level data extracted from the Directory of Open Access Journals (DOAJ). Due to the high number of journals registered in the DOAJ, almost 5000 at the time of the study, stratified random sampling was used. A separate sample of verified early pioneer OA journals was also studied. The results show a very rapid growth of OA publishing during the period 1993–2009. During the last year an estimated 191 000 articles were published in 4769 journals. Since the year 2000, the average annual growth rate has been 18% for the number of journals and 30% for the number of articles. This can be contrasted to the reported 3,5% yearly volume increase in journal publishing in general. In 2009 the share of articles in OA journals, of all peer reviewed journal articles, reached 7,7%. Overall, the results document a rapid growth in OA journal publishing over the last fifteen years. Based on the sampling results and qualitative data a division into three distinct periods is suggested: The Pioneering years (1993–1999), the Innovation years (2000–2004), and the Consolidation years (2005–2009).}
+}
+@inproceedings{pal2006cc,
+	title        = {CC Prediction with Graphical Models.},
+	author       = {Pal, Chris and McCallum, Andrew},
+	year         = 2006,
+	booktitle    = {CEAS}
+}
+@article{john2013estimating,
+	title        = {Estimating continuous distributions in Bayesian classifiers},
+	author       = {John, George H and Langley, Pat},
+	year         = 2013,
+	journal      = {arXiv preprint arXiv:1302.4964}
+}
+@misc{mendeley-extraction,
+	title        = {How well does Mendeley’s Metadata Extraction Work?},
+	author       = {Phil Gooch and Kris Jack},
+	howpublished = {\url{https://krisjack.wordpress.com/2015/03/12/how-well-does-mendeleys-metadata-extraction-work/}}
+}
+@misc{software-mentions,
+	title        = {software-mentions: GROBID module to recognize in textual documents and PDF any mentions of software.},
+	author       = {GROBID Contributors},
+	year         = {2018 --- 2019},
+	journal      = {GitHub repository},
+	publisher    = {GitHub},
+	note         = {[Online; accessed 18-April-2019]},
+	howpublished = {\url{https://github.com/Impactstory/software-mentions}},
+	commit       = {30d33d516d6816578936a2d97004eb6e9e046e61}
+}
+@article{tkaczyk2018evaluation,
+	title        = {Evaluation and Comparison of Open Source Bibliographic Reference Parsers: {A} Business Use Case},
+	author       = {Dominika Tkaczyk and Andrew Collins and Paraic Sheridan and J{\"{o}}ran Beel},
+	year         = 2018,
+	journal      = {CoRR},
+	volume       = {abs/1802.01168},
+	url          = {http://arxiv.org/abs/1802.01168},
+	archiveprefix = {arXiv},
+	eprint       = {1802.01168},
+	timestamp    = {Mon, 13 Aug 2018 16:46:07 +0200},
+	biburl       = {https://dblp.org/rec/bib/journals/corr/abs-1802-01168},
+	bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+@article{foppiano2024mining,
+	title        = {Mining experimental data from Materials Science literature with Large Language Models},
+	author       = {Foppiano, Luca and Lambard, Guillaume and Amagasa, Toshiyuki and Ishii, Masashi},
+	year         = 2024,
+	journal      = {arXiv preprint arXiv:2401.11052}
+}
+@inproceedings{dieb2022superconductor,
+	title        = {Superconductor Research Papers Clustering using Weighted Annotated Information},
+	author       = {Dieb, Sae and Foppiano, Luca and Terashima, Kensei and de CASTRO, Pedro Baptista and Takano, Yoshihiko and Ishii, Masashi},
+	year         = 2022,
+	booktitle    = {Proceedings of the National Conference of the Japanese Society for Artificial Intelligence, 36th (2022)},
+	pages        = {1S5IS2a03--1S5IS2a03},
+	organization = {Japan Society for Artificial Intelligence}
+}
+@misc{wikipedia:superconductivity,
+	title        = {Superconductivity Wikipedia Page},
+	author       = {Wikipedia contributors},
+	year         = {2001 --- 2019},
+	publisher    = {Wikipedia foundation},
+	howpublished = {\url{https://en.wikipedia.org/wiki/Superconductivity}}
+}
+@misc{chemspot-web,
+	title        = {},
+	author       = {Luca Foppiano},
+	year         = 2019,
+	journal      = {Bitbucket repository},
+	publisher    = {Bitbucket},
+	note         = {[Online; accessed 18-April-2019]},
+	howpublished = {\url{https://bitbucket.org/lfoppiano/chemspot-web}},
+	commit       = {f2723086dacd8805e04df324ab333e7bd0216703}
+}
+@article{DBLP:journals/corr/abs-1812-01995,
+	title        = {Deep Learning of Superconductors {I:} Estimation of Critical Temperature of Superconductors Toward the Search for New Materials},
+	author       = {Tomohiko Konno and Hodaka Kurokawa and Fuyuki Nabeshima and Ryo Ogawa and Michiaki Iwazume and Iwao Hosako and Atsutaka Maeda},
+	year         = 2018,
+	journal      = {CoRR},
+	volume       = {abs/1812.01995},
+	url          = {http://arxiv.org/abs/1812.01995},
+	archiveprefix = {arXiv},
+	eprint       = {1812.01995},
+	timestamp    = {Tue, 01 Jan 2019 15:01:25 +0100},
+	biburl       = {https://dblp.org/rec/bib/journals/corr/abs-1812-01995},
+	bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+@article{10.1093/bioinformatics/bts183,
+	title        = {{ChemSpot: a hybrid system for chemical named entity recognition}},
+	author       = {Rocktäschel, Tim and Weidlich, Michael and Leser, Ulf},
+	year         = 2012,
+	month        = {04},
+	journal      = {Bioinformatics},
+	volume       = 28,
+	number       = 12,
+	pages        = {1633--1640},
+	doi          = {10.1093/bioinformatics/bts183},
+	issn         = {1367-4803},
+	url          = {https://doi.org/10.1093/bioinformatics/bts183},
+	abstract     = {{Motivation: The accurate identification of chemicals in text is important for many applications, including computer-assisted reconstruction of metabolic networks or retrieval of information about substances in drug development. But due to the diversity of naming conventions and traditions for such molecules, this task is highly complex and should be supported by computational tools.Results: We present ChemSpot, a named entity recognition (NER) tool for identifying mentions of chemicals in natural language texts, including trivial names, drugs, abbreviations, molecular formulas and International Union of Pure and Applied Chemistry entities. Since the different classes of relevant entities have rather different naming characteristics, ChemSpot uses a hybrid approach combining a Conditional Random Field with a dictionary. It achieves an F1 measure of 68.1\\% on the SCAI corpus, outperforming the only other freely available chemical NER tool, OSCAR4, by 10.8 percentage points.Availability: ChemSpot is freely available at: http://www.informatik.hu-berlin.de/wbi/resourcesContact:leser@informatik.hu-berlin.de}},
+	eprint       = {http://oup.prod.sis.lan/bioinformatics/article-pdf/28/12/1633/16904367/bts183.pdf}
+}
+@article{DBLP:journals/corr/abs-1802-01168,
+	title        = {Evaluation and Comparison of Open Source Bibliographic Reference Parsers: {A} Business Use Case},
+	author       = {Dominika Tkaczyk and Andrew Collins and Paraic Sheridan and J{\"{o}}ran Beel},
+	year         = 2018,
+	journal      = {CoRR},
+	volume       = {abs/1802.01168},
+	url          = {http://arxiv.org/abs/1802.01168},
+	archiveprefix = {arXiv},
+	eprint       = {1802.01168},
+	timestamp    = {Mon, 13 Aug 2018 16:46:07 +0200},
+	biburl       = {https://dblp.org/rec/bib/journals/corr/abs-1802-01168},
+	bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+@article{PhysRevMaterials.2.024802,
+	title        = {Towards novel organic high-${T}_{c}$ superconductors: Data mining using density of states similarity search},
+	author       = {Geilhufe, R. Matthias and Borysov, Stanislav S. and Kalpakchi, Dmytro and Balatsky, Alexander V.},
+	year         = 2018,
+	month        = {Feb},
+	journal      = {Phys. Rev. Materials},
+	publisher    = {American Physical Society},
+	volume       = 2,
+	pages        = {024802},
+	doi          = {10.1103/PhysRevMaterials.2.024802},
+	url          = {https://link.aps.org/doi/10.1103/PhysRevMaterials.2.024802},
+	issue        = 2,
+	numpages     = 7
+}
+@article{nanocrystal_extraction,
+	title        = {Framework for automatic information extraction from research papers on nanocrystal devices},
+	author       = {Dieb, Thaer and Yoshioka, Masaharu and Hara, Shinjiro and C Newton, Marcus},
+	year         = 2015,
+	month        = {09},
+	journal      = {Beilstein Journal of Nanotechnology},
+	volume       = 6,
+	pages        = {1872--1882},
+	doi          = {10.3762/bjnano.6.190}
+}
+@article{doi:10.1021/cm503507h,
+	title        = {Materials Cartography: Representing and Mining Materials Space Using Structural and Electronic Fingerprints},
+	author       = {Isayev, Olexandr and Fourches, Denis and Muratov, Eugene N. and Oses, Corey and Rasch, Kevin and Tropsha, Alexander and Curtarolo, Stefano},
+	year         = 2015,
+	journal      = {Chemistry of Materials},
+	volume       = 27,
+	number       = 3,
+	pages        = {735--743},
+	doi          = {10.1021/cm503507h},
+	url          = {https://doi.org/10.1021/cm503507h},
+	eprint       = {https://doi.org/10.1021/cm503507h}
+}
+@article{HAMIDIEH2018346,
+	title        = {A data-driven statistical model for predicting the critical temperature of a superconductor},
+	author       = {Kam Hamidieh},
+	year         = 2018,
+	journal      = {Computational Materials Science},
+	volume       = 154,
+	pages        = {346--354},
+	doi          = {https://doi.org/10.1016/j.commatsci.2018.07.052},
+	issn         = {0927-0256},
+	url          = {http://www.sciencedirect.com/science/article/pii/S0927025618304877},
+	keywords     = {Superconductivity, Superconductor, Machine learning, Statistical learning, Data mining, Critical temperature},
+	abstract     = {We estimate a statistical model to predict the superconducting critical temperature based on the features extracted from the superconductor’s chemical formula. The statistical model gives reasonable out-of-sample predictions: ±9.5 K based on root-mean-squared-error. Features extracted based on thermal conductivity, atomic radius, valence, electron affinity, and atomic mass contribute the most to the model’s predictive accuracy. It is crucial to note that our model does not predict whether a material is a superconductor or not; it only gives predictions for superconductors.}
+}
+@article{klintenberg2013possible,
+	title        = {Possible high-temperature superconductors predicted from electronic structure and data-filtering algorithms},
+	author       = {Klintenberg, Mattias and Eriksson, Olle},
+	year         = 2013,
+	journal      = {Computational materials science},
+	publisher    = {Elsevier},
+	volume       = 67,
+	pages        = {282--286}
+}
+@article{kononova_author_2019,
+	title        = {Author {Correction}: {Text}-mined dataset of inorganic materials synthesis recipes},
+	author       = {Kononova, Olga and Huo, Haoyan and He, Tanjin and Rong, Ziqin and Botari, Tiago and Sun, Wenhao and Tshitoyan, Vahe and Ceder, Gerbrand},
+	year         = 2019,
+	month        = nov,
+	journal      = {Scientific Data},
+	volume       = 6,
+	number       = 1,
+	pages        = 273,
+	doi          = {10.1038/s41597-019-0297-x},
+	issn         = {2052-4463},
+	url          = {https://doi.org/10.1038/s41597-019-0297-x},
+	abstract     = {An amendment to this paper has been published and can be accessed via a link at the top of the paper.}
+}
+@inproceedings{khemakhem2017automatic,
+	title        = {{Automatic Extraction of TEI Structures in Digitized Lexical Resources using Conditional Random Fields}},
+	author       = {Khemakhem, Mohamed and Foppiano, Luca and Romary, Laurent},
+	year         = 2017,
+	month        = Sep,
+	booktitle    = {{electronic lexicography, eLex 2017}},
+	address      = {Leiden, Netherlands},
+	url          = {https://hal.archives-ouvertes.fr/hal-01508868},
+	keywords     = {machine learning ;  TEI ;  automatic structuring ;  CRF ;  digitized dictionaries},
+	pdf          = {https://hal.archives-ouvertes.fr/hal-01508868v2/file/eLex-2017-Template.pdf},
+	hal_id       = {hal-01508868},
+	hal_version  = {v2}
+}
+}
+}
+}
+@article{roter2020predicting,
+	title        = {Predicting new superconductors and their critical temperatures using machine learning},
+	author       = {Roter, B and Dordevic, SV},
+	year         = 2020,
+	journal      = {Physica C: Superconductivity and its applications},
+	publisher    = {Elsevier},
+	volume       = 575,
+	pages        = 1353689
+}
+@article{tran2022machine,
+	title        = {Machine-learning approach for discovery of conventional superconductors},
+	author       = {Tran, Huan and Vu, Tuoc N},
+	year         = 2022,
+	journal      = {arXiv preprint arXiv:2211.03265}
+}
+@article{konno2021deep,
+	title        = {Deep learning model for finding new superconductors},
+	author       = {Konno, Tomohiko and Kurokawa, Hodaka and Nabeshima, Fuyuki and Sakishita, Yuki and Ogawa, Ryo and Hosako, Iwao and Maeda, Atsutaka},
+	year         = 2021,
+	journal      = {Physical Review B},
+	publisher    = {APS},
+	volume       = 103,
+	number       = 1,
+	pages        = {014509}
+}
+@misc{doccano,
+	title        = {{doccano}: Text Annotation Tool for Human},
+	author       = {Hiroki Nakayama and Takahiro Kubo and Junya Kamura and Yasufumi Taniguchi and Xu Liang},
+	year         = 2018,
+	url          = {https://github.com/doccano/doccano},
+	note         = {Software available from https://github.com/doccano/doccano}
+}
+@inproceedings{klie-etal-2018-inception,
+	title        = {The {INCE}p{TION} Platform: Machine-Assisted and Knowledge-Oriented Interactive Annotation},
+	author       = {Klie, Jan-Christoph and Bugert, Michael  and Boullosa, Beto and Eckart de Castilho, Richard and Gurevych, Iryna},
+	year         = 2018,
+	booktitle    = {Proceedings of the 27th International Conference on Computational Linguistics: System Demonstrations},
+	address      = {Santa Fe, New Mexico},
+	pages        = {5--9},
+	url          = {https://www.aclweb.org/anthology/C18-2002}
+}
+@misc{wang2022hammer,
+	title        = {Hammer PDF: An Intelligent PDF Reader for Scientific Papers},
+	author       = {Sheng-Fu Wang and Shu-Hang Liu and Tian-Yi Che and Yi-Fan Lu and Song-Xiao Yang and Heyan Huang and Xian-Ling Mao},
+	year         = 2022,
+	eprint       = {2204.02809},
+	archiveprefix = {arXiv},
+	primaryclass = {cs.DL}
+}
+@article{10.1007/978-3-642-16438-5_21,
+	title        = {A Methodology Towards Effective and Efficient Manual Document Annotation: Addressing Annotator Discrepancy and Annotation Quality},
+	author       = {Zhang, Ziqi and Chapman, Sam and Ciravegna, Fabio},
+	year         = 2010,
+	doi          = {10.1007/978-3-642-16438-5\_21}
+}
+@article{10.21275/v5i6.nov164494,
+	title        = {Automated Annotation System (AAS) Based on Probabilistic Clustering Algorithms},
+	year         = 2016,
+	journal      = {International Journal of Science and Research (Ijsr)},
+	doi          = {10.21275/v5i6.nov164494}
+}
+@article{10.26599/tst.2020.9010060,
+	title        = {CDCAT: A Multi-Language Cross-Document Entity and Event Coreference Annotation Tool},
+	author       = {Xu, Yang and Xia, Boming and Wan, Yueliang and Zhang, Fan and Xu, Jiabo and Ning, Huansheng},
+	year         = 2022,
+	journal      = {Tsinghua Science \& Technology},
+	doi          = {10.26599/tst.2020.9010060}
+}
+@article{10.1109/icdar.2015.7333775,
+	title        = {Automatic Annotation Extension and Classification of Documents Using a Probabilistic Graphical Model},
+	author       = {Bouzaieni, Abdessalem and Barrat, Sabine and Tabbone, Salvatore},
+	year         = 2015,
+	doi          = {10.1109/icdar.2015.7333775}
+}
+@article{10.1016/j.jbi.2014.05.002,
+	title        = {Evaluating the Effects of Machine Pre-Annotation and an Interactive Annotation Interface on Manual De-Identification of Clinical Text},
+	author       = {South, Brett R. and Mowery, Danielle L. and Suo, Ying and Leng, Jianwei and Ferrández, Óscar and Meystre, Stéphane M. and Chapman, Wendy W.},
+	year         = 2014,
+	journal      = {Journal of Biomedical Informatics},
+	doi          = {10.1016/j.jbi.2014.05.002}
+}
+@article{10.1007/978-3-642-14274-1_27,
+	title        = {User Trace-Based Recommendation System for a Digital Archive},
+	author       = {Doumat, Reim and Egyed-Zsigmond, Elöd and Pinon, Jean-Marie},
+	year         = 2010,
+	doi          = {10.1007/978-3-642-14274-1\_27}
+}
+@article{10.1007/978-3-642-20398-5_4,
+	title        = {VeriFast: A Powerful, Sound, Predictable, Fast Verifier for C and Java},
+	author       = {Jacobs, Bart and Smans, Jan and Philippaerts, Pieter and Vogels, Frédéric and Penninckx, Willem and Piessens, Frank},
+	year         = 2011,
+	doi          = {10.1007/978-3-642-20398-5\_4}
+}
+@article{10.21275/v5i5.nov163902,
+	title        = {Text Document Annotation and Retrieval Based on Content of the Document and Query Workload},
+	year         = 2016,
+	journal      = {International Journal of Science and Research (Ijsr)},
+	doi          = {10.21275/v5i5.nov163902}
+}
+@article{10.1109/percomw.2019.8730649,
+	title        = {Considering Manual Annotations in Dynamic Segmentation of Multimodal Lifelog Data},
+	author       = {Gupta, Rashmi and Gurrin, Cathal},
+	year         = 2019,
+	doi          = {10.1109/percomw.2019.8730649}
+}
+@article{10.1145/3218820,
+	title        = {Comparison of Methods to Annotate Named Entity Corpora},
+	author       = {Komiya, Kanako and Suzuki, Masaya and Iwakura, Tomoya and Sasaki, Minoru and Shinnou, Hiroyuki},
+	year         = 2018,
+	journal      = {Acm Transactions on Asian and Low-Resource Language Information Processing},
+	doi          = {10.1145/3218820}
+}
+@misc{vuejs,
+	title        = {{Vue.js}},
+	author       = {Evan You},
+	year         = 2014,
+	url          = {https://vuejs.org/},
+	note         = {Version 2.6.14},
+	howpublished = {\url{https://vuejs.org/}}
+}
+@misc{vuetify,
+	title        = {{Vuetify}},
+	author       = {{Vuetify}},
+	year         = 2016,
+	url          = {https://vuetifyjs.com/},
+	note         = {Version 2.6.3},
+	howpublished = {\url{https://vuetifyjs.com/}}
+}
+@inproceedings{foppiano2019leveraging,
+	title        = {Leveraging Segmentation of Physical Units through a Newly Open Source Corpus},
+	author       = {Foppiano, Luca and Suzuki, Akira and Dieb, Thaer M and Ishii, Masashi and Tanifuji, Mikiko},
+	year         = 2019,
+	booktitle    = {JSAP Annual Meetings Extended Abstracts The 80th JSAP Autumn Meeting 2019},
+	pages        = {4097--4097},
+	organization = {The Japan Society of Applied Physics}
+}
+@inproceedings{suzuki2018constructing,
+	title        = {Constructing a “Unit dictionary” from scientific articles},
+	author       = {Suzuki , Akira and  Ishii, Masashi},
+	year         = 2018,
+	booktitle    = {Third International Work- shop on SCIentific DOCument Analysis (JSAI International Symposia on AI)}
+}
+@article{rodriguez2013sequence,
+	title        = {Sequence Labeling With Multiple Annotators},
+	author       = {Rodrigues, Filipe and Pereira, Francisco C. and Ribeiro, Bernardete},
+	year         = 2013,
+	journal      = {Machine Learning},
+	doi          = {10.1007/s10994-013-5411-2}
+}
+@article{tang2015aComparison,
+	title        = {A Comparison of Conditional Random Fields and Structured Support Vector Machines for Chemical Entity Recognition in Biomedical Literature},
+	author       = {Tang, Buzhou and Feng, Ying and Wang, Xiaolong and Wu, Yonghui and Zhang, Yaoyun and Jiang, Min and Wang, Jingqi and Xu, Hua},
+	year         = 2015,
+	journal      = {Journal of Cheminformatics},
+	doi          = {10.1186/1758-2946-7-s1-s8}
+}
+@article{naseem2021aComparative,
+	title        = {A Comparative Analysis of Active Learning for Biomedical Text Mining},
+	author       = {Naseem, Usman and Khushi, Matloob and Khan, Shah Khalid and Shaukat, Kamran and Moni, Mohammad Ali},
+	year         = 2021,
+	journal      = {Applied System Innovation},
+	doi          = {10.3390/asi4010023}
+}
+@article{yang2019madex,
+	title        = {MADEx: A System for Detecting Medications, Adverse Drug Events, and Their Relations From Clinical Notes},
+	author       = {Yang, Xi and Bian, Jiang and Gong, Yan and Hogan, William R. and Wu, Yonghui},
+	year         = 2019,
+	journal      = {Drug Safety},
+	doi          = {10.1007/s40264-018-0761-0}
+}
+@article{gales2012structured,
+	title        = {Structured Discriminative Models for Speech Recognition: An Overview},
+	author       = {F. Gales, Mark J. and Watanabe, Shinji and Fosler-Lussier, Eric},
+	year         = 2012,
+	journal      = {Ieee Signal Processing Magazine},
+	doi          = {10.1109/msp.2012.2207140}
+}
+@article{marowski2022cooptimisation,
+	title        = {Co-Optimization of Therapeutic Antibody Affinity and Specificity Using Machine Learning Models That Generalize to Novel Mutational Space},
+	author       = {Makowski, Emily K. and Kinnunen, Patrick C. and Jie, Huang and Wu, Lina and Smith, Matthew D. and Wang, Tiexin and Desai, Alec A. and Streu, Craig and Zhang, Yulei and Zupancic, Jennifer M. and Schardt, John S. and Linderman, Jennifer J. and Tessier, Peter M.},
+	year         = 2022,
+	journal      = {Nature Communications},
+	doi          = {10.1038/s41467-022-31457-3}
+}
+@article{golenko2022implementation,
+	title        = {Implementation of Machine Learning Models to Determine the Appropriate Model for Protein Function Prediction},
+	author       = {Golenko, Yekaterina and Ismailova, A. and Shaushenova, Anargul and Mutalova, Zhazira and Dossalyanov, Damir and Ainagulova, Aliya and Naizagarayeva, Akgul},
+	year         = 2022,
+	journal      = {Eastern-European Journal of Enterprise Technologies},
+	doi          = {10.15587/1729-4061.2022.263270}
+}
+@article{merkurjev2021multiscale,
+	title        = {Multiscale Laplacian Learning},
+	author       = {Merkurjev, Ekaterina and Nguyen, Duc Duy and Wei, Guo-Wei},
+	year         = 2021,
+	doi          = {10.48550/arxiv.2109.03718}
+}
+@article{deng2018adversarial,
+	title        = {Adversarial Active  Learning for Sequences Labeling and Generation},
+	author       = {Deng, Yue and Chen, KaWai and Shen, Yilin and Jin, Hongxia},
+	year         = 2018,
+	doi          = {10.24963/ijcai.2018/558}
+}
+@article{liu2020integrating,
+	title        = {Integrating Informativeness, Representativeness and Diversity in Pool-Based Sequential Active Learning for Regression},
+	author       = {Liu, Ziang and Wu, Dongrui},
+	year         = 2020,
+	doi          = {10.48550/arxiv.2003.11786}
+}
+@article{shagxuan2018image,
+	title        = {Image Labeling With Markov Random Fields and Conditional Random Fields},
+	author       = {Wu, Shangxuan},
+	year         = 2018,
+	doi          = {10.48550/arxiv.1811.11323}
+}
+@article{kim2017acoustic,
+	title        = {Acoustic Event Detection in Multichannel Audio Using Gated Recurrent Neural Networks With High-Resolution Spectral Features},
+	author       = {Kim, Hyoung-Gook and Kim, Jin Young},
+	year         = 2017,
+	journal      = {Etri Journal},
+	doi          = {10.4218/etrij.17.0117.0157}
+}
+@article{graves2013speech,
+	title        = {Speech Recognition With Deep Recurrent Neural Networks},
+	author       = {Graves, Alex and Mohamed, Abdelrahman and Hinton, Geoffrey E.},
+	year         = 2013,
+	doi          = {10.1109/icassp.2013.6638947}
+}
+@article{tian2020artificial,
+	title        = {Artificial Intelligence Image Recognition Method Based on Convolutional Neural Network Algorithm},
+	author       = {Tian, Youhui},
+	year         = 2020,
+	journal      = {Ieee Access},
+	doi          = {10.1109/access.2020.3006097}
+}
+@article{brokarev2021recurrent,
+	title        = {Recurrent Neural Networks to Analyze the Quality of Natural Gas},
+	author       = {Brokarev, Ivan and Farkhadov, Mais and Vaskovskii, Sergei},
+	year         = 2021,
+	journal      = {Vestnik Tomskogo Gosudarstvennogo Universiteta Upravlenie Vychislitel Naya Tekhnika I Informatika},
+	doi          = {10.17223/19988605/55/2}
+}
+@article{karamouz2007long,
+	title        = {Long‐lead Seasonal Rainfall Forecasting Using Time‐delay Recurrent Neural Networks: A Case Study},
+	author       = {Karamouz, ‪Mohammad and Razavi, Saman and Araghinejad, Shahab},
+	year         = 2007,
+	journal      = {Hydrological Processes},
+	doi          = {10.1002/hyp.6571}
+}
+@inproceedings{boser1992training,
+	title        = {A training algorithm for optimal margin classifiers},
+	author       = {Boser, Bernhard E and Guyon, Isabelle M and Vapnik, Vladimir N},
+	year         = 1992,
+	booktitle    = {Proceedings of the fifth annual workshop on Computational learning theory},
+	pages        = {144--152}
+}
+@article{huang2015bidirectional,
+	title        = {Bidirectional LSTM-CRF models for sequence tagging},
+	author       = {Huang, Zhiheng and Xu, Wei and Yu, Kai},
+	year         = 2015,
+	journal      = {arXiv preprint arXiv:1508.01991}
+}
+@article{sak2014long,
+	title        = {Long short-term memory recurrent neural network architectures for large scale acoustic modeling},
+	author       = {Sak, Hasim and Senior, Andrew W and Beaufays, Fran{\c{c}}oise},
+	year         = 2014
+}
+@article{cho2001learning,
+	title        = {Learning Phrase Representations using RNN Encoder--Decoder for Statistical Machine Translation,‖ in Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (EMNLP), 2014},
+	author       = {Cho, K and Van Merri{\"e}nboer, B and Gulcehre, C and others},
+	year         = 2001,
+	journal      = {Qatar1724--1734}
+}
+@article{kim2022research,
+	title        = {Research on text classification based on deep neural network},
+	author       = {Kim, D.},
+	year         = 2022,
+	journal      = {International Journal of Communication Networks and Information Security (IJCNIS)},
+	volume       = 14,
+	pages        = {100--113},
+	doi          = {10.17762/ijcnis.v14i1s.5618},
+	issue        = {1s}
+}
+@article{lyu2020combine,
+	title        = {Combine convolution with recurrent networks for text classification},
+	author       = {Lyu, S. and Liu, J.},
+	year         = 2020,
+	doi          = {10.48550/arxiv.2006.15795}
+}
+@article{li2022channel,
+	title        = {Channel attention convolutional recurrent neural network on street view symbol recognition},
+	author       = {Li, J. and Wang, C. and Cai, R.},
+	year         = 2022,
+	journal      = {Highlights in Science, Engineering and Technology},
+	volume       = 9,
+	pages        = {390--397},
+	doi          = {10.54097/hset.v9i.1869}
+}
+@article{siswantining2023spratama,
+	title        = {Spratama model for indonesian paraphrase detection using bidirectional long short-term memory and bidirectional gated recurrent unit},
+	author       = {Siswantining, T. and Pratama, S. and Sarwinda, D.},
+	year         = 2023,
+	journal      = {Media Statistika},
+	volume       = 15,
+	pages        = {129--138},
+	doi          = {10.14710/medstat.15.2.129-138},
+	issue        = 2
+}
+@article{joshi2019bert,
+	title        = {Bert for coreference resolution: baselines and analysis},
+	author       = {Joshi, M. and Levy, O. and Zettlemoyer, L. and Weld, D. S.},
+	year         = 2019,
+	journal      = {Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conferen},
+	doi          = {10.18653/v1/d19-1588}
+}
+@article{joshi2020deep,
+	title        = {Deep learning for hindi text classification: a comparison},
+	author       = {Joshi, R. and Goel, P. and Joshi, R.},
+	year         = 2020,
+	journal      = {Intelligent Human Computer Interaction},
+	pages        = {94--101},
+	doi          = {10.1007/978-3-030-44689-5_9}
+}
+@article{lee2021eeg,
+	title        = {EEG-Transformer: Self-Attention From Transformer Architecture for Decoding EEG of Imagined Speech},
+	author       = {Lee, Young-Eun and Lee, Seo-Hyun},
+	year         = 2021,
+	doi          = {10.48550/arxiv.2112.09239}
+}
+@article{zhao2022short,
+	title        = {Short‐term Load Forecasting of Multi‐scale Recurrent Neural Networks Based on Residual Structure},
+	author       = {Zhao, Jia and Cheng, Pengyu and Hou, Jiazhen and Fan, Tanghuai and Han, Longzhe},
+	year         = 2022,
+	journal      = {Concurrency and Computation Practice and Experience},
+	doi          = {10.1002/cpe.7551}
+}
+@article{karita2019acomparative,
+	title        = {A Comparative Study on Transformer vs RNN in Speech Applications},
+	author       = {Karita, Shigeki and Chen, Nanxin and Hayashi, Tomoki and Hori, Takaaki and Inaguma, Hirofumi and Jiang, Ziyan and Someki, Masao and Yalta Soplin, Nelson Enrique and Yamamoto, Ryōichi and Wang, Xiaofei and Watanabe, Shinji and Yoshimura, Teizo and Zhang, Wangyou},
+	year         = 2019,
+	doi          = {10.1109/asru46091.2019.9003750}
+}
+@article{jung2021dg,
+	title        = {DG‐based SPO Tuple Recognition Using Self‐attention M‐Bi‐LSTM},
+	author       = {Jung, Joon-Young},
+	year         = 2021,
+	journal      = {Etri Journal},
+	doi          = {10.4218/etrij.2020-0460}
+}
+@article{hafiane2020experiments,
+	title        = {Experiments on Transfer Learning Architectures for Biomedical Relation Extraction},
+	author       = {Hafiane, Walid and Legrand, Joël and Toussaint, Yannick and Coulet, Adrien},
+	year         = 2020,
+	doi          = {10.48550/arxiv.2011.12380}
+}
+@article{kim2020korean,
+	title        = {Korean Clinical Entity Recognition From Diagnosis Text Using BERT},
+	author       = {Kim, Young Min and Lee, Tae Hoon},
+	year         = 2020,
+	journal      = {BMC Medical Informatics and Decision Making},
+	doi          = {10.1186/s12911-020-01241-8}
+}
+@article{ng2022modelling,
+	title        = {Modelling Sentiments Based on Objectivity and Subjectivity With Self-Attention Mechanisms},
+	author       = {Ng, Hu and Weng Chia, Glenn Jun and Vun Yap, Timothy Tzen and Goh, Vik Tor},
+	year         = 2022,
+	journal      = {F1000research},
+	doi          = {10.12688/f1000research.73131.2}
+}
+@article{shreyashree2022bert,
+	title        = {BERT-Based Hybrid RNN Model for Multi-Class Text Classification to Study the Effect of Pre-Trained Word Embeddings},
+	author       = {Shreyashree, S and Sunagar, Pramod and Rajarajeswari, S and Kanavalli, Anita},
+	year         = 2022,
+	journal      = {International Journal of Advanced Computer Science and Applications},
+	doi          = {10.14569/ijacsa.2022.0130979}
+}
+@article{taha2023automated,
+	title        = {Automated COVID-19 Misinformation Checking System Using Encoder Representation With Deep Learning Models},
+	author       = {Taha, Mohamed and Zayed, Hala H. and Azer, Marina and Gadallah, Mahmoud},
+	year         = 2023,
+	journal      = {Iaes International Journal of Artificial Intelligence (Ij-Ai)},
+	doi          = {10.11591/ijai.v12.i1.pp488-495}
+}
+@article{joshi2021evaluation,
+	title        = {Evaluation of Deep Learning Models for Hostility Detection in Hindi Text},
+	author       = {Joshi, Ramchandra},
+	year         = 2021,
+	doi          = {10.48550/arxiv.2101.04144}
+}
+@article{velankar2021hate,
+	title        = {Hate and Offensive Speech Detection in Hindi and Marathi},
+	author       = {Velankar, Abhishek and Hrushikesh, Patil and Gore, Amol and Salunke, Shubham and Raviraj, Joshi},
+	year         = 2021,
+	doi          = {10.48550/arxiv.2110.12200}
+}
+@article{lin2016neural,
+    author = "Lin, Yankai and Shen, Suhung and Liu, Zhiyuan and Luan, Huanbo and Sun, Maosong",
+    doi = "10.18653/v1/p16-1200",
+    title = "Neural Relation Extraction With Selective Attention Over Instances",
+    year = "2016"
+}
 
+@article{hariharan2019relation,
+    author = "Hariharan, Vishnu and Kumar, M. Anand",
+    doi = "10.1007/978-3-030-00665-5\_90",
+    title = "Relation Extraction Using Convolutional Neural Networks",
+    year = "2019"
+}
+
+@article{gui2023aje,
+    author = "Gui, Weihua and Cui, Aixiang",
+    doi = "10.1088/1742-6596/2504/1/012020",
+    title = "AJE: Attention Mechanism for Entity-Relation Joint Extraction",
+    journal = "Journal of Physics Conference Series",
+    year = "2023"
+}
+
+@article{fu2019graphrel,
+    author = "Fu, Tsu-Jui and Li, Peng-Hsuan and Ma, Wei-Yun",
+    doi = "10.18653/v1/p19-1136",
+    title = "GraphRel: Modeling Text as Relational Graphs for Joint Entity and Relation Extraction",
+    year = "2019"
+}
+
+@article{zeng2018large,
+    author = "Zeng, Xiangrong and He, Shizhu and Liu, Kang and Zhao, Jun",
+    doi = "10.1609/aaai.v32i1.11950",
+    title = "Large Scaled Relation Extraction With Reinforcement Learning",
+    journal = "Proceedings of the Aaai Conference on Artificial Intelligence",
+    year = "2018"
+}
+
+@article{zhao2020asking,
+    author = "Zhao, Tianyang and Yan, Zhao and Cao, Yunbo and Li, Zhoujun",
+    doi = "10.24963/ijcai.2020/546",
+    title = "Asking Effective and Diverse Questions: A Machine Reading Comprehension Based Framework for Joint Entity-Relation Extraction",
+    year = "2020"
+}
+
+@article{shen2021atrigger,
+    author = "Shen, Yongliang and Ma, Xinyin and Tang, Yechun and Lu, Weiming",
+    doi = "10.48550/arxiv.2101.10213",
+    title = "A Trigger-Sense Memory Flow Framework for Joint Entity and Relation Extraction",
+    year = "2021"
+}
+
+@article{chrisopoulou2018awalk,
+    author = "Christopoulou, Fenia and Misawa, Miwa and Ananiadou, Sophia",
+    doi = "10.18653/v1/p18-2014",
+    title = "A Walk-Based Model on Entity Graphs for Relation Extraction",
+    year = "2018"
+}
+
+@article{zeng2019learning,
+    author = "Zeng, Xiangrong and He, Shizhu and Zeng, Daojian and Liu, Kang and Liu, Shengping and Zhao, Jun",
+    doi = "10.18653/v1/d19-1035",
+    title = "Learning the Extraction Order of Multiple Relational Facts in a Sentence With Reinforcement Learning",
+    year = "2019"
+}
+
+@article{sumpter2021remod,
+    author = "Sumpter, Matthew",
+    doi = "10.48550/arxiv.2102.11105",
+    title = "REMOD: Relation Extraction for Modeling Online Discourse",
+    year = "2021"
 }

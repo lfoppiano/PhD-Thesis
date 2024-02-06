@@ -1,28 +1,42 @@
+\section{Introduction}
+
+The SuperCon database was built manually from 1987~\cite{ishii2023structuring} by the National Institute for Materials Science (NIMS) in Japan and it is considered a reliable source of experimental data on superconductors~\cite{roter2020predicting, stanev2017machine, tran2022machine, konno2021deep}. 
+However, the updates of SuperCon have become increasingly challenging due to the high publication rate. 
+In response to the need for a more efficient approach to sustain productivity, we embarked on the development of an automated system for extracting material and property information from the text contained in relevant scientific publications. 
+This automated process enabled the rapid creation of ``SuperCon\textsuperscript{2} Database'', a comprehensive database of superconductors containing around 40000 entries, within an operational duration of just a few days (Chapter~\ref{cha:supercon2}). 
+Matching the level of quality seen in SuperCon while simultaneously automating the extraction of organised data can be achieved with a properly designed curation process. 
+We use the term \emph{curation} to describe the overall process of reviewing and validating database records, while \emph{correction} refers to the specific action of altering the values of one or more properties within an individual record.
+At the moment of writing this article, we are not aware of any other curation tool focusing on structured databases of extracted information. 
+There are several tools for data annotation, such as Inception~\cite{klie-etal-2018-inception}, and Doccano~\cite{doccano} which concentrate on text labelling and classification.
+
+In this contribution, we designed and developed a workflow with a user interface, ``SuperCon\textsuperscript{2} Interface'', crafted to produce structured data of superior quality and efficiency to the one obtained by the ``traditional'' manual approach consisting of reading documents and noting records, usually on an Excel file.
+We developed this framework around the specific use case of SuperCon, however, our goal is to be adapted to alternative data frameworks.
+
+Our contributions can be summarised as follows:
+\begin{itemize}
+    \item We developed a workflow and a user interface that allow the curation of a machine-collected database. We demonstrate that using it for data correction resulted in higher quality than the ``traditional'' (manual) approach.
+    \item We devise an anomaly detection process for incoming data lower rejection rate (false positive rate) from domain experts.
+    \item We propose a mechanism that selects training data based on corrected records, and we demonstrate that such selections are rapidly improving the ML models.
+\end{itemize}
+
 \section{Curation workflow}
 \label{sec:curation-workflow}
 The curation of the SuperCon\textsuperscript{2} Database acts as a workflow where user actions result in database records state transitions (Figure~\ref{fig:curation-workflow}). 
 Allowed manual actions include a) \textit{mark as valid} (validation) when a record is considered correct or corrected by someone else. When a record is not valid, users can: b) \textit{mark as invalid} when considered ``potentially'' invalid (or the curator is not confident), c) perform \textit{manual correction} to update it according to the information from the original PDF document, and d) \textit{remove} the record when it was not supposed to be extracted.
 
-Besides manual operations from users, this workflow supports also automatic actions: ``anomaly detection'' for pre-screening records (Section~\ref{subsec:anomaly-detection}) and the ``training data collector'' for accumulating training data for improving ML models (Section~\ref{subsec:feedback-loop-training-data}). 
-
-% Once a structured database is collected, its data can be visualised and curated by domain experts. 
-% The curation process can be delineated as a structured workflow, wherein each record undergoes a series of transitions between distinct states determined by the actions that are executed on the record (Figure~\ref{fig:curation-workflow}).
-
-Although only the most recent version of a record can be viewed on this system, the correction history is recorded (Section~\ref{subsec:curation-and-processing-logs}). 
+In addition to manual operations by users, this workflow also supports automatic actions: ``anomaly detection'' for prescreening records (Section~\ref{subsec:anomaly-detection}) and the ``training data collector'' for accumulating training data to improve ML models (Section~\ref{subsec:feedback-loop-training-data}). 
 
 
-\begin{figure}[ht]
+Although only the most recent version of a record can be viewed in this system, the correction history is recorded (Section~\ref{subsec:curation-and-processing-logs}). 
+
+
+\begin{figure}[htbp]
   \centering
   \includegraphics[width=1\textwidth]{figures/curation/record-correction} 
   \caption{Schema of the curation workflow. Each node has two properties: type and status (Section~\ref{subsec:curation-status}). Each edge indicates one action. The workflow starts on the left side of the figure. The new records begin with ``Automatic, New''. Changes of state are triggered by automatic (Section~\ref{subsec:anomaly-detection}) or manual operations (update, mark as valid, etc.. Section~\ref{subsec:manual_correction}) and results in changes of the properties in the node. Each combination of property values identifies each state. ``(*)'' indicates a transition for which the training data are collected (Section~\ref{subsec:feedback-loop-training-data})}
   \label{fig:curation-workflow}
 \end{figure}
 
-% When a record (\emph{original record}) is updated (\emph{updated record}) 
-% Both records are persisted in every state of the workflow, only the latest being visible.
-% Similarly, when a record is removed the data is kept but the record is hidden, while records marked as valid or invalid are kept visible. 
-
-% The workflow establishes also that when a record is manually corrected, the raw data from which the record has been extracted, are collected as training data (Section~\ref{subsec:feedback-loop-training-data}).
 
 \subsection{Workflow control}
 \label{subsec:workflow-control}
@@ -40,9 +54,6 @@ The curation status (Figure~\ref{fig:curation-workflow}) is defined by \emph{typ
     \item \textbf{removed}: the record has been removed by a curator (internal status).
 \end{itemize} 
     
-
-% For example, the value "automatic" is provided when the data is ingested (Section~\ref{sec:ingestion}) or when the "anomaly detection" detects incorrect values and performs operations such as marking the record "invalid". 
-% The "type" can change from "automatic" to "manual" but never in the opposite direction, because automatic operations are never applied on validated or curated records.
 
 \subsubsection{Error types}
 \label{subsec:error-types}
@@ -64,7 +75,7 @@ The error type values can be summarised as follows:
 
 \subsection{Anomaly detection}
 \label{subsec:anomaly-detection}
-Anomaly detection is the process of identifying unusual events or patterns in data. 
+Anomaly detection is the process of identifying unusual events or patterns in the data. 
 In our context, this means identifying data that are greatly different from the expected values.
 This post-process was introduced in a limited scope to draw attention to certain cases during the curation.
 
@@ -77,7 +88,7 @@ The anomaly detection uses a rule-based approach and marks any record that match
 
 Records identified as anomalies have \emph{status} ``invalid'' and \emph{error type} ``anomaly detection'' for easy identification.
 Since this process may find false positives, its output requires validation from curators. 
-For example, in certain contexts, T\textsubscript{c} values above room temperature or applied pressure up to 500 GPa may be valid in researchers' hypotheses, calculations, or simulated predictions. 
+For example, in certain contexts, T\textsubscript{c} values above room temperature or applied pressure up to 500 GPa may be valid in researchers' hypotheses, calculations or simulated predictions. 
 
 We ran the anomaly detection on the full SuperCon\textsuperscript{2} Database (40324 records~\cite{foppiano2023automatic}). 
 The anomaly detection identified 1506 records with invalid T\textsubscript{c}, 5021 records with an incomplete chemical formula, 304 records with invalid applied pressure, and 1440 materials linked to multiple T\textsubscript{c} values. 
@@ -88,19 +99,19 @@ Further analysis and cross-references with contrasting information may be added 
 The curation process is a valuable endeavour demanding significant knowledge and human effort. 
 To maximise the use of this time for collecting as much information as possible.
 We integrated an automatic procedure in the curation process that, for every correction, accumulates the related data examples that can be used to improve the underlying ML models. 
-% In Section~\ref{subsec:training-data-generation-evaluation} we evaluate its this approach helps improve the ML model with a small number of examples as compared with the training dataset. 
 
 \subsubsection{Training data collection}
 In the event of a correction (update, removal) in a database record, this process retrieves the corresponding raw data: the text passage, the recognised entities (spans), and the layout tokens information. 
 This information is sufficient to be exported as training examples, which can be examined and corrected, and feedback to the ML model. 
-% In detail, the process performs the following actions:
-% \begin{itemize}
-%     \item The updated record is prepared and stored.
-%     \item The raw data originating the updated record is identified. First, the corresponding structured document is retrieved from the document collection using the document identifier (the hash). Then, the exact text passage in the structured document is located using a unique id assigned to each material in the database records.
-%     \item If the raw data has already been collected, it is skipped. This is the case when multiple records belonging to the same text passage are corrected.
-%     \item Otherwise, the raw information comprising the text string, the spans, and the layout tokens are collected and saved in a separate collection.
-%     \item The data collected is then sufficient to generate workable instances in different output formats and the related feature files.
-% \end{itemize}
+
+In detail, the process performs the following actions:
+\begin{itemize}
+    \item The updated record is prepared and stored.
+    \item The raw data originating the updated record is identified. First, the corresponding structured document is retrieved from the document collection using the document identifier (the hash). Then, the exact text passage in the structured document is located using a unique id assigned to each material in the database records.
+    \item If the raw data has already been collected, it is skipped. This is the case when multiple records belonging to the same text passage are corrected.
+    \item Otherwise, the raw information comprising the text string, the spans, and the layout tokens are collected and saved in a separate collection.
+    \item The data collected is then sufficient to generate workable instances in different output formats and the related feature files.
+\end{itemize}
 
 \subsubsection{Training data management}
 We designed a specific page of the interface (Section~\ref{sec:user-interface}) to manage the collected data (Figure~\ref{fig:training-data-view}) in which each row corresponds to a training example composed by the decorated text showing the identified entities, the document identifier, and the status. 
@@ -108,7 +119,7 @@ The users can examine the data, delete it, send it to the annotation tool to be 
 We integrated our interface with Label-studio~\cite{Label_Studio} for the correction of the collected training examples. 
 Label-studio is an open-source, python-based, and modern interface supporting many different TDM tasks (NER, topic modelling, image recognition, etc.). 
 
-\begin{figure}[ht]
+\begin{figure}[htpb]
   \centering
   \includegraphics[width=1\textwidth]{figures/curation/training-data-viewer} 
   \caption{Screenshot of the training data management page in the SuperCon\textsuperscript{2} interface. Each row contains one potential training data example. Each example is composed of a sentence and its extracted entities (highlighted in colour) with potential annotation mistakes that need to be corrected using an external tool: we used Label-Studio~\cite{Label_Studio}. The column ``Status'' indicate whether the example has been sent or not to the external tool.}
@@ -119,10 +130,10 @@ Label-studio is an open-source, python-based, and modern interface supporting ma
 \label{sec:user-interface}
 
 The workflow is operated through the user interface, which offers several key features to facilitate the data curation process (Figure~\ref{fig:curation-workflow}).
-It provides a comprehensive view of materials and their related properties as a table which includes search, filtering, and sorting functionality (Figure~\ref{fig:curation-interface-database}). 
+It provides a comprehensive view of materials and their related properties as a table that includes search, filter, and sorting functionality (Figure~\ref{fig:curation-interface-database}). 
 The detailed schema, including examples, is reported in our previous work~\cite{foppiano2023automatic}.
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   \includegraphics[width=1\textwidth]{figures/curation/supercon-curation-database.png} 
   \caption{Screenshot of SuperCon\textsuperscript{2} interface showing the database. Each row corresponds to one material-T\textsubscript{c} pair. On top, there are searches by attribute, sorting and other filtering operations. On the right (last column) there are curation controls (mark as valid, update, etc.).   Records are grouped by document with alternating light yellow and white. }
@@ -132,7 +143,7 @@ The detailed schema, including examples, is reported in our previous work~\cite{
 During the curation process, it is often necessary to switch back and forth between the database record and the related context in the paper (the related paragraph or sentence). 
 Our interface provides a viewer for individual documents, which visualises in the same window a table with the extracted records and the original PDF document decorated with annotations that identify the extracted materials and properties (Figure~\ref{fig:pdf-view}). 
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   \includegraphics[width=1\textwidth]{figures/curation/pdf-view-context.png} 
   \caption{PDF document viewer showing an annotated document. The table on top is linked through the annotated entities. The user can navigate from the record to the exact point in the PDF, with a pointer (the red bulb light) identifying the context of the entities being examined. }
@@ -145,7 +156,7 @@ Our interface provides a viewer for individual documents, which visualises in th
 
 % The interface automatically collects training data; when a record is amended, the information pertaining it's raw source information (sentence text, annotations) is collected (Section~\ref{subsec:feedback-loop-training-data}). 
 
-% \begin{figure}[ht]
+% \begin{figure}[htbp]
 %   \centering
 %   \includegraphics[width=1\textwidth]{figures/curation/supercon-curation-pdf-viewer} 
 %   \caption{PDF viewer. The page includes a table showcasing records extracted from the  current document, along with the PDF content and accompanying annotations.}
@@ -157,7 +168,7 @@ Our interface provides a viewer for individual documents, which visualises in th
 \label{sec:data-correction}
 \label{subsec:manual_correction}
 
-In this section, we discuss our strategy concerning manual curation, which is still indispensable for developing high-quality structures. 
+In this section, we discuss our strategy regarding manual curation, which is still indispensable for developing high-quality structures. 
 % from automatically may contain incorrect information.
 % We have set up an automatic process for anomaly detection (Section~\ref{subsec:anomaly-detection}) which can help to speed up the process but it only detects "potential" problems and requires anyway a manual validation.
 
@@ -167,15 +178,6 @@ We followed two principles to guarantee robustness in the curation process.
 First, we built solid curation documentation as a form of example-driven guidelines with an iterative approach we first introduced in \cite{foppiano2021supermat}. 
 Then, we used a double-round validation approach, in which the data was initially corrected by one person, and validated in a second round, by a different individual. 
 
-% The guidelines are included in the supporting material at the end of the manuscript.
-
-% The loop includes four steps: 
-% \begin{itemize}
-%     \item collect rules, based on observation and reasoning,
-%     \item curation following those rules,
-%     \item retrospective including analysis and discussions based on curators' feedback, and
-%     \item take decisions and update the guideline
-% \end{itemize}
 
 \subsection{Curation guidelines}
 \label{subsec:curation-guidelines}
@@ -186,14 +188,13 @@ The guidelines are designed to provide general information applied to correction
 Differently from our previous work~\cite{foppiano2021supermat}, these guidelines are divided into examples for different scenarios based on the error types mentioned in Section~\ref{subsec:error-types}.
 Each example described the initial record, its context, the expected corrected record and a brief explanation, as illustrated in Figure~\ref{fig:example-curation-sheet}. 
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   \includegraphics[width=1\textwidth]{figures/curation/example-sheet-curation.png} 
   \caption{Sample curation sheet from the curation guidelines. The sheet is composed of the following information: a) {Sample input data}: a screenshot of the record from the ``SuperCon\textsuperscript{2} Interface'', b) \textit{Context} represented by the related part of the annotated document referring to the record in exams. c) The \textit{Motivation}, describing the issue, d) the \textit{Action} to be taken, and the \textit{Expected output}.
  }
   \label{fig:example-curation-sheet}
 \end{figure}
-
 
 
 \subsection{Curation and processing logs}
@@ -206,7 +207,7 @@ For example, sometimes documents fail because they don't contain any text (image
 % Old PDF documents (e.g. before 1990) are likely to have been scanned and contain only images. 
 % Examples of too big documents are dissertation theses with more than 100 pages, that might be collected by mistake. 
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   \includegraphics[width=1\textwidth]{figures/curation/processing-curation-log.png} 
   \caption{Top: \textit{Processing log}, showing the output of each ingestion operation and the outcome with the detailed error that may have occurred. Bottom: \textit{Correction log}, indicating each record, the number of updates, and the date/time of the last updates. By clicking on the ``Record id'', is possible to visualise the latest record values.}
@@ -215,7 +216,7 @@ For example, sometimes documents fail because they don't contain any text (image
 
 The curation log provides a view of what, when and how a record has been corrected (Figure~\ref{fig:processing-curation-log} bottom).
 
-% \begin{figure}[ht]
+% \begin{figure}[htbp]
 %   \centering
 %   \includegraphics[width=1\textwidth]{figures/curation/curation-log} 
 %   \caption{Curation log, indicating each record, the number of updates, and the date/time of the last updates. }
@@ -263,7 +264,7 @@ We thus define three different training protocols:
 \end{enumerate}
 We merge ``curation'' with the base dataset because the curation dataset is very small compared to ``base'', and we want to avoid catastrophic forgetting~\cite{overcoming-kirkpatrick-etal-2016} or overfitting.
 
-\begin{table}[ht]
+\begin{table}[htbp]
 \centering\small
 \caption{F1-score from the evaluation of the fine-tuned SciBERT models. The training is performed with three different approaches. 
 The \emph{base} dataset is the original dataset described in~\cite{foppiano2021supermat}, and the \emph{curation} dataset is automatically collected based on the database corrections by the interface and manually corrected. \textit{s} indicate ``training from scratch'', while \textit{i} indicate ``incremental training''. 
@@ -299,7 +300,7 @@ One cause may be the use of different hyperparameters in version 0.3.0 such as b
 However, the most probable cause could be the impact of using the Huggingface tokenizers library which is suffering from quality issues \url{https://github.com/kermitt2/delft/issues/150}.} to values between 77.44\% (+0.77) and 77.48\% (+0.81) for (base+curation)(s) and base(s)+(base+curation)(i), respectively. 
 
 
-\begin{table}[ht]
+\begin{table}[htbp]
 \centering
 \small
 \caption{Data support, the number of entities for each label in each of the datasets used for evaluating the ML models. The \emph{base} dataset is the original dataset described in~\cite{foppiano2021supermat}, and the \emph{curation} dataset is automatically collected based on the database corrections by the interface and manually corrected.}
@@ -338,14 +339,121 @@ We selected a dataset of 15 papers, which we assigned to three curators — a se
 Each curator received 10 papers: half to be corrected with the \textit{interface} and half with the \textit{PDF Document} method. 
 Overall, each pair of curators had 5 papers in common which they had to process using opposite methods.
 For instance, if curator A receives paper 1 to be corrected with the \textit{interface}, curator B, who receives the same paper 1, will correct it with the \textit{PDF document} method.
-After curation, a fourth individual manually reviewed the curated content. The raw data is available in the Appendix~\ref{app:interface-evaluation-raw}.
+After curation, a fourth individual manually reviewed the curated content. The raw data is available in Tables~\ref{tab:timetable-details} and~\ref{tab:curation-evaluation-detailed-results}.
+
+\begin{table}[htpb]
+\centering\small
+\caption{Timetable recording the time spent for each of the 15 articles. Each row indicates the time and the event (Start, Finish) from each of the curators: Master Student (MD), PhD Student (PD), and Senior Researcher (SR). Duration is expressed in minutes.}
+\scalebox{0.7}{
+    \begin{tabular}{cc|cc|c}
+        Time & Event & Document ID & Curator & Duration (mins) \\
+        \toprule
+        14:40 & Start   & 02bf1b3db9 & PS  & 0  \\
+        14:49 & Finish  & 02bf1b3db9 & PS  & 9  \\
+        14:53 & Start   & 00b50fc0a8 & PS  & 0  \\
+        14:58 & Finish  & 00b50fc0a8 & PS  & 5  \\
+        14:37 & Start   & 0aa1b3161f & MS  & 0  \\
+        14:50 & Start   & 0454e07f64 & SR  & 0  \\
+        14:58 & Finish  & 0454e07f64 & SR  & 8  \\
+        15:01 & Start   & 02cbc58819 & PS  & 0  \\
+        15:06 & Start   & 00c32076f4 & SR  & 0  \\
+        15:07 & Finish  & 0aa1b3161f & MS  & 30 \\
+        15:08 & Finish  & 02cbc58819 & PS  & 7  \\
+        15:08 & Start   & 044939701d & PS  & 0  \\
+        15:12 & Start   & 0021fd339f & MS  & 0  \\
+        15:15 & Finish  & 00c32076f4 & SR  & 9  \\
+        15:17 & Finish  & 044939701d & PS  & 9  \\
+        15:17 & Start   & 08e1cb8f4f & PS  & 0  \\
+        15:20 & Start   & 0c7d3163ea & SR  & 0  \\
+        15:31 & Finish  & 08e1cb8f4f & PS  & 14 \\
+        15:32 & Finish  & 0021fd339f & MS  & 20 \\
+        15:32 & Start   & 039105663f & MS  & 0  \\
+        15:37 & Finish  & 0c7d3163ea & SR  & 17 \\
+        15:53 & Finish  & 039105663f & MS  & 21 \\
+        15:55 & Start   & 02c4f00127 & MS  & 0  \\
+        15:58 & Start   & 0454e07f64 & PS  & 0  \\
+        16:02 & Start   & 0da5febabf & SR  & 0  \\
+        16:08 & Finish  & 0454e07f64 & PS  & 10 \\
+        16:09 & Finish  & 02c4f00127 & MS  & 14 \\
+        16:11 & Finish  & 0da5febabf & SR  & 9  \\
+        16:11 & Start   & 0012333581 & SR  & 0  \\
+        16:12 & Start   & 00c32076f4 & PS  & 0  \\
+        16:18 & Start   & 021c413172 & MS  & 0  \\
+        16:22 & Finish  & 00c32076f4 & PS  & 10 \\
+        16:23 & Start   & 0c7d3163ea & PS  & 0  \\
+        16:30 & Finish  & 0012333581 & SR  & 19 \\
+        16:32 & Finish  & 021c413172 & MS  & 14 \\
+        16:37 & Start   & 02bf1b3db9 & MS  & 0  \\
+        16:38 & Finish  & 0c7d3163ea & PS  & 15 \\
+        17:32 & Finish  & 0021fd339f & SR  & 12 \\
+        17:34 & Start   & 039105663f & SR  & 0  \\
+        17:55 & Finish  & 039105663f & SR  & 21 \\
+        17:56 & Start   & 02c4f00127 & SR  & 0  \\
+        18:00 & Finish  & 02c4f00127 & SR  & 4  \\
+        18:00 & Start   & 021c413172 & SR  & 0  \\
+        18:09 & Finish  & 021c413172 & SR  & 9  \\
+    \end{tabular}
+}
+\label{tab:timetable-details}
+\end{table}
+
+
+\begin{table}[htpb]
+\centering
+\small
+\caption{Evaluation scores obtained for each document and method (I: Interface, P: PDF) combination. TP: True positive, FP: False positive, FN: False negative. P: Precision, R: Recall, F1: F1-score }
+\label{tab:curation-evaluation-detailed-results}
+\begin{tabular}{cc|c|ccc|ccc}
+\textbf{Document ID} & \# \textbf{pages} & \textbf{Method} & \# \textbf{TP}	& \# \textbf{FP}	& \# \textbf{FN}	& \textbf{P}	& \textbf{R}	& \textbf{F1} \\
+\toprule
+\multicolumn{9}{c}{Senior Researcher (SR)}\\
+\midrule
+0454e07f64  & 4     & I     & 6     & 0     &   0   & 100.00    & 100.00    & 100.00 \\
+00c32076f4  & 13    & P     & 8     & 0     &   0   & 100.00    & 100.00    & 100.00 \\
+0c7d3163ea  & 9     & I     & 13    & 1     &   0   & 92.86     & 100.00    & 96.30 \\
+0da5febabf  & 11    & P     & 8     & 0     &   1   & 100.00    & 88.89     & 94.12 \\
+0012333581  & 13    & I     & 11    & 0     &   0   & 100.00    & 100.00    & 100.00 \\
+0aa1b3161f  & 5     & I     & 9     & 0     &   1   & 100.00    & 90.00     & 94.74 \\
+0021fd339f  & 14    & P     & 4     & 0     &   8   & 100.00    & 33.33     & 50.00 \\
+039105663f  & 9     & I     & 11    & 1     &   0   & 91.67     & 100.00    & 95.65 \\
+02c4f00127  & 13    & P     & 0     & 0     &   3   & 100.00    & 0.00      & 0.00 \\
+021c413172  & 5     & I     & 15    & 0     &   0   & 100.00    & 100.00    & 100.00 \\
+\midrule
+\multicolumn{9}{c}{PhD Student (PS)}\\
+\midrule
+02bf1b3db9  & 7     & I     & 5     & 0     &   2   & 100.00    & 71.43     & 83.33 \\
+00b50fc0a8  & 11    & P     & 2     & 0     &   7   & 100.00    & 22.22     & 36.36 \\
+02cbc58819  & 4     & I     & 4     & 0     &   3   & 100.00    & 57.14     & 72.73 \\
+044939701d  & 12    & P     & 4     & 0     &   2   & 100.00    & 66.67     & 80.00 \\
+08e1cb8f4f  & 16    & I     & 5     & 1     &   1   & 83.33     & 85.71     & 84.51 \\
+0454e07f64  & 4     & P     & 0     & 1     &   5   & 0.00      & 16.67     & 0.00 \\
+00c32076f4  & 13    & I     & 8     & 0     &   0   & 100.00    & 100.00    & 100.00 \\
+0c7d3163ea  & 9     & P     & 9     & 0     &   5   & 100.00    & 64.29     & 78.26 \\
+0da5febabf  & 11    & I     & 9     & 0     &   0   & 100.00    & 100.00    & 100.00 \\
+0012333581  & 13    & P     & 4     & 4     &   3   & 50.00     & 72.73     & 59.26 \\
+\midrule
+\multicolumn{9}{c}{Master Student (MS)}\\
+\midrule
+0aa1b3161f  & 5     & P     & 1     & 0     &   9   & 100.00    & 10.00     & 18.18 \\
+0021fd339f  & 14    & I     & 12    & 3     &   3   & 80.00     & 100.00    & 88.89 \\
+039105663f  & 9     & P     & 4     & 1     &   7   & 80.00     & 41.67     & 54.79 \\
+02c4f00127  & 13    & I     & 3     & 1     &   1   & 75.00     & 100.00    & 85.71 \\
+021c413172  & 5     & P     & 7     & 1     &   7   & 87.50     & 53.33     & 66.27 \\
+02bf1b3db9  & 7     & P     & 2     & 0     &   5   & 100.00    & 28.57     & 44.44 \\
+00b50fc0a8  & 11    & I     & 7     & 2     &   0   & 77.78     & 100.00    & 87.50 \\
+02cbc58819  & 4     & P     & 5     & 0     &   2   & 100.00    & 71.43     & 83.33 \\
+044939701d  & 12    & I     & 5     & 0     &   1   & 100.00    & 83.33     & 90.91 \\
+08e1cb8f4f  & 16    & P     & 1     & 0     &   6   & 100.00    & 14.29     & 25.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 We evaluated the curation considering a double perspective: time and correctness. 
 Time was calculated as the accumulated minutes required using each method. 
 Correctness was assessed using standard measures such as precision, recall, and the F1-score.
 Precision measures the accuracy of the extracted information, while recall assesses the ability to capture all expected information. F1-Score is a harmonic means of precision and recall. 
 
-\begin{table}[ht]
+\begin{table}[htpb]
 \centering\small
 \caption{Evaluation scores (P: precision, R: recall, F1: F1-score) between the curation using the SuperCon\textsuperscript{2} interface (\textit{Interface}) and the traditional method of reading the PDF document (\textit{PDF document}). }
 \begin{tabular}{lrrrr}
@@ -364,7 +472,7 @@ Precision measures the accuracy of the extracted information, while recall asses
 Overall, both methods required the same accumulated time: 185 minutes using the \textit{interface} and 184 minutes using the \textit{PDF Document} method.
 When the experiment was carried out, not all the curators were familiar with the \textit{interface} method. Although they had access to the user documentation, they had to get acquainted with the user interface, thus the accumulated 185 minutes included such activities. 
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \caption{Evaluation scores (P: precision, R: recall, F1: F1-score) aggregated by experience (MS: master student, PD: PhD student, SR: senior researcher). Each person corrected 10 documents.}
 \begin{tabular}{lrrrrr}
@@ -384,7 +492,7 @@ The F1-score improved by 39.35\%.
 
 The disparity in experience significantly influenced the accuracy of curation, particularly in terms of high-level skills. Senior researchers consistently achieved an average F1-Score approximately 13\% higher than other curators (see Table~\ref{tab:accuracy-by-experience}). Furthermore, we observed a modest improvement between master's students and PhD students. These findings indicate also that for large-scale projects, employing master students instead of PhD students may be a more cost-effective choice. Thus, using only a few senior researchers for the second round of validation (Section~\ref{subsec:manual_correction}).
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering\small
 \caption{Evaluation scores (P: precision, R: recall, F1: F1-score) listed by experience (MS: master student, PD: PhD student, SR: senior researcher), and method (PDF document, Interface). }
 \begin{tabular}{lcrrrrr}
@@ -413,3 +521,11 @@ The results of this experiment confirmed that our curation interface and workflo
 This work is available at \url{https://github.com/lfoppiano/supercon2}. The repository contains the code of the SuperCon\textsuperscript{2} interface, the curation workflow, and the ingestion processes for harvesting the SuperCon\textsuperscript{2} Database of materials and properties. The guidelines are accessible at \url{https://supercon2.readthedocs.io}.
 
 
+\section{Conclusions}
+
+In this contribution we presented a semi-automatic ''staging area`` to validate efficiently new experimental records automatically collected from superconductor research articles (SuperCon\textsuperscript{2} Database~\cite{foppiano2023automatic}) before they are ingested into the existing, manually-build database of superconductors, SuperCon~\cite{ishii2023structuring}.
+The system provides a curation workflow and a user interface (SuperCon\textsuperscript{2} Interface) tailored to efficiently support domain experts in data correction and validation with fast context switching and an enhanced PDF viewer.
+Under the hood, the workflow ran ``anomaly detection'' to automatically identify outliers and a ``training data collector'' based on human corrections, to efficiently accumulate training data to be feedback to the ML model. 
+
+Compared with the traditional manual approach of reading PDF documents and extracting information in an Excel file, SuperCon\textsuperscript{2} significantly improves the curation quality by approximately 6\% and +47\% for precision and recall, respectively.
+In future, this work can be expanded to support other materials science domains such as magnetic materials, spintronic and thermoelectric research and expanding the evaluation to a larger dataset. 
