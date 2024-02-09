@@ -169,11 +169,13 @@
 %\newpage\thispagestyle{empty}\mbox{}\newpage
 
 
-
+\phantomsection
 \addcontentsline{toc}{chapter}{Abstract}
-\include{abstract.tex}
+\input{1abstract.tex}
 \newpage\thispagestyle{empty}\mbox{}\newpage
 
+\phantomsection
+\addcontentsline{toc}{chapter}{Acknowledgements}
 \chapter*{Acknowledgements}
 \input{2acknowledgements}
 
@@ -182,10 +184,12 @@
 
 
 \pagebreak
+\phantomsection
 \addcontentsline{toc}{chapter}{List of Figures}
 \listoffigures
 
 \pagebreak
+\phantomsection
 \addcontentsline{toc}{chapter}{List of Tables}
 \listoftables
 
@@ -201,28 +205,28 @@
 \label{cha:related_work}
 \input{4related_works}
 
-\chapter{Direct full-text extraction from PDF documents in Materials Science}
+\chapter{Extraction from the full-text body of PDF documents}
 \label{cha:pdf_extraction}
 \input{5pdf_extraction.tex}
 
-\chapter{Extraction of material's related experimental data from scientific text}
+\chapter{ML-based extraction of materials-related expressions from text}
 \label{cha:extraction-experimental-data}
 \label{subsubsec:extraction}
 \input{6ner_materials}
 
-\chapter{Extraction of properties and conditions as measurements of physical quantities}
-\label{cha:measurements}
-\input{7measurements.tex}
-
 \chapter{SuperMat: Construction of a linked annotated dataset from superconductors-related publications}
 \label{cha:supermat}
-\input{8supermat}
+\input{7supermat}
 
-\chapter{SuperCon\texorpdfstring{\textsuperscript{2}}{2} Database}
+\chapter{Extraction of properties and conditions as measurements of physical quantities}
+\label{cha:measurements}
+\input{8measurements.tex}
+
+\chapter{Large scale collection of experimental data from scientific literature: SuperCon\texorpdfstring{\textsuperscript{2}}{2} Database}
 \label{cha:supercon2}
 \input{9supercon2}
 
-\chapter{SuperCon\texorpdfstring{\textsuperscript{2}}{2} Database data curation}
+\chapter{Techniques for mitigating the impact of manual curation}
 \label{cha:curation}
 \input{10curation}
 
@@ -239,12 +243,17 @@ In Chapter~\ref{cha:curation} we describe a staging area using the obtained "Sup
 Our interface significantly improves the curation quality by increasing both precision and recall by approximately 6\% and +47\%, respectively.
 
 
-% \chapter*{Acknowledgements}
-% \addcontentsline{toc}{chapter}{Acknowledgements}
 \newpage
 
+\phantomsection
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{unsrt}
 \bibliography{references.bib}
+
+\newpage
+
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Publications}
+\include{11_publications.tex}
 
 \end{document}

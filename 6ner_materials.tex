@@ -1,31 +1,35 @@
 \section{Introduction}
-In this chapter, we discuss our endeavour to build an ML-based system for extracting related entities from scientific text. 
-Identifying named entities in the field of materials science poses a formidable challenge, particularly due to the intricate nature of material expressions, complex and extensive sequences that require meticulous attention. In this domain, the definition of materials remains elusive, lacking a clear-cut delineation (refer to Chapter~\ref{cha:introduction}). Moreover, the boundaries within materials science are loose, subject to variations based on specific subdomains, and researchers' focus on distinct aspects or phenomena associated with the materials.
-Notably, within the realm of superconductor research, material expressions exhibit significant variability, incorporating various types of information within a single sequence. This can range from the chemical formula and doping ratio to the shape of the material, as exemplified by expressions such as \texttt{single crystal La x Fe 1 x O 7 (with x = 0.1, and 0.2)}. Analysing stoichiometric formulas, in particular, presents a complex task, as these necessitate resolution with substitution values scattered throughout the paper.
+In this chapter, we discuss our endeavour to build an ML-based system for extracting material-related entities from scientific text. 
+Identifying named entities in the field of materials science poses a formidable challenge, particularly due to the intricate nature of material expressions, complex and extensive sequences, which require meticulous attention. 
+In this domain, the definition of materials remains elusive, lacking a clear-cut delineation (refer to Chapter~\ref{cha:introduction}). Moreover, the boundaries within materials science are loose, subject to variations based on specific subdomains, and researchers focus on distinct aspects or phenomena associated with the materials.
+Notably, within the realm of superconductor research, material expressions exhibit significant variability, incorporating various types of information within a single sequence. This can range from the chemical formula and doping ratio ("Zn-doped", "2\% Cu-doped", for instance) to the shape of the material (e.g., single crystal, wire, polycrystalline), as exemplified by expressions such as \texttt{single crystal La x Fe 1 x O 7 (with x = 0.1, and 0.2)}. Analysing non-stoichiometric formulas, in particular, presents a complex task, as these necessitate resolution with substitution values scattered throughout the paper.
 
-The complexity inherent in deciphering such material expressions has propelled our exploration into the realm of Machine Learning (ML) as a means to model these intricate boundaries. Machine learning has demonstrated its efficacy in various domains, including bioinformatics and chemistry, often surpassing rule-based or lexicon-based approaches by achieving a delicate balance between flexibility and simplicity. However, it is essential to acknowledge that the success of machine learning is contingent upon the availability of data, a facet that presents a notable challenge in materials informatics compared to other domains. This challenge, in turn, has driven us to embark on the creation of a comprehensive dataset from scratch, as detailed in Chapter~\ref{cha:supermat}.
+The complexity inherent in deciphering such material expressions has propelled our exploration into the realm of Machine Learning (ML) as a means to model these intricate boundaries. Machine learning has demonstrated its efficacy in various domains, including bioinformatics and chemistry, often surpassing rule-based or lexicon-based approaches by achieving a delicate balance between flexibility and simplicity. However, it is essential to acknowledge that the success of machine learning is contingent upon the availability of data, a facet that presents a notable challenge in material informatics compared to other domains. This challenge, in turn, has led us to embark on the creation of a novel dataset of annotated and linked text of scientific articles from superconductors research. In Chapter~\ref{cha:supermat} we list the characteristics at the time of writing (number of articles, number of entities, etc.) and the methodology we used to construct it. 
+Moreover, the notation incorporates the utilisation of supplementary text formatting choices, such as subscript and superscript, for chemical formulas, as well as italic and bold for other constructs. However, when these formatting options are converted to text, they are usually standardised to a regular font size, resulting in the omission of information.
+In order to tackle this problem, the utilisation of Grobid has been crucial in preserving these data by utilising PDF layout information, as discussed in Chapter~\ref{cha:pdf_extraction}. This approach improves the accuracy and comprehensiveness of our identification of named entities in the field of materials science.
 
-Furthermore, the notation used in materials science may involve subscript characters, which, when converted to text, are typically normalised to a standard font size, leading to a loss of information, especially regarding subscripts. To address this, the use of Grobid has proven to be instrumental in retaining this information by leveraging PDF layout data, as expounded in Chapter~\ref{cha:pdf_extraction}. This methodological consideration enhances the precision and completeness of our named entity identification in the context of materials science.
-
-We use various traditional machine learning (ML) methods in a unique manner within the field of materials science: linear CRF (CRF)~\cite{lafferty2001conditional}, bidirectional LSTM with CRF~\cite{lample2016neural} (BidLSTM\_CRF), bidirectional LSTM with CRF with Features~\cite{lample2016neural} (the same as (BidLSTM\_CRF) with an additional input channel for features; BidLSTM\_CRF\_FEATURES), and fine-tuned SciBERT-based~\cite{Beltagy2019SciBERT} encoder using a CRF as the activation layer (Scibert).
-Our contribution lies in the innovative use of the cascade approach for material recognition, which differs from previous research focussing mainly on extracting formulas. Although existing work, such as \cite{kononova2019text, court2020magnetic, dieb2015framework}, concentrates on formula extraction, our objective is to extract as large a sequence as possible and subsequently address material segmentation separately. This methodology enables the reusability of components, such as the material parser, in different contexts and domains.
-
-Our approach also uses positive sampling as a novel method to boost the recall, which, interestingly, results in better results overall as compared with the traditional approximation.
-
-Chapter~\ref{cha:supermat} presents a comprehensive description of the data model, including the data type and their example, which have been considered by domain experts for constructing the training and evaluation dataset: SuperMat. 
+We propose a novel solution that is organised as a two-stage process: initially, the text that is selected from various structures extracted by Grobid (Chapter~\ref{cha:pdf_extraction}) we pass them to a set of parsers that apply Named Entity Recognition (NER) and extract significant entities.
+Next, the extracted entities are processed in pairs by a relation extraction (RE) process, and results are collected.
 
 
-\section{Proposed solution}
+\section{Identification of complex materials sequences}
+\label{subsec:ner-solution}
 
-This process is organised into two stages: initially, we apply Named Entity Recognition (NER) on the content extracted in the previous steps to identify and extract significant entities.
-Next, we ran a relation extraction (RE) task was conducted on the identified entities and the context in which they were appearing.
+The process of identifying complex materials sequences is a recently developed method that comprises four essential elements. Each element is built upon a need, which may be either a requirement or a challenge.
 
-The approach for NER involves prioritizing recall over precision. In other words, the goal is to capture as many entities as possible, even if it means sacrificing precision scores. This means that while some unrelated entities may be extracted, they are likely to be filtered out in the subsequent step of relation extraction.
-However, we adjusted the RE to be more cautious, favoring higher precision. This is because the final outcome is expected to undergo human validation. If the RE has a high recall, it may affect its efficiency as the validator would have to spend a significant amount of time removing numerous incorrect records.
-From a holistic perspective, the recall-precision bias will be balanced between the two processes, as evidenced by the end-to-end evaluation results, which will be further discussed in Section~\ref{sec:end2end}.
+\subsection{High-quality training data}
+We have chosen to use machine learning for NER tasks due to the various advantages we have previously outlined. Machine learning techniques are particularly well-suited for extracting complex structures, although they do require a substantial amount of high-quality training data. However, we encountered a scarcity of such data, prompting us to create a new dataset. This project was carried out as an interdisciplinary collaboration between computer scientists and materials scientists. Domain experts, who specialise in superconductor materials, provided guidance and technically validated the dataset. In Chapter~\ref{cha:supermat} of this manuscript, we provide a comprehensive description of the data model and a detailed account of the dataset construction process, which we refer to as SuperMat. The primary objective of Chapter~\ref{cha:supermat} is to shed light on the specific characteristics of the domain, including the types of data, providing examples and discussing their relationships.
 
-ML models are interfaced by Grobid, which uses the Wapiti\cite{lavergne2010practical} implementation for linear CRF, and DeLFT (Deep Learning for Text)~\cite{DeLFT} for deep learning models.
-The architectures CRF and BidLSTM\_CRF\_FEATURES make use of the orthogonal features that we have summarised in Table~\ref{tab:ML-model-features}.
+\subsection{Positive sampling}
+The SuperMat training data is prepared using a new strategy to improve the model's ability to identify entities with low probabilities, also known as "positive sampling"~\ref{subsec:ner-solution}. 
+This approach prioritises recall over precision, aiming to capture as many entities as possible, even if it means sacrificing precision scores. 
+Although some unrelated entities may be extracted, they are likely to be filtered out in the subsequent step of RE which was developed as rule-based and thus more conservative. 
+This decision is based on the expectation that the final result will undergo human validation. If the RE has a high recall, it may impact efficiency, as the person validating would need to spend a significant amount of time removing numerous incorrect records. 
+From a holistic perspective, the recall-precision bias will be balanced between the two processes, as demonstrated in the end-to-end evaluation results, which will be further discussed in Section~\ref{sec:end2end}.
+
+\subsection{ML architectures}
+In order to determine the most effective architecture for our task, we assess several traditional machine learning (ML) methods. The architectures we consider include the linear CRF (CRF)~\cite{lafferty2001conditional}, Bidirectional LSTM with CRF (BidLSTM\_CRF)~\cite{lample2016neural}, Features Bidirectional LSTM with CRF (BidLSTM\_CRF\_FEATURES)~\cite{lample2016neural}, and a fine-tuned BERT-based transformer. For our specific task, we prefer to use the SciBERT~\cite{Beltagy2019SciBERT} encoder with a CRF as the activation layer (Scibert). Unlike BERT, SciBERT has been trained on scientific text and has demonstrated superior performance in various NLP tasks, including sequence labelling, classification, and question answering. It is worth noting that the CRF and BidLSTM\_CRF\_FEATURES architectures utilise features, which are summarised in Table~\ref{tab:ML-model-features}.
+
 
 \begin{sidewaystable}[ht]
     \centering
@@ -56,11 +60,11 @@ The architectures CRF and BidLSTM\_CRF\_FEATURES make use of the orthogonal feat
     \label{tab:ML-model-features}
 \end{sidewaystable}
 
-\subsection{NER}
-\label{subsec:ner-solution}
+\subsection{Two-levels approach}
+\label{sec:two-levels-approach}
 
-The implementation of NER follows the cascade approach (Figure~\ref{fig:extraction-ml-models-cascade-architecture}), where models are applied in cascade from a broader to a more specific scope. This approach requires models to be specialised in single or simple tasks, which makes their construction simpler and requires less complex data. 
-In fact, this method allows us to simplify the end-to-end task to smaller subtasks where specific models may be reused in different parts of the process when they require performing the same task. 
+To handle a diverse range of entity types, we need to address the complexity of the information structures involved. Since a significant number of these entities are organised in the form of material names, we have devised a two-level approach. In this approach, after processing the text with the first level ML models ("Superconductor parser", see (see Section~\ref{Superconductor parser})), a dedicated parser and ML models are used to process the material entities ("Material parser", see Section~\ref{material-parser}). 
+While previous studies such as \cite{kononova2019text, court2020magnetic, dieb2015framework} have mainly focused on extracting formulas, our objective is to extract a larger sequence and then deal with material segmentation separately. By adopting this approach, we are able to tackle the problems independently and utilise second-level Named Entity Recognition (NER) for materials in a material parser. This parser is capable of handling noisy data and can be applied to various fields (Section~\ref{material-parser}).
 
 \begin{figure}[htbp]
     \includegraphics[width=\textwidth]{figures/automatic_extraction_supercon/schema-extraction-colors}
@@ -70,6 +74,7 @@ In fact, this method allows us to simplify the end-to-end task to smaller subtas
 The schema illustrated in Figure~\ref{fig:extraction-ml-models-cascade-architecture} is made up of three main components: the ``superconductor parser'', the ``material parser'' and the ``post-processing''. 
 
 \subsubsection{Superconductor parser}
+\label{Superconductor parser}
 The ``superconductor parser'' extracts first-level entities (Table~\ref{tab:superconductors-parser-entities} by aggregating the resulting entities from two ML models: ``Superconductors ML model'' and ``Quantities ML model''.
 The ``Quantities ML model'' is reused from a separate Grobid module for the measurement and extraction of physical quantities~\ref{cha:measurements} and is limited in scope to only target entities of temperatures and pressures.
 Overlapping entities of temperatures and pressures are merged, exact duplicates are removed, and the largest entities (in terms of string length) are preserved.
@@ -100,6 +105,7 @@ We tested additional sampling approaches, called active and random sampling, tha
 Entities of type \texttt{<material>}, which may contain heterogeneous mixed information, are passed in the cascade to the ``Material parser'', which aggregates ML and rule-based methods.
 
 \subsubsection{Material Parser}
+\label{material-parser}
 
 The Material Parser is an expression of different approaches. 
 First, the entity is passed through a novel Material ML model to segment and identify its content (Table~\ref{tab:material-parser-entities}).
@@ -107,7 +113,7 @@ Then, different processes are applied depending on which information is availabl
 \begin{itemize}
     \item Formulas are decomposed into a structured composition. We identify each element-stoichiometry pair (e.g., ``O'': 7.0) using mat2chem~\cite{kononova2019text} and Pymatgen~\cite{Ong2013}; if only the material name is available, we lookup its formula (e.g., hydrogen to \textit{H}),
     \item Using heuristics, we classify the formula by assigning multiple classes as they are understood from superconductor researchers, for example cuprate, oxides, alloys, etc.
-    \item Using the variables and values extracted, we substitute them into partial formulas. For example, in \texttt{La 4 Fe 2 A 1-x O 7 (A=Mg,Co; x=0.1,0.2)}, we substitute \textit{A} and \textit{x} using their parsed values, and applying permutations, we obtain four \textit{resolved formulas}: \texttt{La 4 Fe 2 Mg 0.9 O 7}, \texttt{La 4 Fe 2 Mg 0.8 O 7}, \texttt{La 4 Fe 2 Co 0.9 O 7}, and \texttt{La 4 Fe 2 Co 0.8 O 7}.
+    \item Using the variables and values extracted, we substitute them into partial formulas. For example, in \texttt{La 4 Fe 2 A 1-x O 7 (A=Mg,Co; x=0.1,0.2)}, we substitute \textit{A} and \textit{x} using their parsed values, and applying permutations, we obtain four \textit{resolved formulas}: \texttt{La 4 Fe 2 Mg 0.9 O 7}, \texttt{La 4 Fe 2 Mg 0.8 O 7}, \texttt{La 4 Fe 2 Co 0.9 O 7} and \texttt{La 4 Fe 2 Co 0.8 O 7}.
 \end{itemize}
 
 \begin{table}[ht]
@@ -133,12 +139,12 @@ Then, different processes are applied depending on which information is availabl
 \end{table}
 
 
-\subsubsection{Post-processing}
+\subsection{Post-processing}
 Finally, after all entities are extracted, the post-processing aggregates different mentions of the same materials using the parsed formulas at the document-level.
 For example, formula with partial substitutions such as \texttt{La 2 Fe 1-x O 7 (x = 0.1, 0.2)} will be aggregated with materials like \texttt{La 2 Fe 0.9 O 7} appearing in other sections of the same document.
 
 
-\subsection{RE}
+\subsection{Extraction of relation from materials-related entities}
 \label{subsec:re-solution}
 \label{subsubsec:linking}
 
@@ -189,7 +195,7 @@ In the above example, the distance between \texttt{39 K} and \texttt{FeSe} would
 
 \section{Results}
 
-\subsection{Superconductor ML model NER Evaluation}
+\subsection{Identification of materials-related entities from text}
 \subsubsection{Experimental settings}
 
 We used SuperMat~\ref{cha:supermat} for training (76\% (132 documents)) and evaluation (24\%, 32 documents). 
@@ -457,9 +463,9 @@ We performed the E2EE on the ``500-papers'' dataset where we manually examined t
 The E2EE scores are summarised in Table~\ref{table:end2end-evaluation-summary}.
 Recall is omitted because it is less relevant and difficult to calculate manually.
 The precision score (micro average) was 72.60\% for all the subsections, although the error rates of figure captions (59.28\%) and unknown subsections (57.14\%) were clearly lower than those of the other subsections ($>$ 70\%).
-The `unknown` subsections indicate that the extracted text's structure was not well identified by Grobid but it was nevertheless aggregated.
+The `unknown` subsections indicate that the extracted text's structure was not well identified by Grobid but it was nonetheless aggregated.
 The overall score increases to 73\% when excluding unknown subsections, 75.24\% when excluding figure captions, and 79.14\%  when excluding both.
-Excluding these two subsections will not impact the amount of text, because both account for less than 20\% of the total number of subsections.
+Excluding these two subsections will not affect the amount of text, because they account for less than 20\% of the total number of subsections.
 
 \begin{figure}[htbp]
     \centering
@@ -469,8 +475,8 @@ Excluding these two subsections will not impact the amount of text, because both
 \end{figure}
 
 The error types are summarised in Figure~\ref{fig:error-types-distribution}. The most common failures originate from \tc~classification (40\%), Linking (32\%), and Extraction (20\%).
-The most common \tc classification failures are as incorrect recognition of 1) relative values of \tc (e.g., 1 K higher than material X); 2) values indicating the transition temperature width ($\Delta T_{c}$); 3) temperature values that are not \tc, for example, material synthesis temperatures ($T$), other critical transition temperatures that are not superconducting (e.g., $T_{Curie}$); and 4) values of temperature at which there is no superconductivity (e.g., ``at 70 K there is no superconductivity'').
-``Linking errors'' mainly occur when the text compare relative values of \tc~using materials as the basis for comparison (e.g., ``The Tc = 38 K is similar to the one of MgB$_{2}$'').
+The most common \tc classification failures are incorrect recognition of 1) relative values of \tc (e.g., 1 K higher than material X); 2) values indicating the transition temperature width ($\Delta T_{c}$); 3) temperature values that are not \tc, for example, material synthesis temperatures ($T$), other critical transition temperatures that are not superconducting (e.g., $T_{Curie}$); and 4) values of temperature at which there is no superconductivity (e.g., ``at 70 K there is no superconductivity'').
+``Linking errors'' occur mainly when the text compares relative values of \tc~using materials as the basis for comparison (e.g., ``The Tc = 38 K is similar to the one of MgB$_{2}$'').
 Finally, ``Extraction'' issues mainly originate from: 1) implicit mention of the main material when experimented using different ``substrates'' combination, and 2) mismatches between \texttt{<material>} and \texttt{<class>} which, by definition, overlap.
 
 
