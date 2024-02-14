@@ -17,9 +17,9 @@ This field plays a critical role in advancing technology and innovation, as disc
 % Materials informatics 
 Historically, breakthroughs in materials science often resulted from chance discoveries and unexpected observations, a process driven by serendipity and relying on trial and error. 
 However, with the advent of advanced computational tools, machine learning, and big data analytics, materials informatics (MI) has emerged as a transformative methodology. 
-Materials informatics is a multidisciplinary field that leverages computational methods, data science, and informatics techniques to accelerate the discovery and design of new materials, identify patterns, and predict material properties with unprecedented accuracy. 
-Materials informatics not only expedites the discovery of novel materials but also enhances our understanding of complex relationships between structure, composition, and performance. 
-This approach allows for a more efficient and systematic exploration of the vast material space, potentially leading to breakthroughs in fields such as electronics, energy, healthcare, and beyond. 
+MI is a multidisciplinary field that leverages computational methods, data science, and informatics techniques to accelerate the discovery and design of new materials, identify patterns, and predict material properties with unprecedented accuracy. 
+MI not only expedites the discovery of novel materials but also enhances our understanding of complex relationships between structure, composition, and performance. 
+This approach allows for more efficient and systematic exploration of the vast material space, potentially leading to breakthroughs in fields such as electronics, energy, healthcare, and beyond. 
 
 % Look at other fields 
 In comparison of MI with well-established fields like computational chemistry and biology, we can discern not only the unique contributions of each discipline but also the collective progression towards harnessing computational power for transformative advancements in science and technology.
@@ -32,24 +32,27 @@ These algorithms decode patterns and correlations, enabling researchers to predi
 This combined approach, which integrates quantum-level insights with data-driven predictive modelling, accelerates the materials discovery process, facilitating the efficient exploration of diverse materials spaces.
 
 Data-driven methods have significantly contributed to the design of new materials across various sub-domains, such as magneto-caloric, thermoelectrics, and superconductor materials. Despite the impactful role of these methods, a notable challenge lies in the limited availability of experimental datasets. 
-Currently, the primary sources for such datasets in inorganic materials are Pauling File~\cite{Blokhin2018ThePF_paulingFile}, Starrydata~\cite{katsura2019data}, and SuperCon~\cite{ishii2023structuring}. 
+Currently, the primary sources of such datasets in inorganic materials are Pauling File~\cite{Blokhin2018ThePF_paulingFile}, Starrydata~\cite{katsura2019data}, and SuperCon~\cite{ishii2023structuring}. 
 The use of these databases highlights the need to broaden and diversify experimental data, improving the effectiveness and applicability of data-driven approaches in materials design. The addition of these datasets is crucial to advance the field, promote innovation, and expand the scope of materials discovery through data-driven methodologies.
-SuperCon is the standard database for superconductor materials and it has been developed and manually maintained by NIMS since 1987. 
+SuperCon is the standard database for superconductor materials and has been developed and manually maintained by NIMS since 1987. 
 It consists of records of materials reported in scientific experiments and a large set of measured properties. 
 
-A superconductor is a material that, when cooled below a critical temperature, exhibits zero electrical resistance and the expulsion of magnetic fields. This phenomenon, known as superconductivity, occurs in a variety of materials, with many of them requiring extremely low temperatures, often close to absolute zero, to manifest this unique behaviour. The critical temperature at which superconductivity emerges varies depending on the material. Superconductors have numerous applications, notably in the field of electrical engineering. They are utilised to create powerful electromagnets for applications such as magnetic resonance imaging (MRI) machines, particle accelerators, and magnetic levitation systems. Superconductors also play a crucial role in the development of high-speed, energy-efficient power transmission lines, since they can carry large currents without any loss. The potential for quantum computing and more efficient electronic devices is another area where superconductors are actively being explored, showcasing the interdisciplinary nature of their applications in physics, materials science, and technology.
+A superconductor is a material that, when cooled below a critical temperature, exhibits zero electrical resistance and the expulsion of magnetic fields. This phenomenon, known as superconductivity, occurs in a variety of materials, with many of them requiring extremely low temperatures, often close to absolute zero, to manifest this unique behaviour. The critical temperature at which superconductivity emerges varies depending on the material. 
+Superconductors have numerous applications, notably in the field of electrical engineering. They are used to create powerful electromagnets for applications such as magnetic resonance imaging (MRI) machines, particle accelerators, and magnetic levitation systems. 
+Superconductors also play a crucial role in the development of high-speed, energy-efficient power transmission lines, since they can carry large currents without any loss. The potential for quantum computing and more efficient electronic devices is another area where superconductors are actively being explored, showcasing the interdisciplinary nature of their applications in physics, materials science, and technology.
 
-SuperCon hosts about 32,000 materials records and a complex schema with about 200 properties, some of which have not been consistently collected~\cite{sommer20223dsc}. 
+SuperCon hosts about 32,000 superconductor material records and a complex schema with about 200 properties. 
+The data available in SuperCon is both sparse and heterogeneous. Some records include properties that are not directly relevant to superconductivity, while other records with important properties have not been consistently gathered~\cite{sommer20223dsc}.
 For example, the pressure applied to obtain superconductivity was reported in only 16 records; however, its studies and experiments date back to the 1970s, but it became more popular only at the beginning of the 21st century.  
-However, SuperCon has been widely recognised for its quality and has been the data source for many attempts to design models that can predict Tc~\cite{stanev2017machine, le2020critical, Hamlin2019SuperconductivityNR}. 
+Nevertheless, SuperCon has been widely recognised for its quality and has been the data source for many attempts to design models that can predict \tc~\cite{stanev2017machine, le2020critical, Hamlin2019SuperconductivityNR}. 
 
-However, using ML to predict Tc has some criticality that needs to be considered. 
+Using ML to predict \tc~has some criticality that needs to be considered. 
 The models have an intrinsic applicability domain, which means that predictions are limited to the patterns and trends encountered in the training set. 
 This can lead to significant selection bias, making the models ineffective when applied to materials constituted by different compounds (or belonging to different classes). 
-The variety of training data to be used should contain a relevant amount of non-superconductors materials to avoid training a model biased toward the assumption that a Tc always exists and render it ineffective when applied to new materials.
-Now, the definition of non-superconductivity is tricky: if no superconducting critical temperature has been found, does not mean that one does not exist. It might be outside the range of current technological instruments. 
-This leads to a conundrum when delving into the data: ignoring compounds with no reported Tc and maybe disregarding a potentially important part of the dataset for the sake of simplicity.
-Simplifying too much could lead to an incomplete understanding of the factors that determine superconductivity and limit the ability to predict Tc accurately. 
+The variety of training data to be used should contain a relevant amount of non-superconductors materials to avoid training a model biased toward the assumption that a \tc~always exists and renders it ineffective when applied to new materials.
+Now, the definition of nonsuperconductivity is tricky: if no superconducting critical temperature has been found, it does not mean that one does not exist. It might be outside the range of current technological instruments. 
+This leads to a conundrum when delving into the data: ignoring compounds with no reported \tc~and maybe disregarding a potentially important part of the dataset for the sake of simplicity.
+Simplifying too much could lead to an incomplete understanding of the factors that determine superconductivity and limit the ability to predict \tc~accurately. 
 Generally, in addition to these considerations, several SuperCon-related works attempted to integrate complementary data from other datasets. 
 However, at the time of writing, only~\cite{sommer20223dsc} has aimed to directly enhance SuperCon.  
 They successfully enhanced 9150 records with crystal structures from experimental results stored in the Inorganic Crystal Structure Database (ICSD). 
@@ -58,74 +61,76 @@ This recent work indicates that the SuperCon dataset continues to play a pivotal
 \section{Motivation}
 
 The number of publications in superconductor research remained stable in the last 10 years\footnote{analysed on arXiv statistics on cond-mat category \url{https://info.arxiv.org/about/reports/submission_category_by_year.html}}.
-It is reasonable to expect that future breakthroughs in superconductor research will be achieved through materials informatics, given its growing importance, and an updated SuperCon is to be considered a necessary condition. 
+It is reasonable to expect that future breakthroughs in superconductor research will be achieved through materials informatics, given its growing importance, and an updated SuperCon is a necessary condition. 
 
 Two main challenges that SuperCon is facing motivate our work. 
 The manual approach employed for compiling SuperCon is proving to be increasingly demanding in keeping up with the influx of new publications on time. The reliance on manual labour for dataset curation becomes a growing obstacle, as it demands specialised skills that are not readily available in the market. As the field of superconductor research evolves, the need for more efficient and scalable methods becomes apparent.
-An automatic process is necessary to streamline and improve the population of SuperCon. 
+An automatic process is necessary to streamline and improve the collection of data in SuperCon. 
 The outline of the process comprises the ingestion of complete documents or text and the identification of materials and relative properties.  
 In a small-scale preliminary assessment, we analysed the problem, identified several challenges to overcome, and proposed a data extraction framework~\cite{foppiano2019proposal}.
 
 The expressions that identify materials are complex and lengthy, and their identification in the scientific literature poses several challenges.
 Furthermore, the strict definition of what a material cannot be expressed in a synthetic sentence is valid for the whole discipline: There are differences between subdomains in materials science that make this process highly dependent on domain experts.
-
 A material may be expressed in a multitude of partially overlapping definitions: as a single material, a single sample, a family, or a class.
 Alternative approaches to naming exist, including the use of commercial names or sample designations, often arbitrarily chosen by researchers. Chemical formulas can be presented as stoichiometric expressions within these three categories, with possibilities such as ``Y-111'' or ``Ba(Fe1-xCox)2As2''. Examples of standard names include Oxygen or Magnesium Diboride, while some adopt abbreviated forms like Yttrium Barium Copper Oxide (YBCO). These varied strategies provide a range of options for nomenclature within the domains of chemistry and materials science, while the conventional method primarily involves the use of chemical formulas.
 
 A class of materials refers to a broader category that shares certain fundamental characteristics or properties. Materials in the same class might be characterised by common structural features, electronic configurations, or other common characteristics that make them suitable for investigation. 
 A family usually implies a more specific grouping that shares a closer genetic or compositional relationship. A set of materials with similar chemical compositions, crystal structures, or electronic configurations. 
 A sample is just an arbitrary name chosen by the researchers that can overlap any of the previous definitions. 
-To make matters more complicated, all these definitions are not strictly enforced and may fluctuate from one laboratory to another. 
-In many papers, the authors talk about "high-Tc cuprates" referring to materials in the class of cuprates that also have high-Tc. This fallacious definition does not clearly describe which materials are included: \textit{"How high should Tc be to be considered 'high'?"}.
 
-Manual curation remains a necessary component, but it does not guarantee complete elimination of errors. As reported by~\cite{sommer20223dsc}, their investigation identified more than 10,000 duplicate records within the SuperCon dataset at the time of their study, revealing instances where certain properties were inadequately populated. 
+To make matters more complicated, all these definitions are not strictly enforced and may fluctuate from one laboratory to another. 
+Authors may talk about "high-\tc~cuprates" referring to materials in the class of cuprates that also have high-\tc. This fallacious definition does not clearly describe which materials are included: \textit{"How high should \tc~be to be considered 'high'?"}.
+There can be significant confusion caused by the various interpretations that words, terms, and symbols can have in different sub-domains. For instance, the abbreviation "TC" or "\tc" can refer to either "Temperature Curie" or "superconducting critical temperature," depending on the specific context. However, authors may utilise "T\textsuperscript{C} (C uppercase)" to indicate the critical temperature of superconductors. When extracting text, this convention is essentially the same as referring to "Temperature Curie." Resolving this ambiguity is only possible through careful examination of the context.
+
+Manual curation remains a necessary component, but it does not guarantee the complete elimination of errors. As reported by~\cite{sommer20223dsc}, their investigation identified more than 10,000 duplicate records within the SuperCon dataset at the time of their study, revealing instances where certain properties were inadequately populated. 
 This underscores the inherent challenges and limitations associated with relying solely on manual efforts for data curation, emphasising the imperative to adopt more robust and automated strategies to enhance the accuracy and comprehensiveness of the SuperCon dataset.
-The need for a curation-centric user interface and tools that allow the reduction of the manual bottleneck to a few minor actions, leaving to the automation of the tedious task of identifying main data in scientific publications.
+There is a need for a curation-centric user interface and tools that allow the reduction of the manual bottleneck to a few minor actions, leaving to the automation of the tedious task of identifying main data in scientific publications.
 
 
 \section{Problem definition}
 
-NIMS encounters various difficulties in managing SuperCon. The task of updating the database to incorporate the latest research findings is becoming less feasible due to the scarcity of highly qualified individuals. Additionally, these individuals have to work on a task that offers minimal rewards.
-The process of manual extraction may seem flexible, but in reality, it is not easy to control it in a cohesive manner, especially when it comes to incorporating the extraction of additional properties.
-
-To expedite the extraction of information from scientific papers, it is necessary to develop an automated process. Working closely with domain experts is crucial as they can validate and provide guidance. Despite the potential challenges arising from different work methodologies, this collaboration enables the sharing of best practices across disciplines, leading to a comprehensive and unified solution.
+NIMS encounters various difficulties in managing SuperCon. The task of updating the database to incorporate the latest research findings is becoming less feasible due to the scarcity of highly qualified workforce. 
+There is a need for high-skilled and educated individuals who have to work on a task that offers minimal rewards. Therefore, the process requires a large monetary commitment.
+To expedite the extraction of information from scientific papers, it is necessary to develop an automated process. Working closely with domain experts is crucial as they can validate and provide guidance. 
+Despite the potential challenges arising from different work methodologies, this collaboration allows the sharing of best practices between people with different backgrounds, leading to a comprehensive and unified solution.
 
 \section{Contributions}
 \label{sec-intro-contributions}
 In the following section, we discuss the various contributions of this dissertation, highlighting their main relevancy. 
 We created a novel flow compared to other works that ingest PDF documents directly. 
- PDF documents are the standard format for scientific publications, and the same ingestion interface works across all domains and publishers, allowing us to access the full text body (Section~\ref{sec:intro-pdf-contribution}). 
-Furthermore, we extract a novel set of information (applied pressure and measurement methods) that, according to domain experts, is not fully understood and may contribute to achieving a breakthrough in superconductors research. 
-Due to our choice to rely on ML for its resistance to noise and its ability to generalise well on unseen examples, we required high-quality training data (Section~\ref{sec:intro-material-related-extraction}). 
+The PDF format is the standard for scientific publications~\cite{johnson2018pdfStatistics}. 
+Ingesting PDF documents allows developing a single interface across all domains and publishers and the ability to access the full-text body (Section~\ref{sec:intro-pdf-contribution}). 
+We choose to rely on ML for its resistance to noise and its ability to generalise well on unseen examples, however we required high-quality training data (Section~\ref{sec:intro-material-related-extraction}). 
 We constructed SuperMat (Section~\ref{sec:intro-supermat}), a novel dataset of 164 articles that contain annotations and relations between entities. SuperMat is a valuable addition to the field of MI as it helps address the limited availability of structured data sources.
 In the realm of materials science, the information extracted is modelled as a triplet that contains material, properties, and conditions. Both properties and conditions can be expressed as measurements of physical quantities that are relatively uniform in most disciplines. 
-However, while the conditions are constant between domains, the properties are highly domain dependent. As part of our contributions, we co-developed with Patrice Lopez a separate module related to Grobid based on ML to extract measurements of physical quantities (Section~\ref{sec:intro-ner-quantities}).
+However, while the conditions are constant between domains, the properties are highly domain-dependent. As part of our contributions, we co-developed with Patrice Lopez a separate module related to Grobid based on ML to extract measurements of physical quantities (Section~\ref{sec:intro-ner-quantities}).
 We then combined all of these techniques to perform a large-scale extraction from documents obtained by the ArXiv repository.
-The automatically extracted database, SuperCon\textsuperscript{2} (Section~\ref{sec:intro-supercon2}) is the main contribution of our work. 
+The automatically extracted database, SuperCon\textsuperscript{2} (Section~\ref{sec:intro-supercon2}) is the main contribution of our work, presenting a novel set of properties: "applied pressure" and "measurement methods".
+Domain experts consider these properties a promising complementary information to breakthrough in discovering new superconductor materials.
 The database obtained addresses a critical requirement of NIMS to streamline the extraction of experimental data from scientific documents.  
-Finally, as a last contribution to improve the quality and reduce the impact of manual curation, we developed a use interface that supports domain experts in data curation by providing means to quickly switch from the database record to the relevant context in the scientific documents and other functionalities that we demonstrate boost the quality of the curation output. 
+Finally, to improve the quality and reduce the impact of manual curation, we developed a user interface that supports domain experts in data curation with a set of advanced functionalities, which we demonstrate substantially improve the quality of the curation output. 
 
 \subsection{Extraction from the full-text body of PDF documents}
 \label{sec:intro-pdf-contribution}
 % PDF document extraction
 
-Unlike other works~\cite{court2018auto, court2020magnetic, kononova2019text} that were predominantly based on web scraping or through the publisher API, we designed a novel data flow for the extraction of material-related information from PDF documents using an existing open source library, Grobid (Generation of bibliographic data)~\cite{GROBID}. 
-While web scraping is rarely allowed (it breaks the usage agreement) or limited to public metadata information (e.g., abstract, authors, title), API access is often hindered by the necessity of agreements with publishers, making the gathered content difficult to share and challenging to replicate.
+Unlike other works~\cite{court2018auto, court2020magnetic, kononova2019text} that were predominantly based on web scraping or through the publisher API, we designed a novel data flow for the extraction of material-related information from PDF documents using an existing open-source library, Grobid (Generation of bibliographic data)~\cite{Grobid}. 
+While web scraping is rarely allowed (it breaks the usage agreement) or is limited to public metadata information (e.g., abstract, authors, title), API access is often hindered by the necessity of agreements with publishers, making the gathered content difficult to share and challenging to replicate.
 In both cases, each publisher carries its own limitations and data formats and must be treated separately; therefore, mining data directly from PDF documents enables us to emancipate ourselves from the type of data source.
 Furthermore, the increasing abundance of open access literature~\cite{laakso2011the} provides means to access large-scale scientific literature (e.g., ArXiv (\url{www.arxiv.org}), ChemXiv (\url{https://chemrxiv.org/}), NIMS Material Data Repository (MDR)~\cite{tanifuji2019mdr} (\url{https://mdr.nims.go.jp})). 
-We are then able to access all information from the scientific documents, including full text body, tables, and figures. In our work, we focus only on text, ignoring figures and tables to separate projects. 
+We are then able to access all information from the scientific documents, including full-text body, tables, and figures. In our work, we focus only on text, ignoring figures and tables to separate projects. 
 Accessing the body differs us from other approaches~\cite{yamaguchi-etal-2020-sc} which are limited to abstracts that are short and synthetic. On the other hand, the body contains more information that includes experimental results in related works. 
 However, it is acknowledged that abstracts, being synthetic and possessing a simpler structure, also play a role in data extraction.
-This contribution is discussed in details in Chapter~\ref{cha:pdf_extraction}.
+This contribution is discussed in detail in Chapter~\ref{cha:pdf_extraction}.
 
 \subsection{ML-based extraction of materials-related expressions from text}
 \label{sec:intro-material-related-extraction}
 
 The scope of this work is to create databases of experimental data that are reported in the scientific literature. 
-The structure to represent such information can be complex and strongly depend on each subdomain, which has its own characteristics and conventions. 
+The structure to represent this information can be complex and strongly depends on each subdomain, which has its characteristics and conventions. 
 However, we can define basic information as consisting of three main information points: material expressions, properties, and conditions. 
 Material expressions are a relatively loose concept that strongly depends on the domain of application. On the other hand, properties and conditions can be decomposed into expressions of measurements of physical units. 
-This contribution is divided into three minor works that are discussed in Sections~\ref{sec:intro-ner-materials}, \ref{sec:intro-ner-quantities}, and \ref{sec:intro-supermat}.
+This contribution is composed by three main components that are discussed in Sections~\ref{sec:intro-ner-materials}, \ref{sec:intro-ner-quantities}, and \ref{sec:intro-supermat}.
 
 \subsubsection{Identification of complex material sequences}
 \label{sec:intro-ner-materials}
@@ -136,66 +141,66 @@ The identification and extraction of these entities is extremely challenging.
 We use machine learning (ML) techniques to implement the named entity recognition (NER) system. This approach offers several advantages, such as context awareness, robustness to noise, and better generalisation to unseen examples compared to rule-based methods. Additionally, we discuss the evaluation of three different architectures: Conditional Random Fields (CRF), Recurrent Neural Networks (RNN) based on Bidirectional chains of LSTM units, and BERT-based models.
 
 The novelty of our approach can be summarised in four main components. 
-First, the need for high-quality training data and the lack of resources in material informatics was raised to construct a new dataset called SuperMat (Section~\ref{sec:intro-supermat}) that contains annotated documents from superconductors research. This contribution is discussed in detail in Chapter~\ref{cha:supermat}.
+First, the need for high-quality training data and the lack of resources in material informatics was raised to construct a new dataset called SuperMat (Section~\ref{sec:intro-supermat}) that contains annotated documents from superconductor research. This contribution is discussed in detail in Chapter~\ref{cha:supermat}.
 Second, we wanted to reduce the risk that entities with low probability are overlooked. Our ML training strategy was designed to build models that are geared toward recall rather than precision (Section~\ref{subsec:ner-solution}).
-Third, we train and evaluate three different architectures and select the best performing combination for each model. This flexibility is convenient, since each architecture has its own strengths and weaknesses.  
-Finally, we had the need to extract a large number of entity types; therefore, we devised a two-layer approach where the second layer was specialised to segment only the material entities (Section~\ref{sec:intro-material-parser}).  
-The original text is first processed and the main entities are extracted: materials and classes, properties (pressure, Tc), and conditions (measurement methods). 
+Third, we train and evaluate three different architectures and select the best-performing combination for each model. This flexibility is convenient since each architecture has its strengths and weaknesses.  
+Finally, we needed to extract a large number of entity types; therefore, we devised a two-layer approach where the second layer was specialised to segment only the material entities (Section~\ref{sec:intro-material-parser}).  
+The original text is first processed and the main entities are extracted: materials and classes, properties (\tc), and parametric conditions (applied pressure, measurement methods). 
 Then, the material entities are further processed by a specialised material parser, where different modifiers such as doping, shape, substrate, chemical formula, and name are identified. 
 Additionally, we incorporate the use of characteristics consisting of text patterns (such as uppercase and lowercase) and layout details (such as superscript, subscript, bold, and italic) that are exclusively extracted from the PDF structure.
 
 \subsubsection{Construction of SuperMat: an annotated and linked dataset of superconductors research papers}
 \label{sec:intro-supermat}
 % SuperMat
-A critical gap identified in existing resources is the absence of datasets consolidating relevant entities such as materials, conditions, properties, and their interrelations. 
-Currently, no dataset offers a centralised solution for machine learning models, considering the intricate and inconsistent terminology prevalent in this domain. 
-To rectify this deficiency, it is imperative to build a dataset, which forms the foundation for a methodology that involves iterative data collection and correction. This dissertation contributes to this endeavour by expanding the data set for superconductor materials. 
-The inclusion of measurement methods, which enable the selection of experimental properties, and the incorporation of applied pressure, an underexplored area, holds the potential to pave the way for groundbreaking advancements.
+One major limitation found in the available MI resources is the scarcity of datasets that bring together materials, conditions, properties, and their relations. At present, there are only a limited number of datasets that provide a high-quality unified approach for machine learning models, taking into account the complex and inconsistent terminology that is common in the field of superconductor research.
+To address this limitation, we constructed SuperMat which also serves as the basis for defining a methodology which involve iterative collection and correction of data as collaborative effort with domain experts. This work contributes to this effort by expanding the dataset for MI.
+SuperMat provides, at the time of writing, 164 articles from superconductors research annotated with six types of entities, and three types of relations between entities. SuperMat also provide a secondary layer where identified materials are further annotated composing a two-layers dataset.
 This dataset has already been used for practical applications such as ML training~\cite{foppiano2023automatic}, Large Language Models (LLM) evaluation~\cite{foppiano2024mining}, and weighted clustering~\cite{dieb2022superconductor}. 
 Chapter~\ref{cha:supermat} is solely focused on the creation of this dataset due to its extensive and intricate nature, which necessitated a detailed and comprehensive explanation.
 
 \subsubsection{Parsing and normalising materials sequences}
 \label{sec:intro-material-parser}
 
-The need to standardise materials expressions arises from the fact that materials can contain a combination of different types of information, such as chemical formulas, doping, substrate, etc. For example, the expression La x Fe 1-x O 7 (x=0, 0.1) represents a formula with substitutions, where x can take values of 0 or 0.1. Another example is the expression La-doped Fe O7, which indicates the presence of doping. Furthermore, the amount of doping can be specified, as in the expression 2\% La-doped Fe O7. It should be noted that sometimes only the doping ratio is given, as in the case of x = 0.1. 
-Related tools such as Text2chem~\cite{kononova2019text} and PyMatGen~\cite{Ong2013} have been used. 
-However, these tools have limitations. They are limited to formulas, and because they are rule-based and have low tolerance to noise, they only work with "clean" input. 
-For example, a non-stoichiometric formula like "La x Fe 1-x O 7 (x=0, 0.1)" would not be correctly parsed by these tools. 
-To overcome this limitation, we integrated these tools after our second-level ML-based parser was developed to handle long complex sequences.
-The "material parser" obtained is tolerant to noisy input and able to parse and convert material expressions to a structured form. 
+The need to standardise material expressions arises from the fact that materials can contain a combination of different types of information, such as chemical formulas, doping, substrate, etc. For example, the expression ``La x Fe 1-x O 7 (x=0, 0.1)'' represents a formula with substitutions, where x can take values of 0 or 0.1. 
+Another example is the expression La-doped Fe O7, which indicates the presence of doping. Furthermore, the amount of doping can be specified, as in the expression ``2\% La-doped Fe O7''. It should be noted that sometimes only the doping ratio is given, as in the case of ``x = 0.1''. 
+Related tools such as text2chem~\cite{kononova2019text} and PyMatGen~\cite{Ong2013} exist; however, they have a low tolerance to noise that limits them to clean formulas. 
+For example, these tools would not correctly parse a non-stoichiometric formula such as ``La x Fe 1-x O 7 (x=0, 0.1)''. 
+We built a comprehensive Material Parser that uses an ML model to identify specific information such as formula, name, doping, and combine the sequence with text2chem and PyMatGen, mentioned above. 
+As a result, our parser is tolerant to noisy input and is able to parse and convert intricate and long material expressions to a clean structured form. 
 This contribution is discussed in Chapter~\ref{cha:extraction-experimental-data}.
 
 
 \subsection{Extraction of properties and conditions as measurements of physical quantities}
 \label{sec:intro-ner-quantities}
 
-Properties and conditions within the realm of science and engineering are often expressed through measurements of physical quantities. These measurements serve as a universal language, providing a standardised way of conveying information about various aspects of the physical world. Whether it is the length of an object, the temperature of a substance or the intensity of a force, these measurements encapsulate essential characteristics that form the basis for scientific understanding and technological advancements.
+Properties and conditions within the realm of science and engineering are often expressed through measurements of physical quantities. These measurements serve as a universal language, providing a standardised way of conveying information about various aspects of the physical world. Whether it is the length of an object, the temperature of a substance, or the intensity of a force, these measurements encapsulate essential characteristics that form the basis for scientific understanding and technological advancements.
 Measurement of physical quantities forms the backbone of scientific inquiry, fostering a collective language that transcends boundaries and enabling collaborative efforts in the pursuit of knowledge and innovation.
-The use of different tools to identify materials and properties improves flexibility in handling and interpreting information, paving the way for broader support and integration of additional data in the future. Using specialised tools for material identification and property analysis, researchers and professionals can adapt to evolving research needs and technological advancements. This modular approach not only facilitates the incorporation of new measurement techniques, but also encourages interdisciplinary collaboration.
-While measurements are, in appearance, consolidated information, their treatment is challenging: measurement units are often used differently in different disciplines, different systems (miles instead of metres, ATM instead of Pascal) of unit may be used because they are easier to understand for humans, but creating great confusion for machines (one of the most famous events in history was the Mars Climate Orbiter explosion). 
-In this contribution, we present grobid-quantities, a Grobid module based on ML that specialises in the identification, extraction, and standardisation of physical quantities and measurement. At the time of development, grobid-quantities was the first ML-based open source project aiming to cover multiple disciplines (from biology to materials science) and systems of units (SI base, SI extended, imperial, etc.). 
+Employing a different array of tools for material-related expression identification and property/conditions analysis enhances adaptability towards new requirements or different sub-domains.
+Although measurements may seem like consolidated information, their handling can be difficult. This is because measurement units are often used in different ways across various disciplines. Additionally, different systems of measurement units, such as using miles instead of meters or ATM instead of Pascal, may be employed for human comprehension but can cause confusion for machines. A well-known example highlighting this issue is the explosion of the Mars Climate Orbiter, which occurred due to unit conversion errors.
+In this contribution, we present grobid-quantities, a Grobid module specialised in the identification, extraction, and standardisation of physical quantities and measurement. At the time of development, grobid-quantities was the first ML-based open-source project aiming to cover multiple disciplines (from biology to materials science) and systems of units (SI base, SI extended, imperial, etc.). 
 This contribution is discussed in detail in Chapter~\ref{cha:measurements}.
 
 
 \subsection{Large scale collection of experimental data from scientific literature: SuperCon\texorpdfstring{\textsuperscript{2}}{2} Database}
 \label{sec:intro-supercon2}
 
-The grobid-superconductors extraction tool represents a significant advance in data extraction efficiency and scalability, as demonstrated by the creation of the SuperCon\textsuperscript{2} database. 
-This tool has proven to be remarkably efficient, achieving in a few days what would have taken years of manual effort. 
-The original SuperCon database, which had been cultivated for two decades, contained approximately 33000 elements. 
-With grobid-superconductors, the database has expanded to an impressive 40324 records, indicating a substantial increase in the amount of data processed. 
-Given the high quality standard that SuperCon must meet, the SuperCon\textsuperscript{2} database serves as an important intermediate step in the automatic extraction process, bridging the gap between the original SuperCon database and the new data. 
-The effectiveness of the tool is evident not only in its ability to match the scope of the original database but also in its ability to surpass it by capturing detailed information such as applied pressure and measurement methods. Once curated and validated, the data within SuperCon\textsuperscript{2} can seamlessly enhance the SuperCon database, leading to continuous improvements in the accessibility and depth of the stored scientific information.
+The contributions discussed above are combined in a comprehensive extraction pipeline called Grobid-superconductors.
+We demonstrated a significant advance in data extraction efficiency and scalability, with the creation of the SuperCon\textsuperscript{2} database, collecting 40324 records in a few days, indicating a substantial increase in the amount of data processed.
+The original SuperCon database, which had been cultivated for two decades, contained approximately 33000 elements.
+SuperCon\textsuperscript{2} Database serves as an important intermediate step in the collection of experimental data related to superconductors, bridging the gap between the original SuperCon database and the new data. 
+The effectiveness of the tool is evident not only in its ability to match the scope of the original database but also in its ability to surpass it by capturing detailed information such as applied pressure and measurement methods. 
+Once curated and validated, the data within SuperCon\textsuperscript{2} can seamlessly enhance the SuperCon database, leading to continuous improvements in the accessibility and depth of the stored scientific information.
 This contribution is detailed in Chapter~\ref{cha:supercon2}.
 
-\subsection{Techniques for mitigating the impact of manual curation}
+\subsection{Reducing the impact of manual curation}
 \label{sec:intro-curation}
 
-Validating automatically collected data poses significant challenges due to the potential inaccuracies and errors inherent in automated processes. 
-To address this, we have designed a robust solution that features a staging area (SuperCon2) that is accessed through a curation workflow with a user-friendly interface. 
+Training machine learning models or other data-driven processes must be done carefully when using automatically collected data. 
+Automated processes pose significant risks due to the inherent potential for inaccuracies and errors.
+We have designed a robust solution to address this need that features a staging area ("SuperCon\textsuperscript{2} Database") that is accessed through a curation workflow with a user-friendly interface. 
 The interface offers functions to control the content of the database records, triggering the state transition to the underlying workflow. 
-Requirements form domain experts demand that the underlying data be persisted, and the modification can be traced back to the original record. For this reason, our workflow generates a new record at each modification, maintaining a history which can be inspected at a later time. 
-In addition, our system provides an enhanced visualisation of the original PDF document, allowing users to inspect and cross-reference the data efficiently. 
+Domain experts required that the underlying data be organised in a way that any update is incrementally stored and the history of changes in each record is accessible. 
+Our system provides an enhanced visualisation of the original PDF document, allowing users to inspect and cross-reference the data efficiently. 
 Furthermore, to continually improve the automated data collection process, our solution incorporates machine learning (ML) capabilities. 
 Specifically, the system accumulates training data based on corrections made during the validation process, ensuring continuous refinement and optimisation of automated data collection through iterative ML training cycles.
 In this work, we experimented and demonstrated that our workflow and interface can increase the recall of missing information from 45\% to 92\% and the F1 score from 52\% to 92\%. 

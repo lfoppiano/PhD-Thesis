@@ -57,21 +57,19 @@ The curation status (Figure~\ref{fig:curation-workflow}) is defined by \emph{typ
 
 \subsubsection{Error types}
 \label{subsec:error-types}
-We first introduced \emph{error type} in~\cite{foppiano2023automatic} and extended their scope in this work to consider data curation and anomaly detection. 
-
-Users are required to select one \emph{Error Type} at every record update or removal. This information is stored in the ``original'' record and can be different at every record modification.
-The error type values can be summarised as follows: 
+We first introduced the error types in Section~\ref{sec:end2end}. However, this work extended its scope to consider data curation and anomaly detection. 
+The additional error type values are as follows: 
 
 \begin{itemize}
-    \item \textbf{From table}: the entities Material $\rightarrow$ T\textsubscript{c} $\rightarrow$ Pressure are identified in a table. At the moment, table extraction is not performed
-    \item \textbf{Extraction}: The material, temperature, and pressure are not extracted (no box) or extracted incorrectly. 
-    \item \textbf{Linking}: The material is incorrectly linked to the T\textsubscript{c} given that the entities are correctly recognised.
-    \item \textbf{T\textsubscript{c} classification}: The temperature is not correctly classified as ``superconductors critical temperature'' (e.g., Curie temperature, Magnetic temperature...).
     \item \textbf{Composition resolution}: The exact composition cannot be resolved (e.g., the stoichiometric values cannot be resolved).
-    \item \textbf{Value resolution}: The extracted formula contains variables that cannot be resolved, even after having read the paper. This includes when data is from tables
-    \item \textbf{Anomaly detection}: The data has been modified by anomaly detection, which facilitates their retrieval from the interface.
+    \item \textbf{Value resolution}: The extracted formula contains variables that cannot be resolved, even after reading the paper. This includes when data is from tables
+    \item \textbf{Anomaly detection}: Anomaly detection has modified the data, which facilitates their retrieval from the interface.
     \item \textbf{Curation amends}: The curator is updating the data which does not present issues due to the automatic system.
 \end{itemize}
+
+Users are required to select one \emph{Error Type} at every record update or removal. 
+This information is stored in the ``original'' record and can differ at every modification.
+
 
 \subsection{Anomaly detection}
 \label{subsec:anomaly-detection}
@@ -249,7 +247,7 @@ We call the obtained dataset \emph{curation} to be distinguished from the origin
 
 We prepared our experiment using SciBERT~\cite{Beltagy2019SciBERT} that we fine-tuned for our downstream task as in~\cite{foppiano2023automatic}. 
 We trained five models that we evaluated using a fixed holdout dataset from SuperMat averaging the results to smooth out the fluctuations. 
-We use the DeLFT (Deep Learning For Text)~\cite{DeLFT} library for training, evaluating, and managing the prediction models.  
+We use the DeLFT (Deep Learning For Text)~\cite{delft} library for training, evaluating, and managing the prediction models.  
 A model can be trained with two different strategies: 
 \begin{enumerate}
     \item \emph{``from scratch''}: when the model is initialised randomly. We denote this strategy with an \emph{(s)}.
