@@ -12,7 +12,7 @@ SuperMat originates from PDF documents of scientific articles related to superco
 The original documents were collected from the following sources: (a) the Open Access (OA) version of peer-reviewed articles referenced in the SuperCon database records; 
 (b) articles provided by domain experts containing suitable items and potential links of material names, \tc~values, measurement methods, and pressures; (c) articles from "condensed matter" category of arXiv (\url{https://arxiv.org/archive/cond-mat}) selected using the search terms of "superconductor", "critical temperature", and "superconductivity". 
 
-Pre-print versions of peer reviewed articles were obtained using a bibliographic data lookup service called biblio-glutton (\url{https://github.com/kermitt2/biblio-glutton}) that aggregates data from various sources: the Crossref (\url{https://www.crossref.org/}) bibliographic database, the unPaywall (\url{http://unpaywall.org}) service, the PubMed Central repository (\url{https://pubmed.ncbi.nlm.nih.gov/}), and mappings to other databases. 
+Pre-print versions of peer-reviewed articles were obtained using a bibliographic data lookup service called biblio-glutton (\url{https://github.com/kermitt2/biblio-glutton}) that aggregates data from various sources: the Crossref (\url{https://www.crossref.org/}) bibliographic database, the unPaywall (\url{http://unpaywall.org}) service, the PubMed Central repository (\url{https://pubmed.ncbi.nlm.nih.gov/}), and mappings to other databases. 
 We queried \textit{biblio-glutton} using the bibliographic data of each article referenced in Supercon; subsequently, we downloaded the pre-print article associated with the retrieved record, if available. 
 Although the published version may differ from the pre-print version of a document, the differences measured by comparing pre-print and peer-reviewed articles in biology~\cite{carneiro_comparing_2020} measured objective differences to be around 5\% %.
 
@@ -20,9 +20,9 @@ Although the published version may differ from the pre-print version of a docume
 \section{Preliminary annotation study}
 \label{subsec:preliminary-annotation-study}
 A preliminary annotation study was carried out to assess the effort required from the annotators to reach an acceptable Inter Annotation Agreement (IAA \textgreater 0.7) .
-We annotated two randomly selected OA papers, by using a preliminary version of the guidelines with a limited tag-set of four labels: \texttt{<material>}, \texttt{<tc>} (expression describing the presence or absence of superconductivity), \texttt{<tcValue>} (value of \tc), and \texttt{<doping>} (amount of substitution, such as stochiometric values, usually expressed as functions of x or y).
+We annotated two randomly selected OA papers, by using a preliminary version of the guidelines with a limited tag-set of four labels: \texttt{<material>}, \texttt{<tc>} (expression describing the presence or absence of superconductivity), \texttt{<tcValue>} (value of \tc), and \texttt{<doping>} (amounts of substitution, such as stochiometric values, usually expressed as functions of x or y).
 The process was iterated multiple times.
-Each iteration ended with computing the IAA using the Krippendorff's alpha coefficient~\cite{Krippendorff2004ReliabilityIC,Zapf2016MeasuringIR}, while annotators discussed the disagreements, and updated the guidelines.
+Each iteration ended with computing the IAA using Krippendorff's alpha coefficient~\cite{Krippendorff2004ReliabilityIC,Zapf2016MeasuringIR}, while annotators discussed the disagreements and updated the guidelines.
 
 \begin{table}[htbp]
     \centering
@@ -68,8 +68,8 @@ Although the average IAA reached 0.7 on three of the four labels in the second i
 When analysing the disagreement, we noticed that the low score in the \texttt{<doping>} label was caused by a heavy overlap with the \texttt{<material>} label, which required a more precise definition in the guidelines. 
 
 Based on this preliminary study, the following changes were implemented. 
-(a) The label \texttt{<doping>} was merged under the \texttt{<material>} because, even with detailed documentation it was too difficult for humans to annotate them consistently.
-(b) Three more labels were added: measurement methods and pressure (described as parametric conditions in relation to \tc), and class of materials. 
+(a) The label \texttt{<doping>} was merged under the \texttt{<material>} because, even with detailed documentation, it was too difficult for humans to annotate them consistently.
+(b) Three more labels were added: measurement methods and pressure (described as parametric conditions in relation to \tc) and class of materials. 
 
 \section{Tag-set design}
 The tag set (also referred to as \textit{labels}) represents the classes of entities and the type of links between them, which were designed to be extracted from the text (Figure~\ref{fig:example-annotations-and-links}).
@@ -87,7 +87,7 @@ The tag set (also referred to as \textit{labels}) represents the classes of enti
 Entities (also referred to as Named Entities, mentions, or surface forms) are chunks of texts that represent information of interest, as follows: 
 
 \paragraph{Class} (tag: \texttt{<class>}) represents a group of materials defined by certain characteristics.
-Superconducting materials can be classified according to different criteria such as the composition and magnetic properties. 
+Superconducting materials can be classified according to different criteria, such as composition and magnetic properties. 
 Among publications collected for this study, the domain experts identified three types of classes based on: (a) the composition and crystal structure, (b) material phenomena (e.g. "I-type" and "II-type superconductivity", "BCS superconductors", "nematic", and "conventional/unconventional superconductivity"), and (c) high/low \tc~value (e.g. "high-tc” superconductors). 
 
 In this work, we only considered the (a) classes, mainly because the material composition and crystal structure do not change with time. For example, a cuprate from 1998 is still called a cuprate today. 
@@ -97,15 +97,15 @@ Finally, the definition of "high-tc" superconductors (c) is completely relative;
 \paragraph{Material} (tag: \texttt{<material>}) identifies the name of one or more materials. 
 This label is used to collect the following types of information: 
 \begin{itemize}
-    \item Chemical formula indicating the material by its general or stochiometric formula (e.g. \texttt{LaFe\textsubscript{1-x}O\textsubscript{7}}, \texttt{WB\textsubscript{2}}),
+    \item Chemical formula indicating the material by its general or non-stochiometric formula (e.g. \texttt{LaFe\textsubscript{1-x}O\textsubscript{7}}, \texttt{WB\textsubscript{2}}),
     \item Compositional name (e.g. \texttt{magnesium diboride}) or abbreviations (e.g. \texttt{YBCO}), 
-    \item The material's shape (e.g. wire, powder, thin film) or form of material (e.g. single/poly crystal), 
+    \item The material's shape (e.g. wire, powder, thin film) or form of material (e.g. single/polycrystal), 
     \item Modification by a dopant (\texttt{Zn-doped}, \texttt{Si-doped}) or by percentage of doping (\texttt{2\%-doped}). We also considered qualitative expressions such as \textit{overdoped}, \textit{lightly doped}, and \textit{pure} as valid information, 
-    \item Substrate information (e.g. \texttt{grown on MgO(100) film}) when it was adjacent to the material name or formula, in the text,
-    \item Additional information about the sample (e.g. \texttt{as-grown}, \texttt{untwinned}, \texttt{single-layer}) when it was adjacent to the material name or formula, in the text. 
+    \item Substrate information (e.g. \texttt{grown on MgO(100) film}) when it was adjacent to the material name or formula in the text,
+    \item Additional information about the sample (e.g. \texttt{as-grown}, \texttt{untwinned}, \texttt{single-layer}) when it was adjacent to the material name or formula in the text. 
 \end{itemize}
 
-\paragraph{Superconducting critical temperature} (tag: \texttt{<tc>}) identifies expressions related to the phenomenon of superconductivity. Any temperature mentioned in the text is not necessarily the \tc. Rather, it could refer to the temperature for other processes/events such as annealing/sintering temperature, specific measurements, and structural changes.
+\paragraph{Superconducting critical temperature} (tag: \texttt{<tc>}) identifies expressions related to the phenomenon of superconductivity. Any temperature mentioned in the text is not necessarily the \tc. Rather, it could refer to the temperature for other processes/events, such as annealing/sintering temperature, specific measurements, and structural changes.
 This label identifies the presence or absence of superconductivity at a given temperature.
 In addition, modifiers of this information (increasing/decreasing \tc) are also retained. 
 
@@ -140,7 +140,7 @@ They comprise a web-based collaborative annotation tool, automatic annotation su
 \subsection{Web-based collaborative annotation tool: INCEpTION}
 \label{subsec:annotation-tool}
 
-The annotation tool is the platform used for creating, correcting and linking annotations.
+The annotation tool is the platform for creating, correcting and linking annotations.
 After evaluating several tools, we selected INCEpTION~\cite{tubiblio106270,eckart-de-castilho-etal-2016-web}, a web-based multi-user platform for machine-assisted rapid dataset annotation construction. 
 INCEpTION provides supportive functionalities that include: 
 \begin{itemize}
@@ -163,9 +163,9 @@ The active-learning recommendations are less precise since they aim to increase 
 \subsection{Automatic corpus analysis}
 \label{automatic-corpus-analysis}
 Automatic corpus analysis is a set of scripts designed to run after the validation step. 
-These scripts automatically find inconsistencies in the links and entities, while extracting the statistics of the corpus. 
+These scripts automatically find inconsistencies in the links and entities while extracting the statistics of the corpus. 
 We calculated the inconsistencies by examining every annotated entity and computing the frequency of the same text being annotated with different labels. 
-The script outputs a summary table by visualising each annotation value, as well as their labels and frequencies.
+The script outputs a summary table by visualising each annotation value and their labels and frequencies.
 We visually inspected this table because the reported inconsistencies can be either obvious mistakes (Table~\ref{table:dataset-inconsistencies-clear}) or arise from ambiguities (Table~\ref{table:dataset-inconsistencies-unclear}); therefore, their context should be verified. 
 
 \begin{table}[htbp]
@@ -187,7 +187,7 @@ We visually inspected this table because the reported inconsistencies can be eit
     \label{table:summary-content}
 \end{table}
 
-Although the links are conceptually non-directed, we have defined a practical convention to maintain their consistency. For example, \textit{material-tcValue} is always represented as a link between \texttt{<tcValue>} and \texttt{<material>} entities. 
+Although the links are conceptually non-directed, we have defined a practical convention to maintain consistency. For example, \textit{material-tcValue} is always represented as a link between \texttt{<tcValue>} and \texttt{<material>} entities. 
 The script also computes the statistics (Table \ref{table:summary-content}) for the number of entities (total, unique, by class), the number of links (total, intra- and inter-paragraph, between paragraphs), and other statistical information. 
 
 \begin{table}[htbp]
@@ -242,15 +242,14 @@ This workflow involves three main actors: the automatic process, computer scient
 \end{figure}
 
 The first step of the annotation process involves preparing the machine-based annotated data from the source PDF documents. 
-The PDF files are converted to an XML-based format, and annotation is automatically applied. 
-This is followed by four more steps: 
+The PDF files are converted to an XML-based format, and annotation is automatically applied, followed by four more steps: 
 
 \begin{itemize}
-\item Annotation: The human annotator can select a document and manually add, remove, or modify each entity based on rules defined in the guidelines. Once the annotation is complete, the document is marked "ready" for the validation. 
+\item Annotation: The human annotator can select a document and manually add, remove, or modify each entity based on the rules defined in the guidelines. Once the annotation is complete, the document is marked "ready" for validation. 
 
-\item Validation/Curation by domain experts: Annotations from different users are validated and merged into a final document (Figure~\ref{fig:inception-curation-interface}). 
-The domain expert ("curator"), can compare the different annotated versions, and select the best combination of annotations, or add new ones. 
-This step ensures that the annotations are cross-checked and that the document is validated by domain experts.
+\item Validation by domain experts: Annotations from different users are validated and merged into a final document (Figure~\ref{fig:inception-curation-interface}). 
+The domain expert ("curator") can compare the different annotated versions, select the best annotations combination, or add new ones. 
+This step ensures that the annotations are cross-checked and that domain experts validate the document.
 
 \item Automatic consistency checks and statistical analysis: This step aims to discover obvious mistakes such as mislabelling or incorrect linking. 
 A sequence labelling model is trained and evaluated using 10-fold cross-validation. The evaluation provides precision, recall, and f-score metrics for all the labels.
@@ -272,15 +271,11 @@ There are two processes of data transformation (Figure~\ref{fig:data-transformat
 \end{figure}
 
 \begin{itemize}
-    \item PDF to XML-based: This step converts the PDF source document to the dataset format representation in XML following the Text Encoding Initiative (TEI, \url{https://tei-c.org/}) format guidelines. 
-    Such transformation is performed by leveraging the functionalities provided by Grobid (\url{https://github.com/kermitt2/grobid}).
-    
-    We developed a customised process for collecting a subset of information from the source PDF document.
-    The process extracts the title, keywords, and abstract from the header; and paragraphs, sections. and figure and table captions from the body.
-    All the callouts to references, tables, and figures are ignored.
-    The resulting structured document is then encoded in XML as will be described below. 
-    \item XML to the annotation tool exchange formats: We transform our XML-formatted data into an INCEpTIONS compatible import format, such as the Webanno TSV 3.2 (\url{https://inception-project.github.io/releases/0.17.0/docs/user-guide.html\#sect_formats_webannotsv3}), and vice-versa using a set of Python scripts. 
-    The Webanno TSV 3.2 format is an extension of the CONLL (\url{https://www.signll.org/conll/}) format, with additions of the header and column representation.
+    \item \textbf{PDF to XML-based}: This step converts the PDF source document to the dataset format representation in XML following the Text Encoding Initiative (TEI, \url{https://tei-c.org/}) format guidelines. 
+    Such transformation is performed by Grobid as described in Chapter~\ref{cha:pdf_extraction}. 
+    The resulting structured document is then encoded in XML as described below. 
+    \item \textbf{XML to the annotation tool exchange formats}: We transform our XML-formatted data into an INCEpTIONS compatible import format, such as the Webanno TSV 3.2 (\url{https://inception-project.github.io/releases/0.17.0/docs/user-guide.html\#sect_formats_webannotsv3}), and vice-versa using a set of Python scripts. 
+    The Webanno TSV 3.2 format is an extension of the CONLL (\url{https://www.signll.org/conll/}) format, with additions to the header and column representation.
 \end{itemize}
 
 \section{Data Record}
@@ -299,9 +294,9 @@ We summarise SuperMat's content in Table~\ref{table:summary-content}, with the s
 \label{fig:dataset-distributions}
 \end{figure}
 
-Each document is encoded according to the XML TEI guidelines, which is a rich format for document representation. 
-We have carried out no specific customisation, in order to remain fully compliant with the general TEI schema.
-A TEI document has two main parts: the header (within the \texttt{<teiHeader>} tags) containing all the document metadata, and the body (within the section delimited by the \texttt{<text>} tag). 
+Each document is encoded according to the XML TEI guidelines, a rich format for document representation. 
+We have carried out no specific customisation to remain fully compliant with the general TEI schema.
+A TEI document has two main parts: the header (within the \texttt{<teiHeader>} tags) containing all the document metadata and the body (within the section delimited by the \texttt{<text>} tag). 
 The transformed data has the following structure: 
 
 \begin{verbatim}
@@ -336,9 +331,9 @@ The transformed data has the following structure:
 
 We transformed the source documents into these TEI-compliant structures using a simplified representation for specific content types.
 The general objective is to flatten the content into a generic structure where priority is given to the annotations.
-For instance, the keywords section, which groups together the key terms defined by the author(s) of the paper, is encoded using the generic tag \texttt{<ab type="keywords">} as free text, instead of the dedicated \texttt{<keywords>} element that would typically be part of the header. 
+For instance, the keywords section, which groups together the key terms defined by the author(s) of the paper, is encoded using the generic tag \texttt{<ab type="keywords">} as free text instead of the dedicated \texttt{<keywords>} element that would typically be part of the header. 
 For both the abstract and the article body, the text is segmented in paragraphs (by means of the \texttt{<p>} element). 
-The text is annotated with the generic \texttt{<rs>} (referencing string) element adorned with three attributes: \texttt{@type} (the entity type), \texttt{@corresp} (to provide a link to another annotation such as from \textit{material} to \tc~), and \texttt{@xml:id} (to uniquely identify the annotation for referencing or linking purposes).
+The text is annotated with the generic \texttt{<rs>} (referencing string) element adorned with three attributes: \texttt{@type} (the entity type), \texttt{@corresp} (to provide a link to another annotation such as from \textit{material} to \tc~), and \texttt{@xml:id} (to uniquely identify the annotation for referencing or RE purposes).
 
 Because only the captions of tables and figures are retained from the original source, a simplified encoding was defined by means of the \texttt{<ab>} element characterised by a \texttt{@type} attribute; that is, \texttt{<ab type="figureCaption">} for figure captions and \texttt{<ab type="tableCaption">} for table captions. 
 Here is an example: 
@@ -381,7 +376,7 @@ The dataset was used in the following practical applications:
 The following measures were employed to ensure the creation of a high-quality dataset: 
 \begin{itemize}
     \item Each document was revised and validated by domain experts, 
-    \item The workflow begins by assigning machine-based annotated data. This has demonstrated to improve the annotation task over several aspects, namely: time consumption, error rate, and annotation agreement~\cite{Fort2010InfluenceOP,Nvol2011SemiautomaticSA,Lingren2014EvaluatingTI}.
+    \item The workflow begins by assigning machine-based annotated data. This has improved the annotation task over several aspects: time consumption, error rate, and annotation agreement~\cite{Fort2010InfluenceOP,Nvol2011SemiautomaticSA,Lingren2014EvaluatingTI}.
     \item On-the-fly automatic annotation recommendations, which provide fresh suggestions based on online decisions made by the annotators.
     \item The annotators have rapid access to changes in the annotation guidelines.
     \item The discussions were documented and linked in the guidelines. 
@@ -449,7 +444,7 @@ Obviously, the domain experts have the highest agreement and the IAA value (arou
 Thus, superconducting materials is a complex domain that requires knowledge in materials science to produce high-quality data, while crowdsourcing initiatives such as the Amazon Mechanical Turk might not work well. 
 
 Furthermore, we measured the reliability of the guidelines by observing how quickly novices could reach a satisfying agreement with the validation of the domain experts, without any previous training on the guidelines.
-From Table~\ref{table:comparison-iaa-nde-de}, the  novices can attain high IAA results by only using the guidelines and our annotation support tools. 
+From Table~\ref{table:comparison-iaa-nde-de}, the novices can attain high IAA results by only using the guidelines and our annotation support tools. 
 The average difference in agreement with domain experts (around 0.05) indicates that the guidelines are precise and complete, and that the annotations tools offer sufficient support. 
 
 \section{Data Availability}
@@ -457,8 +452,8 @@ The average difference in agreement with domain experts (around 0.05) indicates 
 The references of the original papers and their bibliographical information, the annotation guidelines sources, and the developed code are available at the GitHub repository \url{https://github.com/lfoppiano/SuperMat}. The guidelines are freely accessible at \url{https://supermat.readthedocs.io}.
 The data transformation scripts were written in Python and can be run from the command line. 
 They require BeautifulSoup  (\url{https://www.crummy.com/software/BeautifulSoup/}), an open-source library for parsing XML and HTML formats. 
-The data analysis scripts were developed as Jupyter notebooks (\url{https://jupyter.org/}) which can easily output results and graphs in the browser. 
-The open source annotation tool is INCEpTION (\url{https://inception-project.github.io/}). 
+The data analysis scripts were developed as Jupyter notebooks (\url{https://jupyter.org/}), which can easily output results and graphs in the browser. 
+The open-source annotation tool is INCEpTION (\url{https://inception-project.github.io/}). 
 The OA content was acquired using biblio-glutton (\url{https://www.github.com/kermitt2/biblio-glutton}). 
 We computed the IAA using the Java library DkPro statistics (\url{https://dkpro.github.io/dkpro-statistics/})~\cite{Meyer2014DKProAA}.
 
@@ -472,14 +467,14 @@ We computed the IAA using the Java library DkPro statistics (\url{https://dkpro.
 
 
 \section{Conclusions}
-This chapter presents the process of creating an annotated linked dataset for scientific publications on the development of superconductors. SuperMat aims to create a reliable infrastructure for the improvement of text and data mining processes in the field of superconductor materials. We annotated 164 full-text articles using a two-layer set of annotations. The first layer contains six categories: the names, classes, and properties of materials; links to their respective superconducting critical temperature
+This chapter presents the process of creating an annotated linked dataset for scientific publications on the development of superconductors. SuperMat aims to create a reliable infrastructure for improving text and data mining processes in the field of superconductor materials. We annotated 164 full-text articles using a two-layer set of annotations. The first layer contains six categories: the names, classes, and properties of materials; links to their respective superconducting critical temperature
 (\tc); and parametric conditions such as applied pressure or measurement methods.
 The second layer is dedicated to material entities and contains eight classes: formula,
 name, doping ratio, etc.
 Experts in the field have validated the dataset, which consists of 18698 top-layer entities, with 1524 links between materials, properties, and conditions.
 This dataset is the building block for the contribution to material extraction (Chapter~\ref{cha:extraction-experimental-data}) presented in this dissertation. 
 
-This contribution was published in the journal article "SuperMat: Construction of a linked annotated dataset from superconductors-related publications"~\cite{foppiano2021supermat}. 
+This contribution was published in the article "SuperMat: Construction of a linked annotated dataset from superconductors-related publications"~\cite{foppiano2021supermat}. 
 
 
 

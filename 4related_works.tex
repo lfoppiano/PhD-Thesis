@@ -11,7 +11,7 @@ This algorithm learns a typical pattern using a modified version of the snowball
 The authors claim they extracted 39822 records, consisting of 11340 Néel and 28482 Curie temperature records. 
 
 \cite{court2020magnetic} propose another work where they process 74000 web-scraped scientific journal articles and build a database of 20,400 magnetic and superconducting phase transition temperature records and their associated chemical compound names.
-The NLP pipeline operates as follows: text and tables from target journals were analysed to identify material formulas and temperatures. Subsequently, the identified entities were standardised, temperatures converted to Kelvin, and doping issues were resolved with specific rules.
+The NLP pipeline operates as follows: text and tables from target journals were analysed to identify material formulas and temperatures. Subsequently, the identified entities were standardised, temperatures converted to Kelvin, and specific rules resolved doping issues.
 
 % \cite{venugopal2021looking} proposes a framework to identify common trends in materials-science domains using keyword extraction from abstract and figure captions. Using a combination of LDA and NER, they constructed a topical map across the literature of glass-related research. 
 
@@ -24,7 +24,7 @@ The learning curves indicate that the corpus size is sufficient, although some c
 After our work, \cite{mitsui2023automatic} described a similar pipeline to extract superconductivity information from abstracts from the scientific literature.
 It uses the SC-CoMIcs~\cite{yamaguchi-etal-2020-sc} corpus of 1000 annotated abstracts on superconductivity to train NER and RE models.
 The author reports that they extracted material compositions, transition temperatures, doping information, and process details from 48,565 abstracts obtained by querying the Elsevier Scopus API (Application Programming Interface) for a total of more than 43,000 superconducting materials and 24,000 transition temperatures. 
-Their work follows a similar approach to ours; first, they extract entities and find the relations. 
+They follow a similar approach to our work; first, they extract entities and find the relations. 
 However, the abstract limits their extraction density, which has only synthetic information. Considering their search query \textit{"supercond * AND tc OR transition temp"}, they obtain around one superconductor material per abstract. 
 
 There are several other works on TDM on experimental information from materials science; the most relevant are discussed in the following paragraphs. 
@@ -70,7 +70,7 @@ Furthermore, CRFs have been compared with other machine learning models~\cite{ta
 % On the other hand, RNNs are known for their effectiveness in modelling sequential data. They have been applied in various fields, such as image processing, pattern recognition, and sound event detection (Kim & Kim, 2017; Graves et al., 2013).
 
 The transition from CRFs to RNNs represents a shift from probabilistic graphical models to deep learning architectures. 
-While CRFs effectively capture dependencies between input features and make predictions based on these dependencies, RNNs excel in capturing temporal dependencies in sequential data due to their recurrent nature. 
+While CRFs effectively capture dependencies between input features and make predictions based on them, RNNs excel in capturing temporal dependencies in sequential data due to their recurrent nature. 
 This transition is particularly relevant in tasks where the sequential nature of the data is crucial, such as speech recognition and acoustic event detection~\cite{graves2013speech,tian2020artificial}.
 The use of recurrent neural networks (RNNs) has gained importance thanks to Long Short-Term Memory (LSTM)~\cite{sak2014long} and Gated Recurrent Units (GRU)~\cite{cho2001learning} for text processing tasks: classification and recognition. 
 \cite{kim2022research, lyu2020combine,li2022channel, siswantining2023spratama} highlight the effectiveness of RNNs in processing sequential data, showcasing their superiority over traditional methods in natural language processing tasks.
@@ -110,7 +110,7 @@ After BERT was released, a multitude of flavoured models were released. We analy
 
 \cite{liu2019roberta} reproduces the results obtained in BERT, revises the original architecture and proposes RoBERTa (Robust Optimised BERT Architecture). This revised BERT implementation outperforms BERT on downstream tasks such as GLUE, RACE, and SQUAD benchmarks. 
 The main modifications are summarised as follows. Instead of masking tokens statically only once during preprocessing when the data are duplicated ten times, they apply different masking at each instance of the same example. Dynamic masking helps for less than 1 point percentage.
-They suggest that changing the way the data is provided in the input and removing the NSP loss objective improves the performance. 
+They suggest that changing how the input data is prepared and removing the NSP loss objective improves the performance. 
 In particular, providing complete sentences from the same or different documents without NSP matches the original implementation of providing a pair of segments with NSP. 
 Furthermore, results are even better when only sentences from the same documents are provided, and the NSP is removed.
 NSP removal was discussed in recent work~\cite{lample2019cross}.
@@ -122,9 +122,9 @@ SciBERT was trained on a random sample of 1.4M articles from Semantic Scholar (d
 Unlike BioBERT~\cite{lee2019biobert}, SciBERT was trained using a different tokeniser (SentencePiece instead of WordPiece). Most importantly, the tokeniser was re-trained from scratch using scientific text.
 Another exciting aspect is that BioBERT was trained from a model initialised with the weight from BERT, trained for a longer time, and on more data overall. However, the limited coverage of the BERT tokeniser on scientific data penalised the performance on various downstream tasks.
 
-\cite{yasunaga2020linkbert} introduces a new approach in pre-training a BERT model in two flavours: LinBERT and BioLinkBERT on the general text and biomedical text, respectively.
+\cite{yasunaga2020linkbert} introduces a new approach in pre-training a BERT model in two flavours: LinkERT and BioLinkBERT on the general text and biomedical text, respectively.
 The authors introduce a novel approach which includes text from linked documents, and an additional objective function is to classify the type of link.
-The pre-training data is aggregated as follows: a) Each example is structured as a pair of text sequences as in the original BERT. b) The pairs are aggregated by randomly selecting the second segment (when available) from the same or a related document. For the linkBERT, this only works for the Wikipedia corpus, exploiting the links between Wikipedia pages. For bioLinkBERT, the authors select sequences from related documents in the citation graph. 
+The pre-training data is aggregated as follows: a) Each example is structured as a pair of text sequences as in the original BERT. b) The pairs are aggregated by randomly selecting the second segment (when available) from the same or a related document. For the LinkBERT, this only works for the Wikipedia corpus, exploiting the links between Wikipedia pages. For BioLinkBERT, the authors select sequences from related documents in the citation graph. 
 The authors replace the NSP objective with the DRP (Document Relation Prediction), which aims to classify the relation type between the two segments, giving three possible classes: contiguous, random, and linked.  
 Evaluation metrics calculated on QA (extractive question answering), GLUE and SQUAD outperform BERT. BioLinkBERT outperforms PubMedBERT~\cite{gu2020pubmedbert} on most NLP tasks. 
 
@@ -143,7 +143,7 @@ Previous work by~\cite{lample2019cross} has suggested a similar concept applied 
 
 \section{Materials science BERT-based pre-trained transformers}
 
-In this section, we analyse the pre-trained BERT-based transformers using materials science text. We provide a comparison evaluation of all of these transformers as a comparative measurement. 
+This section analyses the pre-trained BERT-based transformers using materials science text. We provide a comparison evaluation of all of these transformers as a comparative measurement. 
 
 \cite{pranav2023a} propose a material-property extraction for polymers based on a fine-tuned BERT model on 2.4 million abstracts. Their NER system achieves higher results than other material-based pre-trained BERT models. Properties are connected to materials using a heuristic approach to find the closer entities.
 With their system, they extracted more than 300000 records of polymers and properties from the 2.4 million abstracts. 
@@ -160,22 +160,6 @@ The authors created a small dataset for fine-tuning chemical reaction annotation
 Role labelling was implemented in cascade by providing the primary material between special tokens ([P], [\\P]), which are then linked to the other extracted entities. Since the sequence is shallow, it can link only one material with the rest of the reaction. Therefore, running the process numerous times is needed if multiple products are present in the reaction paragraph.  
 
 
-% \section{Experiments in fine-tuning Transformers}
-
-% ~\cite{dominic2018revisiting} revisit the hyperparameters when training deep learning networks, focussing, in particular, on batch size and learning rate. The authors discuss a different approach for convolutional neural networks and report that a minibatch size of as low as m = 2, can provide better scores for medium-low datasets. However, the batch size should not be greater than m = 32 for larger datasets. 
-% The batch size is an important hyperparameter, while it should be kept large for pretraining~\cite{liu2019roberta}, evidence indicates that higher performances will be obtained by smaller values for fine tuning. 
-
-% \cite{smith2017dont} suggest a more performing approach could be to increase batch size instead of decreasing the learning rate while fine-tuning. 
-
-% \cite{popel2018training} provides suggestions to improve the fine-tuning applied to translation tasks. Their finding can be summarised as follows: a) multi-GPU scaling is more effective than batch-size scaling on a single GPU, and moreover, it is better to run sequential processes on multi-GPU than parallel processes on a single GPU. b) Displaying the full learning curve is more effective than using the "early stop". c) comparing different datasets requires enough training time. Generally, large datasets converge in more time. 
-% d) Big models should be preferred if training for several days. e) Sequence length should be kept as low as possible; depending on the dataset, this will allow a larger batch size. f) The batch size should be kept as high as possible (this was also confirmed by \cite{liu2019roberta}
-
-% \cite{mehrafarin2022on} stress the importance of data size when fine-tuning and found that larger training affects mainly higher layers. In particular, the number of training steps is more relevant than the diversity of the dataset (??). 
-% The authors compare a pre-trained BERT (baseline) with the corresponding fine-tuned models using 5 GLUE datasets of different sizes and other characteristics.
-% To measure the amount of linguistic knowledge retained by the model, they designed a set of probes: bigram shift, object number, etc. They run the probes with frozen models and measure that up to layer 6 each subsequent layer retains more linguistic knowledge than the previous one. However, such information is lost for fine-tuned models on large datasets as we move to higher layers. 
-
-% \cite{hoffer2017train} suggests that the adjustment of the learning rate and the normalisation of the batch can reduce the generalisation gap (comparison between the training error and the validation error). Generalisation continues to improve for longer, even without any observable change in the training or validation errors. Large or small batches generalise the same if the number of iterations is adapted. 
-% Finally, they claim that the change in the generalisation gap depends more on the number of updates than on the batch size. 
 
 \section{Extraction of quantified properties and measurements} 
 NER of physical measurement has a fundamental application in scientific texts and is relevant in other disciplines, including humanistic or social science. 

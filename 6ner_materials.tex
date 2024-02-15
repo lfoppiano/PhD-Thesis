@@ -1,8 +1,8 @@
 \section{Introduction}
-In this chapter, we discuss the component of Grobid-superconductors responsible for carrying out the data extraction through an intricate set of ML models encapsulated in data parsers for extracting material-related entities from scientific text. 
-Identifying named entities in the field of materials science poses a formidable challenge, particularly due to the intricate nature of material expressions, complex and extensive sequences, which require meticulous attention. 
-In this domain, the definition of materials remains elusive, lacking a clear-cut delineation (refer to Chapter~\ref{cha:introduction}). Moreover, the boundaries within materials science are loose, subject to variations based on specific subdomains, and researchers focus on distinct aspects or phenomena associated with the materials.
-Notably, material expressions exhibit significant variability within superconductor research, incorporating various types of information within a single sequence. This can range from the chemical formula and doping ratio ("Zn-doped", "2\% Cu-doped", for instance) to the shape of the material (e.g., single crystal, wire, polycrystalline), as exemplified by expressions such as \texttt{single crystal La x Fe 1 x O 7 (with x = 0.1, and 0.2)}. Analysing non-stoichiometric formulas, in particular, presents a complex task, as these necessitate resolution with substitution values scattered throughout the paper.
+This chapter discusses the Grobid-superconductors component responsible for data extraction through an intricate set of ML models encapsulated in data parsers for extracting material-related entities from scientific text. 
+Identifying named entities in the field of materials science poses a formidable challenge, particularly due to the intricate nature of material expressions that are composed of complex and extensive sequences requiring meticulous attention. 
+The definition of materials remains elusive in this domain, lacking a clear-cut delineation (refer to Chapter~\ref{cha:introduction}). Moreover, the boundaries within materials science are loose, subject to variations based on specific subdomains, and researchers focus on distinct aspects or phenomena associated with the materials.
+Material expressions exhibit significant variability within superconductor research, incorporating various types of information within a single sequence. This can range from the chemical formula and doping ratio ("Zn-doped", "2\% Cu-doped", for instance) to the shape of the material (e.g., single crystal, wire, polycrystalline), as exemplified by expressions such as \texttt{single crystal La x Fe 1 x O 7 (with x = 0.1, and 0.2)}. Analysing non-stoichiometric formulas, in particular, presents a complex task, as these necessitate resolution with substitution values scattered throughout the paper.
 
 The complexity inherent in deciphering such material expressions has propelled our exploration into the realm of Machine Learning (ML) as a means to model these intricate boundaries. ML has demonstrated its efficacy in various domains, including bioinformatics and chemistry~\cite{jiang2011astudy,tang2013recognizing,isazawa2022single}, often surpassing rule-based or lexicon-based approaches by achieving a delicate balance between flexibility and simplicity. 
 However, it is essential to acknowledge that the success of ML is contingent upon the availability of data. This facet presents a notable challenge in material informatics compared to other domains. This challenge, in turn, has led us to create a novel dataset of annotated and linked text of scientific articles from superconductor research. In Chapter~\ref{cha:supermat}, we list the characteristics at the time of writing (number of articles, number of entities, etc.) and the methodology we used to construct it. 
@@ -27,7 +27,7 @@ In Chapter~\ref{cha:supermat} of this manuscript, we provide a comprehensive des
 The SuperMat training data is prepared using a new strategy to improve the model's ability to identify entities with low probabilities, also known as "positive sampling". 
 This approach prioritises recall over precision, aiming to capture as many entities as possible, even if it means sacrificing precision scores. 
 Although some unrelated entities may be extracted, they are likely to be filtered out in the subsequent step of RE, which was developed as rule-based and thus more conservative. 
-This decision is based on expecting the final result to undergo human validation. RE with a high recall may negatively impact efficiency, as the humans validating the data would need to spend a significant amount of time removing numerous incorrect records. On the opposite, having extracted a few high-precision records will require a lower amount of time for those records to be ready to be used.
+This decision is based on expecting the final result to undergo human validation. RE with a high recall may negatively impact efficiency, as the humans validating the data would need to spend significant time removing numerous incorrect records. On the contrary, extracting a few high-precision records will require less time to be ready for use.
 From a holistic perspective, the recall-precision bias will be balanced between the two processes, as demonstrated in the end-to-end evaluation results, which will be further discussed in Section~\ref{sec:end2end}.
 Positive sampling is applied by removing examples that do not contain any entities (negative examples, Figure~\ref{fig:training-holdout-set-distribution}a).
 This approach provided an improvement of 2\% in both precision and recall compared to the result without sampling.
@@ -53,7 +53,7 @@ The architectures we consider include the linear CRF (CRF)~\cite{lafferty2001con
         \textbf{7-10} & (four features) current token, suffix characters 1 to 4                                                                                                                                                                                                  & all             & CRF                   \\
         \textbf{11}   & information about capitalisation: first character (INITCAP), all characters (ALLCAPS), none (NOCAPS)                                                                                                                                                     & all             & all                   \\
         \textbf{12}   & digits content: all (ALLDIGIT), some digits (CONTAINDIGIT), no digits (NODIGIT)                                                                                                                                                                          & all             & all                   \\
-        \textbf{13}   & (boolean) the token is composed by a single character                                                                                                                                                                                                    & all             & all                   \\
+        \textbf{13}   & (boolean) the token is composed of a single character                                                                                                                                                                                                    & all             & all                   \\
         \textbf{14}   & punctuation information and normalisation to placeholders: no punctuation (NOPUNCT), open or end brackets (OPENBRACKET, ENDBRACKET), various punctuation (DOT, COMMA, HYPHEN, QUOTE), open or close quotes (OPENQUOTE, ENDQUOTE), anything else (PUNCT) & all             & all                   \\
         \textbf{15}   & Shadow the numbers                                                                                                                                                                                                                                       & all             & CRF                   \\
         \textbf{16}   & Shadow any characters: ``x'' for lowercase, ``X'' for uppercase, ``d'' for digits                                                                                                                                                                        & all             & CRF                   \\
@@ -170,11 +170,11 @@ We developed a rule-based algorithm that links together pairs of entities:
     \item \textbf{me\_method-tcValue}: The link between \tc~and its corresponding measurement method.
 \end{itemize}
 
-Entities of type \texttt{<tcValue>} are pre-processed through a classifier that establishes whether or not their temperatures related to the superconductivity. This is used to exclude other temperatures (e.g., annealing, transition, Curie) that might be incorrectly extracted by the previous step.
+Entities of type \texttt{<tcValue>} are pre-processed through a classifier that establishes whether or not the temperatures refer to the superconductivity. This excludes temperatures referring to irrelevant properties (e.g., annealing, transition, Curie) that might be incorrectly extracted upstream.
 This rule-based classifier combines the extracted entities of \tc~expressions (label \texttt{<tc>}) with a set of predefined standard terms.
 If a temperature is not considered a \tc, it is excluded from the list of possible linking candidates.
 
-Two scenarios are considered. First, if entities to be linked in the sentence are only two they are linked automatically, else further rules are applied. 
+Two scenarios are considered. First, if entities to be linked in the sentence are only two, they are linked automatically, else further rules are applied. 
 If the word ``respectively'' appears in the sentence, we apply ``order-linking''. 
 For example, consider the following sentence:
 \begin{displayquote}
@@ -184,7 +184,7 @@ It contains the word ``respectively'', and by applying ``order-linking'', \texti
 
 
 Suppose the word ``respectively'' does not appear in the sentence. In that case, we apply ``distance linking'' by defining the distance measurement \textit{d} as a value calculated as the number of characters between the centroid of each entity, measured in the number of characters.
-Entities surrounded by parentheses are expanded to the whole parentheses, and their centroid is updated.
+Entities surrounded by parentheses are expanded to cover the "whole parentheses", and their centroid is updated.
 As an example, in the sentence
 \begin{displayquote}
     We tested two materials, MgB2 (Tc = 39 K) and FeSe (Tc = 16 K).
@@ -195,7 +195,7 @@ In this example, however, both temperature entities would be expanded to their c
 In this case, the centre of the entity ``\texttt{39 K}'' is shifted to the left, from the initial value of 38 to 35, and the distance from \texttt{MgB2} is reduced from \textit{d}=11 to \textit{d}=8.
 As a result, the \texttt{MgB2} entity is correctly linked to ``\texttt{39 K}''.
 
-Distance calculation is also adjusted with the addition of ``penalties'' by doubling the calculated distance when certain keywords or punctuations (``,'', ``.'', ``;'', ``and'', ``but', ``while', ``whereas', ``which'', ``although'') appear between two entities because they represent a logical separation of predicates ~\cite{oka2021table}.
+Distance calculation is also adjusted with the addition of ``penalties'' by doubling the calculated distance when specific keywords or punctuations (``,'', ``.'', ``;'', ``and'', ``but', ``while', ``whereas', ``which'', ``although'') appear between two entities because they represent a logical separation of predicates ~\cite{oka2021table}.
 In the above example, the distance between \texttt{39 K} and \texttt{FeSe} would be doubled (\textit{d}=20), and the link would not be made.
 
 \section{Results}
@@ -220,17 +220,17 @@ Maintaining the same rate for the distribution of entity types between the two s
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.6\textwidth]{figures/automatic_extraction_supercon/superconductor-out-domain-holdout-unique}
-    \caption{Holdout ``out-of-domain'' rates. The entities from the holdout set that are also in the training set are ``in-domain'' and the entities that are not in the training set are ``out-of-domain''.}
+    \caption{Holdout ``out-of-domain'' rates. The entities from the holdout set that are also in the training set are ``in-domain'', and the entities that are not in the training set are ``out-of-domain''.}
     \label{fig:out-domain-holdout}
 \end{figure}
 
 We defined the ``out-of-domain'' ratio as the number of unique entities from the holdout set that were not in the training set.
-The holdout set ``out-of-domain'' ratio was on average around 72\%, which challenges the model generalisation (every 100 entities in the holdout set, 72 were never seen before during training).
+The holdout set ``out-of-domain'' ratio was, on average, around 72\%, which challenges the model generalisation (every 100 entities in the holdout set, 72 were never seen before during training).
 Most labels had an ``out-of-domain'' ratio above 50\%  (Figure~\ref{fig:out-domain-holdout});  \texttt{<material>}, the most important label, had the highest ratio (82\%) while \texttt{<me\_method>} and \texttt{<pressure>} have the lowest (25\% and 33\%). 
 The low ratio of \texttt{<me\_method>} can be explained by their low entity variability (11.44\%).
 
 \subsubsection{Results}
-We performed the evaluation by repeating the training and evaluation five times (except for the CRF architecture which is fully predicible. Although the training and evaluation dataset are fixed, the way the dataset are provided to the model is randomly shuffled at each epoque, adding some entropy in the training, which is visible as a variability in the evaluation scores.
+We evaluated each ML model by repeating the training and evaluation process five times (except for the CRF architecture, which is entirely predictable). Although the training and evaluation datasets are fixed, the way the training examples are provided to the model is randomly shuffled at each step, adding some entropy to the training, which is visible in the evaluation scores.
 The results are then averaged as reported in Table~\ref{tab:evaluation-superconductors-ML-model}.
 
 SciBERT obtained the best results with an F1 of 77.03\% and a recall of around 80.69\% (Table~\ref{tab:evaluation-superconductors-ML-model}).
@@ -240,7 +240,7 @@ This result is a surprise because features such as superscript/subscript were ex
 
 \begin{sidewaystable}[htbp]
     \centering\small
-    \caption{Evaluation scores (\%) for the Superconductor ML model in the four architectures. For the DL architecture, the results are averaged over 5 runs. Support (Supp) indicates the number of labels in the training data. Values in bold indicate the highest score. P: precision, R: recall.}
+    \caption{Evaluation scores (\%) for the Superconductor ML model in the four architectures. For the DL architecture, the results are averaged over five runs. Support (Supp) indicates the number of labels in the training data. Values in bold indicate the highest score. P: precision, R: recall.}
     
     \scalebox{0.8}{
         \begin{tabular}{l ccc ccc ccc ccc r}
@@ -264,12 +264,12 @@ This result is a surprise because features such as superscript/subscript were ex
     \label{tab:evaluation-superconductors-ML-model} 
 \end{sidewaystable}
 
-The \texttt{<pressure>} label had the lowest performance scores in all architectures. We believe that 274 training examples are not a sufficient large number considering that pressure expressions can be dependent on the context because they can refer to different types of pressures (e.g., annealing pressure).
-The label with the highest score was \texttt{<material>}, with F1 values of 80.77\% and 78.06\% for SciBERT and BidLSTM\_CRF, respectively. In addition, \texttt{<material>} had the highest ``out-of-domain'' ratio in the holdout set (greater than 75\%, Figure~\ref{fig:out-domain-holdout}) and the highest ``label variability'' (the ratio between unique entities and total entities, about 42\%), which suggests that the model recognises correctly materials that has not been ``seen'' during the training.
+The \texttt{<pressure>} label had the lowest performance scores in all architectures. We believe that 274 training examples are not sufficiently large. 
+Pressure expressions depend on the context and the property they refer to, so in many occurrences, they may refer to different types of pressure (e.g., annealing pressure).
+The label with the highest score was \texttt{<material>}, with F1 values of 80.77\% and 78.06\% for SciBERT and BidLSTM\_CRF, respectively. In addition, \texttt{<material>} had the highest ``out-of-domain'' ratio in the holdout set (greater than 75\%, Figure~\ref{fig:out-domain-holdout}) and the highest ``label variability'' (the ratio between unique entities and total entities, about 42\%), which suggests that the model recognises correctly materials that have not been ``seen'' during the training.
 On the other hand, the \texttt{<me\_method>} label, which has lower ``label variability'' (around 11\%) and a low ``out-of-domain'' ratio, had an F1 score of 66.56\% with SciBERT and 65.92\% with BidLSTM\_CRF.
 For \texttt{<tc>}, the CRF outperformed the other architectures (F1 score of 83.96\%), especially SciBERT (78.35\%). 
-This outcome can be explained by the extremely low variability (12.69\%) of entities labelled as \texttt{<tc>}. %, and having the holdout set with a balanced average ``out-of-domain'' ratio 51\%. 
-% The entity labels variability (ratio of unique entities versus the total) is, in average, around 55\%, and 57\% for the training and holdout sets, respectively. \texttt{<tc>} (12\%) and \texttt{me\_method} have the lowest variability while the \texttt{<material>} has the highest. 
+This outcome can be explained by the extremely low variability (12.69\%) of entities labelled as \texttt{<tc>}.
 
 \begin{figure}[htbp]
     \centering
@@ -279,22 +279,22 @@ This outcome can be explained by the extremely low variability (12.69\%) of enti
 \end{figure}
 
 SciBERT shows good generalisation capacity for unseen examples or examples appearing in different contexts.
-For example, in Figure~\ref{fig:example-comparison-architectures}a, only SciBERT correctly extracts ``above 100K'', while CRF misses it completely and BidLSTM\_CRF misses ``above''.
-In the training data, ``above 100K'' is not present, but ``below 100K'' and ``\~100K'' are present, and several other entities contain the token ``above'' and SciBERT can understand that the token ``above'' is relevant to the temperature.
-In a second example (Figure~\ref{fig:example-comparison-architectures}b), only SciBERT can correctly extract ``W-C nanowire'' which is not present in the SuperMat training data.
+For example, in Figure~\ref{fig:example-comparison-architectures}a, only SciBERT correctly extracts ``above 100K'', while CRF misses it entirely and BidLSTM\_CRF misses ``above''.
+In the training data, ``above 100K'' is not present, but ``below 100K'' and ``\~100K'' are present, and several other entities contain the token ``above'', and SciBERT can understand that the token ``above'' is relevant to the temperature.
+In a second example (Figure~\ref{fig:example-comparison-architectures}b), only SciBERT can correctly extract ``W-C nanowire'', which is not contained in the SuperMat training data.
 Unfortunately, we cannot check whether ``above 100K'' or ``W-C nanowire'' are also present in the dataset used in the pre-train of SciBERT by their authors~\cite{Beltagy2019SciBERT} because the data are not available.
 
 
 \subsection{Material parser segmentation model}
 
-We trained the Material ML model using the second layer annotation set from SuperMat comprising of entities of type \texttt{<material>}.
-The resulting entities illustrated in Table~\ref{tab:material-parser-entities} include the different information included in the material entities.
-We trained the same architecture as for the ``Superconductors ML model''.
+We trained the Material ML model using the second layer annotation set from SuperMat comprising entities of type \texttt{<material>}.
+The resulting entities are segmented into eight pieces of information illustrated in Table~\ref{tab:material-parser-entities}.
+We trained the same architecture in the same way as the ``Superconductors ML model''.
 
 \subsubsection{Experimental settings}
 
 In this model, we created an independent holdout set because manual annotation is performed on smaller chunks of text and requires less effort than annotating entire sentences.
-We used material data extracted from a dataset of 500 documents (500-papers) from three publishers: \textit{American Institute of Physics} (AIP), \textit{American Physical Society} (APS) and \textit{Institute of Physics} (IOP)~\cite{foppiano2019proposal}.
+We used material data extracted from a dataset of 500 documents (``500-papers'') from three publishers: \textit{American Institute of Physics} (AIP), \textit{American Physical Society} (APS) and \textit{Institute of Physics} (IOP)~\cite{foppiano2019proposal}.
 
 \begin{figure}[ht]
     \centering
@@ -389,7 +389,7 @@ The resulting holdout set has an average coverage greater than 25\% (Figure~\ref
 \subsubsection{Results}
 
 SciBERT obtained the best results, with F1 at 84.15\% (Table~\ref{tab:evaluation-10fold-material-parser}).
-Inclusion of features in the BidLSTM\_CRF architecture only improved the results by less than 1\% (from 83.13 to 83.76\%).
+The inclusion of features in the BidLSTM\_CRF architecture only improved the results by less than 1\% (from 83.13 to 83.76\%).
 The label \texttt{<fabrication>} did not perform well in any architecture, most likely because it is too generic (Table~\ref{tab:material-parser-entities}), and the content is too heterogeneous. Another label, \texttt{<substrate>} has only one-third of the training examples of \texttt{<fabrication>} but obtained results that were three times higher with SciBERT, suggesting that \texttt{<fabrication>} should be split into separate and more homogeneous labels.
 
 \begin{sidewaystable}[htbp]
@@ -447,13 +447,12 @@ The F1 score for the \texttt{material-tcValue} relation was about 80\% with a pr
 
 \subsection{End to end evaluation}
 \label{sec:end2end}
-% What is the end 2 end evaluation? 
 End-to-end evaluation (E2EE) measures the system's capacity from the PDF documents until the final linked results.
 We limited the scope of the E2EE to the triplet `material-\tc-pressure', which, at the moment, is the backbone upon which the database is built.
 We performed the E2EE on the ``500-papers'' dataset where we manually examined the resulting database as follows: 1) we marked invalid records and 2) we identified the cause of failure from a predefined set of five \textit{error types} (Figure~\ref{fig:error-types}):
 \begin{itemize}
     \item \textbf{From table}: the extracted text is wrongly extracted from a table. Although table content is ignored, the error rate from the Grobid library is still relevant due to the lack of training data.
-    \item \textbf{Material-related NER}: entities are not recognised, wrongly, or partially recognised.
+    \item \textbf{Material-related NER}: entities are either not, wrongly, or partially recognised.
     \item \textbf{Properties NER}: quantity entities (pressure, temperature) are not correctly extracted. We measured this error separately to identify the failure that could be shared with the Quantity ML model.
     \item \textbf{\tc~classification}: the temperature is wrongly classified as superconducting \tc.
     \item \textbf{RE}: given the initial steps were performed correctly, the resulting entities are not linked correctly.
@@ -468,10 +467,10 @@ We performed the E2EE on the ``500-papers'' dataset where we manually examined t
 
 The E2EE scores are summarised in Table~\ref{table:end2end-evaluation-summary}.
 The recall is omitted from the table because it is less relevant. However, we estimated that the recall is between 55\% and 60\%, considering a sample of articles. 
-The precision score (micro average) was 72.60\% for all the subsections, although the precision of figure captions (59.28\%) and unknown subsections (57.14\%) were clearly lower than those of the other subsections ($>$ 70\%).
-The `unknown` subsections indicate that the extracted text's structure was not well identified by Grobid but it was nonetheless aggregated.
+The precision score (micro average) was 72.60\% for all the subsections, although the precision of figure captions (59.28\%) and unknown subsections (57.14\%) were lower than those of the other subsections ($>$ 70\%).
+The `unknown` subsections indicate that the extracted text's structure was not well identified by Grobid, but it was nonetheless aggregated.
 The overall score increases to 73\% when excluding unknown subsections, 75.24\% when excluding figure captions, and 79.14\%  when excluding both.
-Excluding these two subsections will not affect the amount of text, because they account for less than 20\% of the total number of subsections.
+Excluding these two subsections will not affect the amount of text because they account for less than 20\% of the total number of subsections.
 
 \begin{figure}[htbp]
     \centering
@@ -483,7 +482,7 @@ Excluding these two subsections will not affect the amount of text, because they
 The error types are summarised in Figure~\ref{fig:error-types-distribution}. The most common failures originate from \tc~classification (40\%), RE (32\%), and Material-related NER (20\%).
 The most common \tc~classification failures are incorrect recognition of 1) relative values of \tc~(e.g., 1 K higher than material X); 2) values indicating the transition temperature width ($\Delta T_{c}$); 3) temperature values that are not \tc, for example, material synthesis temperatures ($T$), other critical transition temperatures that are not superconducting (e.g., $T_{Curie}$); and 4) values of temperature at which there is no superconductivity (e.g., ``at 70 K there is no superconductivity'').
 ``RE errors'' occur mainly when the text compares relative values of \tc~using materials as the basis for comparison (e.g., ``The Tc = 38 K is similar to the one of MgB$_{2}$'').
-Finally, ``Material-related NER'' issues mainly originate from: 1) implicit mention of the main material when experimented using different ``substrates'' combination, and 2) mismatches between \texttt{<material>} and \texttt{<class>} which, by definition, overlap (see the SuperMat entities analysis in Section~\ref{automatic-corpus-analysis}).
+Finally, ``Material-related NER'' issues mainly originate from: 1) implicit mention of the base material when experimented using different ``substrates'' combination, and 2) mismatches between \texttt{<material>} and \texttt{<class>} which, by definition, overlap (see the SuperMat entities analysis in Section~\ref{automatic-corpus-analysis}).
 
 
 \begin{table}[htbp]
