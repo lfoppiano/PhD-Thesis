@@ -111,7 +111,7 @@ In addition, modifiers of this information (increasing/decreasing \tc) are also 
 
 \paragraph{Superconducting critical temperature value} (tag: \texttt{<tcValue>}) represents the temperature at which the superconducting phenomenon occurs. 
 It can be defined by different experimental criteria, such as the onset, mid-point of resistivity drop, or zero resistivity.
-This value also considers boundary conditions, such as the \textit{onset of superconductivity}, \textit{zero resistance}. 
+This value also considers boundary conditions, such as the \textit{onset of superconductivity} and \textit{zero resistance}. 
 
 \paragraph{Applied pressure} (tag: \texttt{<pressure>}) indicates the applied pressure corresponding to a measured \tc. 
 
@@ -165,23 +165,26 @@ The active-learning recommendations are less precise since they aim to increase 
 Automatic corpus analysis is a set of scripts designed to run after the validation step. 
 These scripts automatically find inconsistencies in the links and entities while extracting the statistics of the corpus. 
 We calculated the inconsistencies by examining every annotated entity and computing the frequency of the same text being annotated with different labels. 
-The script outputs a summary table by visualising each annotation value and their labels and frequencies.
+The script outputs a summary table by visualising each annotation value and its labels and frequencies.
 We visually inspected this table because the reported inconsistencies can be either obvious mistakes (Table~\ref{table:dataset-inconsistencies-clear}) or arise from ambiguities (Table~\ref{table:dataset-inconsistencies-unclear}); therefore, their context should be verified. 
 
 \begin{table}[htbp]
-    \caption{Statistical overview of the dataset. 
-    Links\textsubscript{is} indicates the number of links within the same sentence (intra-sentence). Links\textsubscript{es} indicate the number of links from different paragraphs  (extra-sentence).  }
-    \begin{tabular}{ m{6em}   m{4em}  m{6em}  m{7em}  m{6em} } 
+    \caption{Statistical overview of the dataset. Level-2 entities are considered only for materials
+    Relations\textsubscript{is} indicates the number of relations within the same sentence (intra-sentence). Relations\textsubscript{es} indicate the number of relations from different paragraphs (extra-sentence).}
+    \begin{tabular}{ m{6em}   m{5em}  m{6em}  m{8em}  m{6em} } 
     \toprule
         \multirow{2}{5em}{\textbf{Documents}} & \textbf{Files} & \textbf{Paragraphs} &	\textbf{Sentences} & \textbf{Tokens}\\
          & 164  &	2800 & 	20807 & 	1284569\\
     \midrule
-        \multirow{2}{5em}{\textbf{Entities}} & \textbf{Entities} &  \multicolumn{2}{|c|}{\textbf{Unique entities}} &  \textbf{ Labels} \\
+        \multirow{2}{5em}{\textbf{Level-1 Entities}} & \textbf{Entities} &  \multicolumn{2}{c}{\textbf{Unique entities}} &  \textbf{ Labels} \\
         & 18698 &  \multicolumn{2}{c}{8071} &  6 \\
     \midrule
-        \multirow{2}{5em}{\textbf{Links}} & \textbf{Links} & \multicolumn{2}{|c|}{\textbf{Links\textsubscript{is}}} 
-        & \textbf{Links\textsubscript{es}}\\
+        \multirow{2}{5em}{\textbf{Relations}} & \textbf{Relations} & \multicolumn{2}{c}{\textbf{Relations\textsubscript{is}}} 
+        & \textbf{Relations\textsubscript{es}}\\
         & 1524  & \multicolumn{2}{c}{985} &	539	\\
+    \midrule        
+        \multirow{2}{5em}{\textbf{Level-2 Entities}} & \textbf{Examples} &  \textbf{Entities} & \textbf{Unique entities} &  \textbf{ Labels} \\
+        & 9268 &  13648 & 4512 &  8 \\
     \bottomrule
     \end{tabular}
     \label{table:summary-content}
