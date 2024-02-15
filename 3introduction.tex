@@ -35,7 +35,7 @@ Data-driven methods have significantly contributed to the design of new material
 Currently, the primary sources of such datasets in inorganic materials are Pauling File~\cite{Blokhin2018ThePF_paulingFile}, Starrydata~\cite{katsura2019data}, and SuperCon~\cite{ishii2023structuring}. 
 The use of these databases highlights the need to broaden and diversify experimental data, improving the effectiveness and applicability of data-driven approaches in materials design. 
 The augmentation of these datasets is crucial to advancing the field, promoting innovation, and expanding the scope of materials discovery through data-driven methodologies.
-SuperCon is the standard superconductor materials database developed and manually maintained by NIMS since 1987. 
+SuperCon is the standard superconductor materials database developed and manually maintained by Japan's National Institute for Materials Science (NIMS) since 1987. 
 It consists of records of materials reported in scientific experiments and a large set of measured properties. 
 
 A superconductor is a material that exhibits zero electrical resistance and expulses magnetic fields from its interior (Meissner effect) when cooled below a critical temperature. This phenomenon, known as superconductivity, occurs in various materials, with many requiring extremely low temperatures, often close to absolute zero, to manifest this unique behaviour. The critical temperature at which superconductivity emerges varies depending on the material. 
@@ -80,9 +80,9 @@ A sample is just an arbitrary name chosen by the researchers that can overlap an
 
 To make matters more complicated, all these definitions are not strictly enforced and may fluctuate from one laboratory to another. 
 Authors may talk about "high-\tc~cuprates", referring to materials in the class of cuprates that also have high-\tc. This fallacious definition does not clearly describe which materials are included: \textit{"How high should \tc~be to be considered 'high'?"}.
-The various interpretations that words, terms, and symbols can have in different sub-domains can cause significant confusion. For instance, the abbreviation "TC" or "\tc" can refer to either "Temperature Curie" or "superconducting critical temperature", depending on the specific context. However, authors may utilise "T\textsuperscript{C} (C uppercase)" to indicate the critical temperature of superconductors. When extracting text, this convention is essentially the same as referring to "Temperature Curie." Resolving this ambiguity is only possible through careful examination of the context.
+The various interpretations that words, terms, and symbols can have in different sub-domains can cause significant confusion. For instance, the abbreviation "TC" or "\tc" can refer to either "Temperature Curie" or "superconducting critical temperature", depending on the specific context. However, authors may utilise "T\textsubscript{C}" (C uppercase) to indicate the critical temperature of superconductors. When extracting text, this convention is essentially the same as referring to "Temperature Curie." Resolving this ambiguity is only possible through careful examination of the context.
 
-Manual curation remains a necessary component, but it does not guarantee the complete elimination of errors. ~\cite{sommer20223dsc} identified more than 10000 duplicate records within the SuperCon dataset, revealing instances where certain properties were inadequately populated. 
+Manual curation remains a necessary component, but it does not guarantee the complete elimination of errors. \cite{sommer20223dsc} identified more than 10000 duplicate records within the SuperCon dataset, revealing instances where certain properties were inadequately populated. 
 This underscores the inherent challenges and limitations associated with relying solely on manual efforts for data curation, emphasising the imperative to adopt more robust and automated strategies to enhance the accuracy and comprehensiveness of the SuperCon dataset.
 There is a need for a curation-centric user interface and tools that allow the reduction of the manual bottleneck to a few minor actions, leaving the tedious tasks of identifying main data in scientific publications to automatic processes.
 
@@ -117,10 +117,10 @@ Finally, to improve the quality and reduce the impact of manual curation, we dev
 
 Unlike other works~\cite{court2018auto, court2020magnetic, kononova2019text} that were predominantly based on web scraping or through the publisher API, we designed a novel data flow for the extraction of material-related information from PDF documents using an existing open-source library, Grobid (Generation of bibliographic data)~\cite{Grobid}. 
 While web scraping is rarely allowed (it breaks the usage agreement) or is limited to public metadata information (e.g., abstract, authors, title), API access is often hindered by the necessity of agreements with publishers, making the gathered content difficult to share and challenging to replicate.
-In both cases, each publisher carries its own limitations and data formats and must be treated separately; therefore, mining data directly from PDF documents enables us to emancipate ourselves from the data source type.
-Furthermore, the increasing abundance of open access literature~\cite{laakso2011the} provides means to access large-scale scientific literature (e.g., ArXiv (\url{www.arxiv.org}), ChemXiv (\url{https://chemrxiv.org/}), NIMS Material Data Repository (MDR)~\cite{tanifuji2019mdr} (\url{https://mdr.nims.go.jp})). 
-We can then access all information from the scientific documents, including full-text body, tables, and figures. Our work focuses only on text, ignoring figures and tables to separate projects. 
-Accessing the body differs us from other approaches~\cite{yamaguchi-etal-2020-sc}, which are limited to short and synthetic abstracts. On the other hand, the body contains more information that includes experimental results in related works. 
+In both cases, each publisher carries its own limitations and data formats and must be treated separately: mining data directly from PDF documents enables us to emancipate ourselves from the data source type.
+The increasing abundance of open access literature~\cite{laakso2011the} provides means to access large-scale scientific literature (e.g., ArXiv (\url{www.arxiv.org}), ChemXiv (\url{https://chemrxiv.org/}), NIMS Material Data Repository (MDR)~\cite{tanifuji2019mdr} (\url{https://mdr.nims.go.jp})). 
+We can then access all information from the scientific documents, including full-text body, tables, and figures. Our work focuses only on text, leaving figures and tables to separate projects. 
+Accessing the body differs us from other approaches~\cite{yamaguchi-etal-2020-sc}, which are limited to short and synthetic abstracts. The body contains more information that includes experimental results in related works. 
 However, it is acknowledged that abstracts, being synthetic and possessing a simpler structure, also play a role in data extraction.
 This contribution is discussed in detail in Chapter~\ref{cha:pdf_extraction}.
 
@@ -128,7 +128,7 @@ This contribution is discussed in detail in Chapter~\ref{cha:pdf_extraction}.
 \label{sec:intro-material-related-extraction}
 
 The scope of this work is to create databases of experimental data that are reported in the scientific literature. 
-The structure to represent this information can be complex and strongly depends on each subdomain's characteristics and conventions. 
+The structure representing this information can be complex and strongly depends on each subdomain's characteristics and conventions. 
 However, we can define the basic data model for experimental data as consisting of three main constructs: material expressions, properties, and conditions. 
 Material expressions are a relatively loose concept that strongly depends on the domain. On the other hand, properties and conditions can be decomposed into expressions of measurements of physical units. 
 This contribution comprises three main components that are discussed in Sections~\ref{sec:intro-ner-materials}, \ref{sec:intro-ner-quantities}, and \ref{sec:intro-supermat}.
@@ -136,10 +136,10 @@ This contribution comprises three main components that are discussed in Sections
 \subsubsection{Identification of complex material sequences}
 \label{sec:intro-ner-materials}
 The field of materials science encompasses various disciplines, including chemistry, physics, and engineering. 
-Material expressions within this field are typically lengthy and intricate sequences of characters. Materials can be represented by chemical formulas, which may include additional information such as the material's shape (e.g., crystal, single crystal, wire) and doping details (e.g., 2\% Zn-doped). It is common for scientists to define samples and assign arbitrary names to them. Chemical formulas often involve substitutions in either the amount of an element (e.g., La x Fe 1-x O 7) or the element itself (e.g., RE x Fe 1-x O 7 with RE = La, Cu) to represent multiple rare earth compounds. Frequently, samples are denoted by the amount of their doping variable (e.g., x = 0.1).
-
+Material expressions within this field are typically lengthy and intricate sequences of characters. Materials can be represented by chemical formulas, which may include additional information such as the material's shape (e.g., crystal, single crystal, wire) and doping details (e.g., 2\% Zn-doped). 
+%It is common for scientists to define samples and assign arbitrary names to them. Chemical formulas often involve substitutions in either the amount of an element (e.g., La x Fe 1-x O 7) or the element itself (e.g., RE x Fe 1-x O 7 with RE = La, Cu) to represent multiple rare earth compounds. Frequently, samples are denoted by the amount of their doping variable (e.g., x = 0.1).
 The identification and extraction of these entities is extremely challenging. 
-We use machine learning (ML) techniques to implement the named entity recognition (NER) system. This approach offers several advantages, such as context awareness, robustness to noise, and better generalisation to unseen examples compared to rule-based methods. Additionally, we discuss the evaluation of three different architectures: Conditional Random Fields (CRF), Recurrent Neural Networks (RNN) based on Bidirectional chains of LSTM units, and BERT-based models.
+We use machine learning (ML) techniques to implement the named entity recognition (NER) system. This approach offers several advantages, such as context awareness, robustness to noise, and better generalisation to unseen examples compared to rule-based methods. Additionally, we discuss the evaluation of three different architectures: Conditional Random Fields (CRF)~\cite{lafferty2001conditional}, Recurrent Neural Networks (RNN) based on Bidirectional chains of LSTM units~\cite{lample2016neural}, and Bidirectional Encoder Representation for Transformers (BERT)~\cite{devlin2018bert} models.
 
 The novelty of our approach can be summarised in four main components. 
 First, the need for high-quality training data and the lack of resources in material informatics was raised to construct a new dataset called SuperMat (Section~\ref{sec:intro-supermat}) that contains annotated documents from superconductor research. This contribution is discussed in detail in Chapter~\ref{cha:supermat}.
@@ -166,7 +166,7 @@ The need to standardise material expressions arises because materials can contai
 Other examples are the expressions ``La-doped Fe O7'' and ``2\% La-doped Fe O7'', which combine the material with the presence or the amount of doping. It should be noted that sometimes only the doping ratio is given, as in the case of ``x = 0.1''. 
 Related tools such as text2chem~\cite{kononova2019text} and PyMatGen~\cite{Ong2013} exist; however, they have a low tolerance to noise that limits them to clean formulas. 
 For example, these tools would not correctly parse a non-stoichiometric formula such as ``La x Fe 1-x O 7 (x=0, 0.1)''. 
-We built a comprehensive Material Parser that uses an ML model to identify specific information such as formula, name, and doping. We combine the sequence with text2chem and PyMatGen, as mentioned above. 
+We built a comprehensive "Material parser" that uses an ML model to identify specific information such as formula, name, and doping. We combine the sequence with text2chem and PyMatGen, as mentioned above. 
 As a result, our parser is tolerant of noisy input and can parse and convert intricate and long material expressions to a clean, structured form. 
 This contribution is discussed in Chapter~\ref{cha:extraction-experimental-data}.
 
@@ -178,7 +178,7 @@ Properties and conditions within the realm of science and engineering are often 
 Measurement of physical quantities forms the backbone of scientific inquiry, fostering a collective language that transcends boundaries and enabling collaborative efforts in the pursuit of knowledge and innovation.
 Employing a different array of tools for material-related expression identification and property/conditions analysis enhances adaptability towards new requirements or different sub-domains.
 Although measurements may seem like consolidated information, their handling can be difficult. This is because measurement units are often used in different ways across various disciplines. Additionally, different systems of measurement units, such as using miles instead of meters or ATM instead of Pascal, may be employed for human comprehension but can cause confusion for machines. A well-known example highlighting this issue is the explosion of the Mars Climate Orbiter, which occurred due to unit conversion errors.
-In this contribution, we present grobid-quantities, a Grobid module specialised in the identification, extraction, and standardisation of physical quantities and measurement. At the time of development, grobid-quantities was the first ML-based open-source project aiming to cover multiple disciplines (from biology to materials science) and systems of units (SI base, SI extended, imperial, etc.). 
+In this contribution, we present Grobid-quantities, a Grobid module specialised in the identification, extraction, and standardisation of physical quantities and measurement. At the time of development, Grobid-quantities was the first ML-based open-source project aiming to cover multiple disciplines (from biology to materials science) and systems of units (SI base, SI extended, imperial, etc.). 
 This contribution is discussed in detail in Chapter~\ref{cha:measurements}.
 
 
@@ -202,7 +202,7 @@ We have designed a robust solution to address this need that features a staging 
 The interface offers functions to control the content of the database records, triggering the state transition to the underlying workflow. 
 Domain experts required that the underlying data be organised so that any update is incrementally stored and the history of changes in each record is accessible. 
 Our system provides an enhanced visualisation of the original PDF document, allowing users to inspect and cross-reference the data efficiently. 
-Furthermore, our solution incorporates machine learning (ML) capabilities to continuously improve the automated data collection process. 
-Specifically, the system accumulates training data based on corrections made during the validation process, ensuring continuous refinement and optimisation of automated data collection through iterative ML training cycles.
-In this work, we experimented and demonstrated that our workflow and interface can increase the recall of missing information from 45\% to 92\% and the F1 score from 52\% to 92\%. 
+Furthermore, our solution incorporates ML capabilities to improve the automated data collection process continuously. 
+The system accumulates training data based on corrections made during the validation process, assuring relevant refinement of the underlying ML models.
+In this work, we experimented and demonstrated that our workflow and interface can increase the recall of curated information from 45\% to 92\% and the F1 score from 52\% to 92\%. 
 The experiments and the description of the curation interface are listed in Chapter~\ref{cha:curation}.

@@ -83,7 +83,7 @@ The tag set (also referred to as \textit{labels}) represents the classes of enti
 \end{figure}
 
 
-\subsection{Entities}
+\subsection{Top-level Entities}
 Entities (also referred to as Named Entities, mentions, or surface forms) are chunks of texts that represent information of interest, as follows: 
 
 \paragraph{Class} (tag: \texttt{<class>}) represents a group of materials defined by certain characteristics.
@@ -116,6 +116,36 @@ This value also considers boundary conditions, such as the \textit{onset of supe
 \paragraph{Applied pressure} (tag: \texttt{<pressure>}) indicates the applied pressure corresponding to a measured \tc. 
 
 \paragraph{Measurement method} (tag: \texttt{<me\_method>}) indicates the method used to measure or calculate the presence of superconductivity. Here, we considered the following categories: resistivity, magnetic susceptibility, specific heat, and theoretical calculations. 
+
+\subsection{Level-2 entities}
+
+Extracted materials entities are then segmented according to the Level-2 tagset, illustrated below. The examples are shown as text entities, without font variations such as superscript or subscript. 
+
+\paragraph{Material name} (tag: \texttt{<name>}) represent the canonical name of a material. Examples: \texttt{PCCO}, \texttt{PCO}, \texttt{metal diboride}, \texttt{oxygen}, \texttt{carbon}
+
+\paragraph{Formula} (tag: \texttt{<formula>}) identify the material as expressed from the chemical formula. Examples: \texttt{Pr1.869Ce0.131CuO 4-$\delta$}, \texttt{MgB2}, \texttt{La 2-x Sr x CuO 4}
+
+\paragraph{Doping} (tag: \texttt{<doping>}) identify the doping ratio and doping materials that are adjoined to the material name. Examples: \texttt{overdoped}, \texttt{underdoped}, \texttt{optimally doped}, \texttt{bulk}, \texttt{pure}, Z\texttt{n-doped}, \texttt{Zn concentration}, \texttt{1\% Zn}
+
+\paragraph{Shape} (\texttt{<shape>}) Identify the shape of the material. Examples: \texttt{single crystal}, \texttt{polycrystalline}, \texttt{thin film}, \texttt{powder}, \texttt{films}
+
+\paragraph{Variables} (\texttt{<variable>}) identify the variables that can be substituted in the formula. Examples: 
+\begin{itemize}
+    \item \texttt{La x Fe 1-x O 7 with x < 3}, variable: \texttt{x}
+    \item \texttt{RE x Fe 1-x O 7 with RE=La,Fe, and 1 < x < 3}, variable: \texttt{x}, \texttt{RE}
+    \item \texttt{La x Fe y O 7 with x = 1,2,3, and 4 and y = 2,3,4}, variable: \texttt{x}, \texttt{y}
+\end{itemize}
+
+\paragraph{Values} (tag: \texttt{<value>}) identify the values expressed in the stoichiometric doping. Examples:
+\begin{itemize}
+    \item \texttt{La x Fe 1-x O 7 with x < 3}, value: \texttt{<3}
+    \item \texttt{La x Fe 1-x O 7 with 1 < x < 3}, value: \texttt{1<}, \texttt{<3}
+    \item \texttt{La x Fe 1-x O 7 with x = 1,2,3, and 4}, value: \texttt{1, 2, 3, and 4}
+\end{itemize}
+
+\paragraph{Substrate}: (tag: \texttt{<substrate>}) identify the substrates as defined in the material name. Examples: \texttt{PCCO films onto Pr 2 CuO 4 (PCO)/SrTiO 3}, substrate: \texttt{Pr 2 CuO 4 (PCO)/SrTiO 3}
+
+\paragraph{Fabrication} (tag: \texttt{<fabrication>}) represents all the various information that does not belong to any of the previous tags. Examples: \texttt{cointercalated}, \texttt{intercalated}, \texttt{synthesized by MBE method}, \texttt{electron-doped}, \texttt{hole-doped}
 
 
 \subsection{Relations}
@@ -251,12 +281,12 @@ The PDF files are converted to an XML-based format, and annotation is automatica
 \item Annotation: The human annotator can select a document and manually add, remove, or modify each entity based on the rules defined in the guidelines. Once the annotation is complete, the document is marked "ready" for validation. 
 
 \item Validation by domain experts: Annotations from different users are validated and merged into a final document (Figure~\ref{fig:inception-curation-interface}). 
-The domain expert ("curator") can compare the different annotated versions, select the best annotations combination, or add new ones. 
-This step ensures that the annotations are cross-checked and that domain experts validate the document.
+The domain expert ("curator") can compare the different annotated versions, select the best annotation combinations, or add new ones. 
+This step ensures that the annotations are cross-checked and domain experts validate the document.
 
 \item Automatic consistency checks and statistical analysis: This step aims to discover obvious mistakes such as mislabelling or incorrect linking. 
 A sequence labelling model is trained and evaluated using 10-fold cross-validation. The evaluation provides precision, recall, and f-score metrics for all the labels.
-The resulting model is used for producing machine-based annotated data in the following iteration.
+The resulting model produces machine-based annotated data in the following iteration.
 
 \item Review: Retrospective analysis of the past iteration, where unclear cases are discussed and documented in the annotation guidelines. 
 
