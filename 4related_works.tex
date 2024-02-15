@@ -6,37 +6,37 @@ The chapter is organised from specific (text mining in materials science) to gen
 
 \cite{court2018auto} propose a method to extract Curie and Néel temperatures from scientific papers. 
 The authors initially considered using the original ChemDataExtractor for this task. 
-Nevertheless, they observed that the rule-based approach resulted in reduced precision and recall due to the complexity of the scientific text. As a solution, they enhanced ChemDataExtractor by incorporating a semi-supervised relationship extraction algorithm.
+Nevertheless, they observed that the rule-based approach reduced precision and recall due to the complexity of the scientific text. As a solution, they enhanced ChemDataExtractor by incorporating a semi-supervised relationship extraction algorithm.
 This algorithm learns a typical pattern using a modified version of the snowball library. Typical patterns are stored and used to cluster new extracted patterns by distance similarity. 
-The authors claim that they extracted 39822 records, consisting of 11340 Néel and 28482 Curie temperature records. 
+The authors claim they extracted 39822 records, consisting of 11340 Néel and 28482 Curie temperature records. 
 
 \cite{court2020magnetic} propose another work where they process 74000 web-scraped scientific journal articles and build a database of 20,400 magnetic and superconducting phase transition temperature records and their associated chemical compound names.
-The NLP pipeline operates in the following manner: text and tables from target journals were analysed to identify material formulas and temperatures. Subsequently, the identified entities were standardised, with temperatures converted to Kelvin, and doping issues resolved with specific rules.
+The NLP pipeline operates as follows: text and tables from target journals were analysed to identify material formulas and temperatures. Subsequently, the identified entities were standardised, temperatures converted to Kelvin, and doping issues were resolved with specific rules.
 
 % \cite{venugopal2021looking} proposes a framework to identify common trends in materials-science domains using keyword extraction from abstract and figure captions. Using a combination of LDA and NER, they constructed a topical map across the literature of glass-related research. 
 
 
 SC-CoMIcs~\cite{yamaguchi-etal-2020-sc} describes a new corpus called SC-CoMIcs (SuperConductivity Corpus for Materials Informatics) tailored for the text mining of superconducting materials.
-The corpus consists of 1,000 manually annotated abstracts related to superconductivity with seven named entity categories. Characterisation, process, property, material, element, doping, and value. The interannotator agreement scores were around 75-85\%, similar to other materials science corpora.
-Experiments using SciBERT for the recognition of named entities achieved a 77\% F1 score, comparable to human agreement.
-The learning curves indicate that the corpus size is mostly sufficient, although some categories could benefit from more data. The corpus was used to build a word search tool based on word vectors, demonstrating its utility for retrieving relevant terms by category. This paper shows the potential of text mining to extract key information from the superconductivity literature. The corpus provides a valuable resource to develop more capable natural language processing systems for material informatics.  
+The corpus consists of 1000 manually annotated abstracts related to superconductivity with seven named entity categories—characterisation, process, property, material, element, doping, and value. The IAA (Inter Annotator Agreement) was around 75-85\%, similar to other materials science corpora.
+Experiments using SciBERT for recognising named entities achieved a 77\% F1 score comparable to human agreement.
+The learning curves indicate that the corpus size is sufficient, although some categories could benefit from more data. The corpus was used to build a word search tool based on word vectors, demonstrating its utility for retrieving relevant terms by category. This paper shows the potential of text mining to extract critical information from the superconductivity literature. The corpus provides a valuable resource for developing more capable natural language processing systems for material informatics.  
 
-After our work, \cite{mitsui2023automatic}, published a work in which they describe a similar pipeline to extract superconductivity information from abstracts from the scientific literature.
+After our work, \cite{mitsui2023automatic} described a similar pipeline to extract superconductivity information from abstracts from the scientific literature.
 It uses the SC-CoMIcs~\cite{yamaguchi-etal-2020-sc} corpus of 1000 annotated abstracts on superconductivity to train NER and RE models.
-The author reports that they extracted material compositions, transition temperatures, doping information, and process details from 48,565 abstracts obtained querying the Elsevier Scopus API, for a total of more than 43,000 superconducting materials and 24,000 transition temperatures. 
-Their work follows a similar approach to ours; first, they extract entities, and then they find the relations. 
-However, their extraction density is limited by the abstract, which has only synthetic information. Taking into account their search query \textit{''‘supercond * AND tc OR transition temp''} they obtain around one superconductor material per abstract. 
+The author reports that they extracted material compositions, transition temperatures, doping information, and process details from 48,565 abstracts obtained by querying the Elsevier Scopus API (Application Programming Interface) for a total of more than 43,000 superconducting materials and 24,000 transition temperatures. 
+Their work follows a similar approach to ours; first, they extract entities and find the relations. 
+However, the abstract limits their extraction density, which has only synthetic information. Considering their search query \textit{"supercond * AND tc OR transition temp"}, they obtain around one superconductor material per abstract. 
 
 There are several other works on TDM on experimental information from materials science; the most relevant are discussed in the following paragraphs. 
 
-\cite{kononova2019text} describes a text mining system to extract and segment synthesis recipes from scientific articles. The articles are obtained through web scraping and the synthesis paragraphs are identified through classification. Subsequently, NER is implemented using RNN (specifically, BidLSTM + CRF) in the identified paragraph. This helps to identify the various components of the recipe, and the precursor, operation, and conditions of synthesis are extracted for a total of 19,488 solid-state synthesis reactions.
-This work was limited to articles after 2000, due to the lack of available HTML/HTM version for older articles.
+\cite{kononova2019text} describes a text mining system to extract and segment synthesis recipes from scientific articles. The articles are obtained through web scraping, and the synthesis paragraphs are identified through classification. Subsequently, NER is implemented using RNN (specifically, BidLSTM + CRF) in the identified paragraph. This helps to identify the various components of the recipe, and the precursor, operation, and synthesis conditions are extracted for a total of 19,488 solid-state synthesis reactions.
+This work was limited to articles after 2000 due to the lack of available HTML/HTM versions for older articles.
 
-\cite{park2018text} proposes a text mining pipeline to extract metal-organic frameworks from scientific papers. In this paper, the authors focus on two main properties: surface area (SA) and pore volume (PV) mainly because they are the main properties related to the absorption properties of MOPs, are very commonly described in papers, and they have a very distinctive signature such as the units used to measure the quantity. 
-The source data was obtained in HTML format and, after parsing, cleaning, and tokenising the text, the tokens were classified into 5 types using lexicons from the Cambridge structural databases. 
-Moreover, they employ specific terms to recognise appropriate units that are used in unconventional ways. The resulting classified tokens were combined with each other (the material was connected to the corresponding attributes) using a rule-based algorithm.
+\cite{park2018text} proposes a text mining pipeline to extract metal-organic frameworks from scientific papers. In this paper, the authors focus on two main properties, surface area (SA) and pore volume (PV), mainly because they are the main properties related to the absorption properties of MOPs, are very commonly described in papers, and have a very distinctive signature such as the units used to measure the quantity. 
+The source data was obtained in HTML format, and after parsing, cleaning, and tokenising the text, the tokens were classified into five types using lexicons from the Cambridge structural databases. 
+Moreover, they employ specific terms to recognise appropriate units used unconventionally. Using a rule-based algorithm, the resulting classified tokens were combined (the material was connected to the corresponding attributes).
 On a sample dataset, the algorithm achieves 90\% and 88.8\% precision in extracting surface area and pore volume data, respectively.
-When tested on a larger dataset of 2315 MOF papers, the precision drops to 73. 2\% for surface area and 85.1\% for pore volume. Errors occur due to complex sentence structures and incorrect identification of MOF names.
+When tested on a larger dataset of 2315 MOF papers, the precision drops to 73.2\% for surface area and 85.1\% for pore volume. Errors occur due to complex sentence structures and incorrect identification of MOF names.
 
 \cite{cruse2022text} introduces a nanoparticle-related dataset of 5,154 records extracted from 4.9 million materials science papers containing synthesis recipes and morphological information.
 The authors successfully extracted 7,608 experimental and 12,519 characterisation paragraphs with compounds, amounts, synthesis actions, sizes, shapes, etc.
@@ -45,7 +45,7 @@ Limitations include the inability to distinguish targets from other morphologies
 \cite{ghosh2022band} develop an automated approach to extract band-gap values and relate them to chemical compounds in the titles and abstracts of articles.
 The authors extended ChemDataExtractor with a new BandGapParser to identify band-gap information.
 On a sample of 415 papers, the system achieved 51.32\% correct, 36.62\% partially, and 12.04\% incorrect extractions.
-Errors are due to incorrect extraction of chemical entities, band-gap values, and to refer entities to values.
+Errors are due to incorrect extraction of chemical entities, band-gap values, and referring entities to values.
 The approach was applied to 11,939 articles, extracting 10,608 band gap values for 10,292 compounds.
 The limitation of this study is the evaluation that was performed by reviewing the extracted information rather than comparing it with the ground truth.
 
@@ -59,110 +59,110 @@ ChemNLP provides an open dataset and tools to apply NLP techniques to the materi
 
 \section{Machine Learning}
 
-Machine learning (ML) has the ability to extract valuable implicit knowledge from data~\cite{keith2021combining}, which can provide fresh insights into existing problems.
+Machine learning (ML) can extract valuable implicit knowledge from data~\cite{keith2021combining}, providing fresh insights into existing problems.
 The application of machine learning (ML) in intricate fields like chemistry requires the use of reliable and accurate data. 
-However, it is important to note that the results obtained from ML models may not always be attributed solely to the domain knowledge incorporated, as there could be other concealed factors within the data itself~\cite{keith2021combining}.
+However, it is essential to note that the results obtained from ML models may not always be attributed solely to the domain knowledge incorporated, as there could be other concealed factors within the data itself~\cite{keith2021combining}.
 
 Conditional Random Fields (CRF)~\cite{lafferty2001conditional} have been widely used in various ML tasks such as sequence labelling and NER~\cite{rodriguez2013sequence}. 
 CRFs have been particularly effective in situations where multiple annotator-embedded label sequences are available, but there is no actual ground truth, as they provide a probabilistic approach to sequence labelling~\cite{rodriguez2013sequence}. 
 Furthermore, CRFs have been compared with other machine learning models~\cite{tang2015aComparison} such as Support Vector Machines (SVMs)~\cite{boser1992training} and Structured Support Vector Machines (SSVMs) in tasks such as chemical entity recognition, demonstrating their versatility and effectiveness~\cite{tang2015aComparison, naseem2021aComparative, yang2019madex}.
 
-% On the other hand, RNNs are known for their effectiveness in modeling sequential data and have been applied in various fields such as image processing, pattern recognition, and sound event detection (Kim & Kim, 2017; Graves et al., 2013).
+% On the other hand, RNNs are known for their effectiveness in modelling sequential data. They have been applied in various fields, such as image processing, pattern recognition, and sound event detection (Kim & Kim, 2017; Graves et al., 2013).
 
 The transition from CRFs to RNNs represents a shift from probabilistic graphical models to deep learning architectures. 
-While CRFs are effective in capturing dependencies between input features and making predictions based on these dependencies, RNNs excel in capturing temporal dependencies in sequential data due to their recurrent nature. 
+While CRFs effectively capture dependencies between input features and make predictions based on these dependencies, RNNs excel in capturing temporal dependencies in sequential data due to their recurrent nature. 
 This transition is particularly relevant in tasks where the sequential nature of the data is crucial, such as speech recognition and acoustic event detection~\cite{graves2013speech,tian2020artificial}.
 The use of recurrent neural networks (RNNs) has gained importance thanks to Long Short-Term Memory (LSTM)~\cite{sak2014long} and Gated Recurrent Units (GRU)~\cite{cho2001learning} for text processing tasks: classification and recognition. 
 \cite{kim2022research, lyu2020combine,li2022channel, siswantining2023spratama} highlight the effectiveness of RNNs in processing sequential data, showcasing their superiority over traditional methods in natural language processing tasks.
 Furthermore, the combination of RNNs, particularly bidirectional LSTM recurrent neural networks (BidLSTM), with CRFs has been explored for tasks such as word segmentation and morpheme segmentation, highlighting the adaptability of RNNs in sequence labelling~\cite{huang2015bidirectional}.
 
-Particularly relevant is the work~\cite{lample2016neural} which proposes a new neural architecture for NER with an architecture based on a bidirectional set of LSTM chains. 
+Particularly relevant is the work~\cite{lample2016neural}, which proposes a new neural architecture for NER with an architecture based on a bidirectional set of LSTM chains. 
 Bi-directional indicates that the text is computed from left to right (forward LSTM) and from right to left (backward LSTM). 
-Such an architecture can incorporate information that is usually captured by hand-crafted features and/or gazetteers. 
-Such architecture takes in input two types of word representation: character-based word representation, calculated from the supervised corpus, and unsupervised word representation, which is learnt from unsupervised corpora. 
-The unsupervised word representations discussed were word2vec~\cite{mikolov2013efficient} but they can also be used for more recent ones: fastText~\cite{joulin2016fasttext}, GloVe~\cite{pennington2014glove}.
+Such an architecture can incorporate information usually captured by hand-crafted features or gazetteers. 
+Such architecture takes in input two types of word representation: character-based word representation, calculated from the supervised corpus, and unsupervised word representation, learnt from unsupervised corpora. 
+The unsupervised word representations discussed were word2vec~\cite{mikolov2013efficient}, but they can also be used for more recent ones: fastText~\cite{joulin2016fasttext}, GloVe~\cite{pennington2014glove}.
 
-~\cite{peters2018deep} proposes a novel deep contextualised word representation that addresses two key aspects: a) capturing complex characteristics of word usage and b) incorporating the polysemy of words within linguistic contexts. The proposed approach calculates word representations based on the entire sequence. The network architecture consists of two bidirectional LSTM layers with dimensions 4096 x 512. These layers work in a complementary manner, with one predicting the next token from left to right based on the preceding tokens, and the other predicting from right to left. The study also highlights several important findings: a) instead of solely outputting the last layer, averaging the weights from all layers with a coefficient improves performance in downstream tasks, b) lower layers capture syntactic information while higher layers capture context-dependent aspects (semantic), and c) incorporating ELMo embeddings in both the input and output enhances tasks that utilise the attention layer after the RNN, but does not provide benefits for other task types.
+~\cite{peters2018deep} proposes a novel deep contextualised word representation that addresses two key aspects: a) capturing complex characteristics of word usage and b) incorporating the polysemy of words within linguistic contexts. The proposed approach calculates word representations based on the entire sequence. The network architecture consists of two bidirectional LSTM layers with dimensions 4096 x 512. These layers work in a complementary manner, with one predicting the next token from left to right based on the preceding tokens and the other predicting from right to left. The study also highlights several significant findings: a) instead of solely outputting the last layer, averaging the weights from all layers with a coefficient improves performance in downstream tasks, b) lower layers capture syntactic information while higher layers capture context-dependent aspects (semantic), and c) incorporating ELMo embeddings in both the input and output enhance tasks that utilise the attention layer after the RNN, but does not provide benefits for other task types.
 
 The transition from LSTM-based RNN to transformers marks a significant change in natural language processing. The introduction of Bidirectional Encoder Representations from Transformers (BERT)~\cite{devlin2018bert} revolutionised language representation models by leveraging the power of transformers. Transformers, as proposed by~\cite{devlin2018bert}, replaced RNNs with self-attention, demonstrating the potential of this approach in language processing tasks~\cite{vaswani2017attention}. 
-BERT, based on bidirectional transformers, offers a simple yet powerful architecture that allows efficient pre-training and fine-tuning with minimal task-specific modifications, leading to state-of-the-art performance across a wide range of language processing tasks such as question answering, language inference, and named entity recognition~\cite{devlin2018bert, joshi2019bert}. The bidirectional nature of BERT enables it to capture contextual information from both preceding and subsequent words, which is crucial to understanding the meaning of a word in a given sentence, thus outperforming traditional LSTM-based models~\cite{lee2019biobert, joshi2020deep}. Furthermore, BERT's ability to handle long-range dependencies and its superior performance in sequence labelling tasks, such as NER and RE, has been demonstrated in various studies~\cite{jung2021dg, hafiane2020experiments,kim2020korean}. Furthermore, the effectiveness of BERT in sentiment analysis, misinformation check and text classification tasks has been highlighted, showcasing its versatility and robustness in different NLP applications~\cite{ng2022modelling, shreyashree2022bert, taha2023automated}. 
-However, it is important to note that while BERT has shown superiority in various language processing tasks, there are instances where CNN and LSTM models also perform competitively with BERT-based models~\cite{joshi2021evaluation,velankar2021hate}. 
-In general, the advantages of BERT-based architectures lie in their conceptual simplicity, empirical power, contextual understanding, and superior performance in a diverse set of NLP tasks, making them a crucial advance in the field of natural language processing. 
+BERT, based on bidirectional transformers, offers a simple yet robust architecture that allows efficient pre-training and fine-tuning with minimal task-specific modifications, leading to state-of-the-art performance across a wide range of language processing tasks such as question answering, language inference, and named entity recognition~\cite{devlin2018bert, joshi2019bert}. The bidirectional nature of BERT enables it to capture contextual information from both preceding and subsequent words, which is crucial to understanding the meaning of a word in a given sentence, thus outperforming traditional LSTM-based models~\cite{lee2019biobert, joshi2020deep}. Furthermore, BERT's ability to handle long-range dependencies and its superior performance in sequence labelling tasks, such as NER and RE, has been demonstrated in various studies~\cite{jung2021dg, hafiane2020experiments,kim2020korean}. Furthermore, the effectiveness of BERT in sentiment analysis, misinformation check and text classification tasks has been highlighted, showcasing its versatility and robustness in different NLP applications~\cite{ng2022modelling, shreyashree2022bert, taha2023automated}. 
+However, it is essential to note that while BERT has shown superiority in various language processing tasks, there are instances where CNN and LSTM models also perform competitively with BERT-based models~\cite{joshi2021evaluation,velankar2021hate}. 
+In general, the advantages of BERT-based architectures lie in their conceptual simplicity, empirical power, contextual understanding, and superior performance in diverse NLP tasks, making them a crucial advance in NLP. 
 
-In the following sections we first discuss all basic BERT-related work, and then the BERT-flavoured transformers related to materials science. 
+In the following sections, we first discuss all essential BERT-related work and then the BERT-flavoured transformers related to materials science. 
 
 \section{Transformers}
 
 \cite{devlin2018bert} introduce BERT (Bidirectional Encoder Representation Transformer). 
-While pre-trained language models have been discussed already in previous work~\cite{radford2018improving}, and can be exploited in two main ways: feature-based or fine-tuning. 
+While pre-trained language models have been discussed in previous work~\cite{radford2018improving} and can be exploited in two main ways: feature-based or fine-tuning. 
 BERT aims to improve the fine-tuning approach and to solve the limitation of existing left-to-right language models, where each token can attend only to previous tokens in the self-attention layers~\cite{vaswani2017attention} of the Transformers architecture. 
-BERT introduces an MLM (Masked Language Model) pretraining objective, where it randomly masks tokens in training examples and tries to predict them using the full context. This enables to use of both left and right contexts and pre-trains a fully Bidirectional Transformer.
+BERT introduces an MLM (Masked Language Model) pre-training objective, where it randomly masks tokens in training examples and tries to predict them using the full context. This enables using both left and right contexts and pre-trains a fully Bidirectional Transformer.
 Using the original transformer architecture~\cite{vaswani2017attention}, they define BERT\textsubscript{BASE} with L=12, H=768 and A=12 (110M parameters) and BERT\textsubscript{LARGE} as L=24, H=1024 and A=16 (340M parameters) with (L=layers, H=hidden layers, and A=attention heads).
-The authors define the input as a sequence that can be a natural sentence, a paragraph, or a pair of sentences. They used a special separator [CLS] to start the sequence and convey the result of the final hidden state. For separating two sentences from a pair, they encode the separator with [SEP] and provide sentence embedding which states whether a token belongs to sentence A or B. 
+The authors define the input as a sequence that can be a natural sentence, a paragraph, or a pair of sentences. They used a special separator [CLS] to start the sequence and convey the result of the final hidden state. For separating two sentences from a pair, they encode the separator with [SEP] and provide sentence embedding, which states whether a token belongs to sentence A or B. 
 Each token is encoded using position embeddings calculated using WordPiece using a dictionary of 30000 tokens vocabulary. 
 The sum of the vocabulary token, the sentence token, and the position embeddings represent the input representation for each token. 
 The authors defined two training objectives: Masked LM (MLM) and Next-Sentence Prediction (NSP). 
 The MLM is prepared by substituting 15\% of the token's positions at random: 80\% of the time with [MASK], 10\% of the time with a random token, and 10\% of the time do not substitute. The reason is to provide the model with enough randomness so that the model does not always learn to replace the tokens with [MASK]. 
-The NSP aims to identify whether a sentence follows another sentence. This is justified by the need to perform tasks such as answering questions in which relations between sentences are identified. 
+The NSP aims to identify whether a sentence follows another sentence. This is justified by the need to perform tasks such as answering questions in which relations between sentences are determined. 
 BERT outperforms the present architectures on most NLP tasks and benchmarks such as GLUE, MNLI and SQUAD. 
 
-After BERT was released, a multitude of flavoured models was released. We analyse the most important ones in the following paragraphs. 
+After BERT was released, a multitude of flavoured models were released. We analyse the most important ones in the following paragraphs. 
 
-\cite{liu2019roberta} reproduces the results obtained in BERT, revises the original architecture and proposes RoBERTa (Robust Optimised BERT Architecture), a revised BERT implementation that outperforms BERT on downstream tasks such as GLUE, RACE, and SQUAD benchmarks. 
-The main modifications are summarised as follows. Instead of masking tokens statically only once during preprocessing when the data are duplicated 10 times, they apply different masking at each instance of the same example. Dynamic masking helps for less than 1 point percentage.
-They suggest that changing the way the data is provided in the input, in addition to removing the NSP loss objective, improves the performance. 
-In particular, providing full sentences from the same or different documents without NSP matches the original implementation of providing a pair of segments with NSP. 
-Furthermore, results are even better by providing only sentences from the same documents and removing the NSP.
+\cite{liu2019roberta} reproduces the results obtained in BERT, revises the original architecture and proposes RoBERTa (Robust Optimised BERT Architecture). This revised BERT implementation outperforms BERT on downstream tasks such as GLUE, RACE, and SQUAD benchmarks. 
+The main modifications are summarised as follows. Instead of masking tokens statically only once during preprocessing when the data are duplicated ten times, they apply different masking at each instance of the same example. Dynamic masking helps for less than 1 point percentage.
+They suggest that changing the way the data is provided in the input and removing the NSP loss objective improves the performance. 
+In particular, providing complete sentences from the same or different documents without NSP matches the original implementation of providing a pair of segments with NSP. 
+Furthermore, results are even better when only sentences from the same documents are provided, and the NSP is removed.
 NSP removal was discussed in recent work~\cite{lample2019cross}.
-Lastly, they propose training for a longer time, and supplying more data can improve the results: the original BERT was trained on 1M steps with a batch size of 250, while the RoBERTa was trained for fewer steps 31000 using a much larger batch size of 8000 examples. This setting requires a more scalable approach because the required GPU memory is larger. 
-With these changes, RoBERTa is able to outperform BERT on most language understanding benchmarks such as SQUAD, GLUE, and RACE. 
+Lastly, they propose training for a longer time, and supplying more data can improve the results: the original BERT was trained on 1M steps with a batch size of 250, while the RoBERTa was trained for fewer steps, 31000 using a much larger batch size of 8000 examples. This setting requires a more scalable approach because the required GPU memory is more significant. 
+With these changes, RoBERTa can outperform BERT on most language understanding benchmarks such as SQUAD, GLUE, and RACE. 
 
-\cite{Beltagy2019SciBERT} propose a scientific version of BERT, called SciBERT. 
+\cite{Beltagy2019SciBERT} propose a scientific version of BERT called SciBERT. 
 SciBERT was trained on a random sample of 1.4M articles from Semantic Scholar (data set was not published): 18\% from computer science and 82\% from the biomedical domain. SciBERT was evaluated against BERT and outperformed BERT. 
 Unlike BioBERT~\cite{lee2019biobert}, SciBERT was trained using a different tokeniser (SentencePiece instead of WordPiece). Most importantly, the tokeniser was re-trained from scratch using scientific text.
-Another interesting aspect is that BioBERT was trained from a model initialised with the weight from BERT and overall was trained for a longer time and on more data. However, the limited coverage of the BERT tokeniser on scientific data penalised the performance on various downstream tasks.
+Another exciting aspect is that BioBERT was trained from a model initialised with the weight from BERT, trained for a longer time, and on more data overall. However, the limited coverage of the BERT tokeniser on scientific data penalised the performance on various downstream tasks.
 
 \cite{yasunaga2020linkbert} introduces a new approach in pre-training a BERT model in two flavours: LinBERT and BioLinkBERT on the general text and biomedical text, respectively.
 The authors introduce a novel approach which includes text from linked documents, and an additional objective function is to classify the type of link.
-The pre-training data is aggregated as follows: a) Each example is structured as a pair of text sequences as in the original BERT. b) The pairs are aggregated by selecting the second segment (when available) as follows: randomly, from the same document, or from a related document. For the linkBERT, this only works for the Wikipedia corpus, exploiting the links between Wikipedia pages. For bioLinkBERT, the authors select sequences from related documents in the citation graph. 
-The authors replace the NSP objective with the DRP (Document Relation Prediction), which aims to classify the type of relation between the two segments, giving three possible classes: contiguous, random, and linked.  
-Evaluation metrics calculated on QA (extractive question answering), GLUE and SQUAD, outperform BERT. BioLinkBERT outperforms PubMedBERT~\cite{gu2020pubmedbert} on most NLP tasks. 
+The pre-training data is aggregated as follows: a) Each example is structured as a pair of text sequences as in the original BERT. b) The pairs are aggregated by randomly selecting the second segment (when available) from the same or a related document. For the linkBERT, this only works for the Wikipedia corpus, exploiting the links between Wikipedia pages. For bioLinkBERT, the authors select sequences from related documents in the citation graph. 
+The authors replace the NSP objective with the DRP (Document Relation Prediction), which aims to classify the relation type between the two segments, giving three possible classes: contiguous, random, and linked.  
+Evaluation metrics calculated on QA (extractive question answering), GLUE and SQUAD outperform BERT. BioLinkBERT outperforms PubMedBERT~\cite{gu2020pubmedbert} on most NLP tasks. 
 
-\cite{gu2020pubmedbert} pre-trained a biomedical-based model called PubMedBERT and evaluated using a newly assembled dataset called BLURB (Biomedical Language Understanding \& Reasoning Benchmark). 
-The vocabulary was trained using a BPE (Byte-Pair Encoding) approach with a length of 30522, and trained on text from PubMed abstracts: 14 million abstracts, 3.2b words. 
-The fact that they only use abstract could be a major limitation on the type of information that is used in the pre-training. 
+\cite{gu2020pubmedbert} pre-trained a biomedical-based model called PubMedBERT and evaluated it using a newly assembled dataset called BLURB (Biomedical Language Understanding \& Reasoning Benchmark). 
+The vocabulary was trained using a BPE (Byte-Pair Encoding) approach with a length of 30522 and trained on text from PubMed abstracts: 14 million abstracts, 3.2b words. 
+The fact that they only used abstracts could be a significant limitation on the type of information used in the pre-training. 
 They are the first to consider the concepts of "in-domain" (in their case, biomedical text) and "out-of-domain" (everything else). 
-Their strong claim is that domain-specific pre-training from scratch can be superior to mixed-domain pre-training, which is in contrast with~\cite{hong2022ScholarBERT}. 
+Their strong claim is that domain-specific pre-training from scratch can be superior to mixed-domain pre-training, which contrasts with~\cite{hong2022ScholarBERT}. 
 From the perspective of vocabulary, it is demonstrated by comparing scores from BioBERT~\cite{lee2019biobert} and SciBERT~\cite{Beltagy2019SciBERT} that vocabulary specificity improves performance in tasks applied to scientific text. 
 
-\cite{su2022investigation} tested biomedical-trained BERT models on relation extraction in biomedical data. They demonstrate that downstream tasks on overlapping data that were used in pre-training bias the results for RE. In classification, they demonstrate that using only the information in the "CLS" token can be improved by adding complementary information from other layers. 
+\cite{su2022investigation} tested biomedical-trained BERT models on relation extraction in biomedical data. They demonstrate that downstream tasks on overlapping data used in pre-training bias the results for RE. In classification, they indicate that using only the information in the "CLS" token can be improved by adding complementary information from other layers. 
 
 \cite{hong2022ScholarBERT} demonstrate that training with a multidisciplinary corpus gives better results than a transformer based on a domain-specific dataset. In addition, they also found that larger models do not always perform better. However, these results might be due to other issues they have introduced with their pre-training process. 
-Previous work by~\cite{lample2019cross} has suggested a similar concept applied to translation tasks, where including cross-training information and, in particular, the addition of data in different languages not only boost the performance in translation but also help the performance in non-translation tasks. 
+Previous work by~\cite{lample2019cross} has suggested a similar concept applied to translation tasks, where including cross-training information and, in particular, the addition of data in different languages not only boosts the performance in translation but also helps the performance in non-translation tasks. 
 
 
 \section{Materials science BERT-based pre-trained transformers}
 
-In this section, we analyse the BERT-based transformers that were pre-trained using materials science text. We provide a comparison evaluation of all of these transformers as a comparative measurement. 
+In this section, we analyse the pre-trained BERT-based transformers using materials science text. We provide a comparison evaluation of all of these transformers as a comparative measurement. 
 
-\cite{pranav2023a} propose a material-property extraction for polymers, based on a fine-tuned BERT model on 2.4 million abstracts. They report that their NER system achieves higher results compared to other material-based pre-trained BERT models. Properties are connected to materials using a heuristic approach to find the closer entities.
-With their system, they extract more than 300000 records of polymers and properties from the 2.4 million abstracts. 
+\cite{pranav2023a} propose a material-property extraction for polymers based on a fine-tuned BERT model on 2.4 million abstracts. Their NER system achieves higher results than other material-based pre-trained BERT models. Properties are connected to materials using a heuristic approach to find the closer entities.
+With their system, they extracted more than 300000 records of polymers and properties from the 2.4 million abstracts. 
 However, the article does not provide information on data contamination between pre-training and evaluation: we do not know whether there is any overlap between the evaluation datasets, PolymerAbstract~\cite{huan2016a} and the training set of 768 abstracts. 
-Moreover, it is not indicated whether their model can generalise properly, providing out-of-domain information of their evaluation dataset compared with the training set. 
+Moreover, whether their model can generalise properly is not indicated, providing out-of-domain information of their evaluation dataset compared with the training set. 
 
-\cite{huang2020batterybert} is another specialised set of specialised BERT models that focus on scientific articles related to batteries. In this work, the authors experiment with different approaches for fine-tuning, continuing a generic BERT training (batterybert), a SciBERT training (batteryscibert), or training from scratch a new model based only on text from battery research (batteryonlybert). The main differences are provided by the different vocabularies, where batterybert and batteryscibert are constrained by the original vocabulary, the batteryonlybert vocabulary was trained from scratch and could model more accurately the terminology used in the battery research articles. 
-In document classification, batteryscibert obtained the highest score. SQuad evaluation (extractive Q\&A dataset) surprisingly showed better scores with batteryBERT. This work demonstrated the importance of having a solid base with general text as well as scientific information to provide a model that can generalise and adapt to multiple sets of situations where it could be used. 
+\cite{huang2020batterybert} is another specialised set of specialised BERT models that focus on scientific articles related to batteries. In this work, the authors experiment with different approaches for fine-tuning, continuing a generic BERT training (batteryBERT), a SciBERT training (batterySciBERT), or training from scratch a new model based only on text from battery research (batteryOnlyBERT). The different vocabularies provide the main differences, where batteryBERT and batterySciBERT are constrained by the original vocabulary. The batteryOnlyBERT vocabulary was trained from scratch and could model the terminology used in the battery research articles more accurately. 
+In document classification, batterySciBERT obtained the highest score. SQuad evaluation (extractive Q\&A dataset) surprisingly showed better scores with batteryBERT. This work demonstrated the importance of having a solid base with general text and scientific information to provide a model that can generalise and adapt to multiple situations where it could be used. 
 
-\cite{guo2021automated} proposes a two-stage deep learning framework for extracting chemical formulas and applying a ''Role labelling`` in the description of the chemical reaction. 
-Following a common schema Extract-Link, they first extract all references to chemical compounds and, subsequently, label each compound with its role in the reaction description. 
+\cite{guo2021automated} proposes a two-stage deep learning framework for extracting chemical formulas and applying a ''Role labelling`` in the chemical reaction description. 
+Following a standard schema Extract-Link, they first extract all references to chemical compounds and, subsequently, label each compound with its role in the reaction description. 
 They introduce a chemical-focussing pre-trained BERT flavour followed by a task-adaptive encoder (ChemRxnBERT) that provides a role labelling method. 
 The authors created a small dataset for fine-tuning chemical reaction annotations composed of relevant paragraphs containing chemical reactions extracted from articles in various chemistry journals. 
-Role labelling was implemented in cascade by providing the main material between special tokens ([P], [\\P]) which are then linked to the other extracted entities. Since the sequence is shallow, it can link only one material with the rest of the reaction. Therefore, multiple passages are necessary if multiple products are present in the reaction paragraph.  
+Role labelling was implemented in cascade by providing the primary material between special tokens ([P], [\\P]), which are then linked to the other extracted entities. Since the sequence is shallow, it can link only one material with the rest of the reaction. Therefore, running the process numerous times is needed if multiple products are present in the reaction paragraph.  
 
 
 % \section{Experiments in fine-tuning Transformers}
 
-% ~\cite{dominic2018revisiting} revisit the hyperparameters when training deep learning networks, focussing, in particular, on batch size and learning rate. The authors discuss a different approach for convolutional neural networks and report that a minibatch size of as low as m = 2, can provide better scores for medium-low datasets. However, for larger datasets, the batch size should not be greater than m = 32. 
+% ~\cite{dominic2018revisiting} revisit the hyperparameters when training deep learning networks, focussing, in particular, on batch size and learning rate. The authors discuss a different approach for convolutional neural networks and report that a minibatch size of as low as m = 2, can provide better scores for medium-low datasets. However, the batch size should not be greater than m = 32 for larger datasets. 
 % The batch size is an important hyperparameter, while it should be kept large for pretraining~\cite{liu2019roberta}, evidence indicates that higher performances will be obtained by smaller values for fine tuning. 
 
 % \cite{smith2017dont} suggest a more performing approach could be to increase batch size instead of decreasing the learning rate while fine-tuning. 
@@ -172,9 +172,9 @@ Role labelling was implemented in cascade by providing the main material between
 
 % \cite{mehrafarin2022on} stress the importance of data size when fine-tuning and found that larger training affects mainly higher layers. In particular, the number of training steps is more relevant than the diversity of the dataset (??). 
 % The authors compare a pre-trained BERT (baseline) with the corresponding fine-tuned models using 5 GLUE datasets of different sizes and other characteristics.
-% To measure the amount of linguistic knowledge retained by the model, they designed a set of probes: bigram shift, object number, etc. They run the probes with frozen models and measure that up to layer 6 each subsequent layer retains more linguistic knowledge than the previous one. However, for fine-tuned models on large datasets, such information is lost as we move to higher layers. 
+% To measure the amount of linguistic knowledge retained by the model, they designed a set of probes: bigram shift, object number, etc. They run the probes with frozen models and measure that up to layer 6 each subsequent layer retains more linguistic knowledge than the previous one. However, such information is lost for fine-tuned models on large datasets as we move to higher layers. 
 
-% \cite{hoffer2017train} suggests that the adjustment of the learning rate and the normalisation of the batch can reduce the generalisation gap (comparison between the training error and the validation error). Generalisation continues to improve for longer time even without any observable change in the training or validation errors. Large or small batches generalise the same if the number of iterations is adapted. 
+% \cite{hoffer2017train} suggests that the adjustment of the learning rate and the normalisation of the batch can reduce the generalisation gap (comparison between the training error and the validation error). Generalisation continues to improve for longer, even without any observable change in the training or validation errors. Large or small batches generalise the same if the number of iterations is adapted. 
 % Finally, they claim that the change in the generalisation gap depends more on the number of updates than on the batch size. 
 
 \section{Extraction of quantified properties and measurements} 
@@ -185,23 +185,23 @@ Attempts have been made to extract measurements from text using many approaches.
 ~\cite{aras2014applications} built a tool for the extraction of quantities based on Apache UIMA (Unstructured Information Management Architecture) in combination with pattern matching that circles a Finite-State Automata (FSA). 
 The authors claim that UIMA and FSA are faster and better suited to process a large quantity of text.
 Their work supports multiple constructs: values, intervals, and enumerations. Units are normalised to the International System of Standard (SI). 
-Units are loaded from a configuration file that includes the normalised format. In the same work, they also combine keyword extraction and text segmentation, which are interesting challenges in the analysis of patent text. 
+Units are loaded from a configuration file that includes the normalised format. In the same work, they also combine keyword extraction and text segmentation, which are exciting challenges in the analysis of patent text. 
 The authors used Quantalyze\footnote{\url{https://www.quantalyze.com/}}, a commercial tool designed to process patents, for comparison. They reported that Quantlyze had limited unit support. 
 
-\cite{maiya2015mining} propose a search engine called MQSearch. Their work proposes a rule-based extractor for quantities and units that include the measured object. The extractor models each measurement using the five-tuple: (sign, number, error, scientific notation, units) where only numbers and units are mandatory. 
-The data flow is comprised of four phases: preprocessing to mitigate noisy and incorrect character extraction. 
+\cite{maiya2015mining} propose a search engine called MQSearch. Their work proposes a rule-based extractor for quantities and units that include the measured object. The extractor models each measurement using the five-tuple (sign, number, error, scientific notation, units), where only numbers and units are mandatory. 
+The data flow comprises four phases: preprocessing to mitigate noisy and incorrect character extraction. 
 Then, to recognise units, they expanded an ontology of units from the OBO Foundry with additional information from external sources and defined one associated rule for each unit. The ontology is exploited to recognise the measured object. 
 Quantities are extracted similarly with a set of regular expressions. 
 The last phase is post-processing, which is used to discard possible wrong or invalid values. 
 They also present a SoLR-based search engine that allows for a search using the extracted units, values, and measured objects. 
 
 \cite{agatonovic2008large} built an extractor for patents using GATE (General Architecture for Text Engineering). 
-Although GATE provides plugins for machine learning, they implemented their extraction using a lookup to a gazetteer and a database containing the transformation rules between one unit to another. 
-The gazetteer was built from a set of units published by the GNU (Gnu's not Unix) Foundation and comprises a set of 30000 units. In addition, they also recognise references within the text and patent information (e.g. patent number, country code). 
+Although GATE provides plugins for machine learning, they implemented their extraction using a lookup to a gazetteer and a database containing the transformation rules between one unit and another. 
+The gazetteer was built from a set of units published by the GNU (Gnu's not Unix) Foundation and comprises 30000 units. In addition, they also recognise references within the text and patent information (e.g. patent number, country code). 
 They built the annotation rules using the JAPE language, which is structured as a matching rule and action to perform. 
 %The authors evaluate their tool on two aspects: throughput and accuracy. They created a Gold Standard corpus of 51 documents, reporting the accuracy of 
 
-Although most of the works are based on English, there are also some contributions that focus on specific languages: \cite{hetsevich2014processing} investigated issues applied to Russian-derived languages (Russian and Belarusian). 
+Although most works are based on English, some contributions focus on specific languages: \cite{hetsevich2014processing} investigated issues applied to Russian-derived languages (Russian and Belarusian). 
 The authors make a consistent analysis of the challenges of Russian-derived languages. 
 They proposed a solution based on finite-state automation with 350 graphs running on top of the NooJ\footnote{\url{https://nooj.univ-fcomte.fr/}} linguistic processor. 
 Grammar covers three of the six grammar constructs (genitive, accusative, and nominative). 
@@ -209,71 +209,43 @@ The evaluation was carried out on a mixed corpus of 100,000 words and resulted i
 
 \cite{berrahou2013extract} combine the use of an Ontological and
 Terminological Resource (OTR) with the use of ML.
-The OTR is used as a reference and can be updated with new units that are not extracted correctly or completely. 
-Their aim is to use a modified string matching function to extract measurements and units. Thus, the main problem they try to solve is to reduce the search space using string-matching functions. 
+The OTR is used as a reference and can be updated with new units that are not extracted correctly or entirely. 
+They aim to use a modified string-matching function to extract measurements and units. Thus, the main problem they try to solve is to reduce the search space using string-matching functions. 
 They proposed a two-step process. 
-First, they use a classifier to determine whether a sentence contains a unit or not. The classifier is built on a bag of words where the words are counted using three methods. TF, TF/IDF and BM25. The model is then built with three different algorithms which are then compared: Naive Bayes~\cite{john2013estimating}, decision three (J48), support vector machines (SVM) and Discriminative Multinominal Naive Bayes (DMNB).
-In the second step, they match potential candidates in the OTR and use the string function to select the item that is more likely to represent the extracted one. On the basis of the similarity, they defined two thresholds which they can consider as variants of an existing unit or a new unit or to enrich the OTR and improve future recognition.
+First, they use a classifier to determine whether a sentence contains a unit. The classifier is built on a bag of words where the words are counted using three methods. TF, TF/IDF and BM25. The model is then built with three different algorithms, which are then compared: Naive Bayes~\cite{john2013estimating}, decision three (J48), support vector machines (SVM) and Discriminative Multinominal Naive Bayes (DMNB).
+In the second step, they match potential candidates in the OTR and use the string function to select the item that is more likely to represent the extracted one. Based on the similarity, they defined two thresholds that they can consider as variants of an existing or new unit to enrich the OTR and improve future recognition.
 
 \cite{kang_extracting_2013} describe another rule-based solution in which they outperform the respective ML-based system. 
-Their goal is to extract targeted information from laboratory test results from diagnostic devices examined by the US Food and Drug Administration (FDA). 
-The authors developed a symbolic information extraction (SIE) system for extracting four types of entity: analytes (substance considered), specimens (where the analyte is measured), units of measures of the analyte, and detection limits of the diagnostic device in the exam.
-The SIE is based on a combination of rules and dictionaries. First, the candidates are extracted and then ranked so that the most plausible ones are selected from the set. The units of measures targeted in this work are only a subset of all units and are specific to this particular subdomain in biology. 
+They aim to extract targeted information from laboratory test results from diagnostic devices examined by the US Food and Drug Administration (FDA). 
+The authors developed a symbolic information extraction (SIE) system for extracting four types of entities: analytes (substance considered), specimens (where the analyte is measured), units of measure of the analyte, and detection limits of the diagnostic device in the exam.
+The SIE is based on a combination of rules and dictionaries. First, the candidates are extracted and then ranked to select the most plausible ones from the set. The units of measures targeted in this work are only a subset of all units and are specific to this particular subdomain in biology. 
 They evaluated their SIE against three probabilistic learning approaches: CRF, SVM, and HMM. SIE outperforms ML-based models, except for the unit of measures where the CRF obtained the best scores. 
 
-More related to materials science \cite{dieb2015framework} proposes to integrate relevant units of measurement when composing a small data set (392 sentences) for the development of nanocrystal devices. 
-The data set focusses on identifying several properties, including the property value and units that are common in the domain. 
+More related to materials science \cite{dieb2015framework} proposes integrating relevant units of measurement when composing a small data set (392 sentences) to develop nanocrystal devices. 
+The data set focuses on identifying several properties, including the property value and common units in the domain. x
 This work also leverages ML using a set of CRF engines, focussing only on a few entity types applied in a cascade. 
 
-~\cite{hundman2017measurement} describes an integrated measurement extraction that focusses on the scientific literature in earth science. 
-They developed a novel method that extracts context-related information from measurements. Instead of developing their own measurement extraction tool, they evaluated three reuse options. Quantalyze showed low recall in both the extracted measurement and the measured object and had technical limitations in integration, such as a lack of REST API. ~\cite{agatonovic2008large}, discussed previously, was discarded due to the need to maintain the rules. 
-Therefore, they chose our tool, Grobid-quantities which had the advantage of requiring only labelled data and providing acceptable results in terms of precision, recall, and f-score. 
-
-% After the publication of our contribution~\cite{foppiano2019quantities}, other works have been published, often focussing on a limited scope or specific language. 
-
-% \cite{petersen2021geoquantities} describes a system that aims to extract MAR (Mass Accumulation Rate) information on geographical locations in marine science PDF articles. Since these types of measurement are complex and only applied in their specific domain, it is not surprising that the original version of grobid quantities does not support them. However, due to the fact that grobid-quantities is open source and actively developed, they successfully trained a version of grobid-quantities with data that allow the support of MARs. 
-
-
-% While \cite{ning2022ameta} focuses on the temporal aspect quantities extracted from news feeds. Not relevant, developed later on.
-
-% \cite{epp2021stereo} describe a framework for extracting results from documents. They extract three main pieces of information: statistical results, condition information, and topics from scientific papers. Although their aim is to document the following of the American Psychological Association (APA) guidelines, there are small variations in many cases. 
-% Their system exploits a flexible wrapper induction approach for the extraction of statistics and conditions, which is Grammar-based Condition Extraction (GBCE) by inferring a set of rules from a subset of papers and applying them to the rest of the dataset. The experimental topics are extracted using an adaptation of the unsupervised Attention-based Aspect Extraction (ABAE) approach. 
-% The authors use the CORD-19 dataset, 500 documents (0. 25\%) are used to learn the rules with the GBCE and extract information with precision 99\% for APA-compliant documents and precision 95\% for non-APA-compliant documents. 
-% The rule-based nature is strongly dictated by the uniform structure of the writing style and possibly to a limited amount of units and measurements that are expected to be extracted. 
+~\cite{hundman2017measurement} describes an integrated measurement extraction that focuses on the scientific literature in earth science. 
+They developed a novel method that extracts context-related information from measurements. Instead of creating their measurement extraction tool, they evaluated three reuse options. Quantalyze showed low recall in both the extracted measurement and the measured object and had technical limitations in integration, such as a lack of REST API. ~\cite{agatonovic2008large}, discussed previously, was discarded due to the need to maintain the rules. 
+Therefore, they chose our tool, Grobid-quantities, which had the advantage of requiring only labelled data and providing acceptable precision, recall, and f-score results. 
 
 \cite{hao2016} extracts numeric laboratory test expressions from clinical trial eligibility criteria texts. 
-They encode information using the TimeML specification language TimeML. The system presented Valx extracts: a) numeric values and units using regular expressions, b) using a hybrid approach with a knowledge base, they extract variables referred to as quantities. They cover different text representations (e.g., BMI, body mass index, etc.). Valx supports the association of multiple values to the same variable, for example, "40 and 60 years" associate both values to "years". Their tool supports normalisation to convert conventional units to international units. 
+They encode information using the TimeML specification language TimeML. The system presented Valx extracts: a) numeric values and units using regular expressions, b) using a hybrid approach with a knowledge base, they extract variables referred to as quantities. They cover different text representations (e.g., BMI, body mass index, etc.). Valx supports the association of multiple values to the same variable. For example, "40 and 60 years" associate both values with "years". Their tool supports normalisation to convert conventional units to international units. 
 
-\cite{roy2015reasoning} describe an approach to formalisation of quantities and measurements that aims at extracting information from free text and inferring complex reasoning that includes the entities being measured and their quantity. 
+\cite{roy2015reasoning} describe an approach to formalisation of quantities and measurements that aims at extracting information from free text and inferring complex reasoning that includes the measured entities and their quantity. 
 The authors introduce QVR (Quantity Value Representation) with three constituents: Value (which includes values and ranges), units (which characterise the value), and change (which indicates whether there is a modification in the value, e.g. increases). 
-The extraction of quantities is performed using a Semi-CRF and a bank of classifiers. 
-\cite{roy2015reasoning} uses four types of feature that are calculated for each token (and a window including the three previous and following tokens): a) classification using a lexicon to identify whether it appears as a number, unit, etc., b) determining whether it contains a digit, all digits, etc., c) POS (part of Speech). Units are extracted by assuming they are adjoined to the numeric values. 
-This work reserves a detailed discussion on quantities entailment, given a quantity value, and a text it is a 3-way decision problem: a) entail: when the quantity-value is supported in the context, b) contradicts when the quantity-value is not supported by the context, instead, the Q-V is different, c) no relation. 
-The Quantity entailment aims to clarify whether units are confirmed by the context and if the way they are described can be defined as equivalent (e.g. 2 couples, 4 people). The quantity entailment is relevant for scientific text comprehension, especially for the description of experimental results in a very concise way containing multiple relative comparisons within the same paragraph, which makes it hard to understand. 
+The quantities are extracted using a Semi-CRF and a bank of classifiers. 
+\cite{roy2015reasoning} uses four types of features that are calculated for each token (and a window including the three previous and following tokens): a) classification using a lexicon to identify whether it appears as a number, unit, etc., b) determining whether it contains a digit, all digits, etc., c) POS (part of Speech). Units are extracted by assuming they are adjoined to the numeric values. 
+This work reserves a detailed discussion on the entailment of quantities. Given a quantity value and a text, it is a 3-way decision problem: a) "entail" when the quantity value is supported in the context, b) "contradicts" when the context, instead, does not support the quantity-value, the Q-V is different, c) no relation. 
+The Quantity entailment aims to clarify whether the context confirms units and if the way they are described can be equivalent (e.g. two couples, four people). The quantity entailment is relevant for scientific text comprehension, especially for explaining experimental results concisely and containing multiple relative comparisons within the same paragraph, making it hard to understand. 
 
 The works of \cite{taha2021identifying} and \cite{ho2021qute} focused on tables.
 
-\cite{ho2021qute} describe a comprehensive query system in which they leverage previously extracted quantities, units, and context to answer questions containing measurement conditions. 
-Their data model is described as triples of the form (entity, quantity, context) where the context gives more information and proof to quantity and entity. 
+\cite{ho2021qute} describes a comprehensive query system that uses previously extracted quantities, units, and context to answer questions containing measurement conditions. 
+Their data model is described as triples of the form (entity, quantity, context), where the context gives more information and proof to quantity and entity. 
 The triplet is computed offline in several steps: first, the quantity is extracted based on \cite{roy2015reasoning}, which we have described previously. 
-Entities and quantities are referenced using the Yago knowledge graph, and different columns are related to their previous work~\cite{ho2021extracting} and the extracted data is used to create an index with conceptualised quantities. 
-This idea is particularly relevant to our grobid-quantity work because there are very few works at the moment that leverage the extracted property and quantities, and through an international system normalisation allows the search by values and interval with the normalisation helping to increase the recall on quantities not in normalised units. 
+Entities and quantities are referenced using the Yago knowledge graph. Different columns are related to their previous work~\cite{ho2021extracting}, and the extracted data is used to create an index with conceptualised quantities. 
+This idea is particularly relevant to our Grobid-quantity work because very few works currently use normalised quantities to search by values and intervals. 
 
-\cite{taha2021identifying} assumes that the table columns are already identified and focusses on covering unconventional unit names (e.g. LTS as Litres), considering that the columns should have the same normalised unit. The authors evaluate and compare their system (PUC) in terms of currencies, data storage, length, mass, and volumes. For example, Grobid-quantities do not support currencies well because they hardly appear in scientific papers. At the moment of writing, Grobid-quantities does not support extraction from tables; however, since there is a plan to improve the table recognition in the Grobid library, this future work could be implemented within the same framework. 
+\cite{taha2021identifying} assumes that the table columns are already identified and focus on covering unconventional unit names (e.g. LTS as Litres), considering that the columns should have the same normalised unit. The authors evaluate and compare their system (PUC) regarding currencies, data storage, length, mass, and volumes. For example, Grobid-quantities do not support currencies well because they hardly appear in scientific papers. At the moment of writing, Grobid-quantities does not support extraction from tables; however, since there is a plan to improve the table recognition in the Grobid library, this future work could be implemented within the same framework. 
 
-
-
-% \cite{stanev_machine_2017} used data from SuperCon in combination with ICSD and AFLOW. 
-% Only a small subset of materials in SuperCon overlap with those in ICSD: about 800 with finite Tc and <600 are contained within AFLOW. 
-% The AFLOW online repository contains calculated properties, but the DFT results have been extensively validated with observed properties. 
-% The work uses this subset of materials to incorporate structural/chemical information and electronic properties from the AFLOW Online Repositories into their models. 
-% They predicted about 2000 compounds as candidate superconductors, with the vast majority being cuprates or compounds containing copper and oxygen. 
-% There were also some materials related to iron-based superconductors, as well as 35 members that were not obviously connected to any high-temperature superconducting families.
-
-
-% \section{Named Entities Recognition}
-
-% \section{Relation extraction}
-
-% \cite{wu2019enriching} discuss R-BERT, an enhanced BERT architecture that incorporate relation information and combine them by concatenating before the activation function. 
-% This problem is part of the Semeval 2010 task 8 challenge~\cite{hendrickx2019semeval}, and is limited to relation classification considering that a relation has already been identified.

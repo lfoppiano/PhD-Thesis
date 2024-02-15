@@ -35,6 +35,7 @@ We tested additional sampling approaches, called active and random sampling, tha
 We tested them using ratios of negative examples of 0.1, 0.25, 0.5 and 1.0. However, they did not provide stable evidence suggesting any improvement, considering that our dataset was balanced. 
 
 \subsection{ML architectures}
+\label{sec:ml-architectures}
 To determine the most effective architecture for our task, we assess several traditional machine learning (ML) methods supported by Grobid through Wapiti~\cite{lavergne2010practical} and the DL library DeLFT~\cite{delft}.
 The architectures we consider include the linear CRF (CRF)~\cite{lafferty2001conditional}, Bidirectional LSTM with CRF (BidLSTM\_CRF)~\cite{lample2016neural}, Features Bidirectional LSTM with CRF (BidLSTM\_CRF\_FEATURES)~\cite{lample2016neural}, and a fine-tuned BERT-based transformer. For our specific task, we prefer to use the SciBERT~\cite{Beltagy2019SciBERT} encoder with a CRF as the activation layer (SciBERT). Unlike BERT, SciBERT has been trained on the scientific text and has demonstrated superior performance in various NLP tasks, including sequence labelling, classification, and question answering~\cite{Beltagy2019SciBERT}. It is worth noting that the CRF and BidLSTM\_CRF\_FEATURES architectures utilise features summarised in Table~\ref{tab:ML-model-features}.
 
@@ -71,21 +72,23 @@ The architectures we consider include the linear CRF (CRF)~\cite{lafferty2001con
 \subsection{Two-levels approach}
 \label{sec:two-levels-approach}
 
-To handle a diverse range of entity types, we need to address the complexity of the information structures involved. Since a significant number of these entities are organised in the form of material names, we have devised a two-level approach. In this approach, after processing the text with the first level ML models "Superconductor parser" (Section~\ref{Superconductor parser}), a dedicated ML-based "Material parser" for process the material entities (Section~\ref{material-parser}). 
-While previous studies such as \cite{kononova2019text, court2020magnetic, dieb2015framework} have mainly focused on extracting formulas, our objective is to extract a larger sequence and then deal with material segmentation separately. By adopting this approach, we are able to address the problems in separate instances, thus reduce their complexity. 
-This parser is capable of handling noisy data and can be applied to various fields (Section~\ref{material-parser}).
+To handle a diverse range of entity types, we must address the complexity of the information structures. 
+Since most entities are structured around material names, we have implemented a two-level strategy to manage them effectively. 
+In this approach, after processing the text with the first level ML models in the "Superconductor parser" (Section~\ref{Superconductor parser}), a dedicated ML-based "Material parser" for process the material entities (Section~\ref{material-parser}). 
+While previous studies such as \cite{kononova2019text, court2020magnetic, dieb2015framework} have mainly focused on extracting formulas, we aim to extract a larger sequence and then deal with material segmentation separately. By adopting this approach, we can address the problems in separate instances, thus reducing their complexity. 
+This parser can handle noisy data and be applied to various fields (Section~\ref{material-parser}).
 
 \begin{figure}[htbp]
     \includegraphics[width=\textwidth]{figures/automatic_extraction_supercon/schema-extraction-colors}
     \caption{\label{fig:extraction-ml-models-cascade-architecture} 2-level architecture for solving the NER task. The white rectangles indicate the extracted information (described in Tables~\ref{tab:superconductors-parser-entities} and~\ref{tab:material-parser-entities}).}
 \end{figure}
 
-The schema illustrated in Figure~\ref{fig:extraction-ml-models-cascade-architecture} is made up of three main components: the ``Superconductor parser'', the ``Material parser'' and the ``Post-processing''. 
+The schema illustrated in Figure~\ref{fig:extraction-ml-models-cascade-architecture} comprises three main components: the ``Superconductor parser'', the ``Material parser'' and the ``Post-processing''. 
 
 \subsubsection{Superconductor parser}
 \label{Superconductor parser}
 The ``superconductor parser'' extracts first-level entities (Table~\ref{tab:superconductors-parser-entities}) by aggregating the resulting entities from two ML models: ``Superconductors ML model'' and ``Quantities ML model''.
-The ``Quantities ML model'' is reused from a separate Grobid module for the measurement and extraction of physical quantities (Chapter ~\ref{cha:measurements}) and is limited in scope to only target entities of temperatures and pressures.
+The ``Quantities ML model'' is reused from a separate Grobid module to extract measurements and physical quantities (Chapter ~\ref{cha:measurements}) and is limited in scope to target only entities of temperatures and pressures.
 Overlapping entities of temperatures and pressures are merged, exact duplicates are removed, and the largest entities (in terms of string length) are preserved.
 The ``Superconductors ML model'' was trained with SuperMat (Chapter~\ref{cha:supermat}), whose schema is summarised in Table~\ref{tab:superconductors-parser-entities}.
 
@@ -96,10 +99,10 @@ The ``Superconductors ML model'' was trained with SuperMat (Chapter~\ref{cha:sup
         \toprule
         \textbf{Entity} (\textbf{tag})              & \textbf{Description} \\
         \midrule
-        Material (\texttt{<material>})              & Materials and samples names, formulas (including stochiometric formulas), substitution variables of values and elements, shape, doping, and substrate               \\
+        Material (\texttt{<material>})              & Materials and samples names, formulas (including non-stochiometric formulas), substitution variables of values and elements, shape, doping, and substrate               \\
         Class (\texttt{<class>})                    & Groups of materials having similar characteristics or common strategic compounds that define their nature                                                      \\
         \tc~value (\texttt{<tcValue>})      & The value of the superconductor critical temperature                                                                                                          \\
-        \tc~expressions (\texttt{<tc>})     & Expressions in the text that provide information about the phenomenon of superconductivity related to a value, interval or variation of \tc \\
+        \tc~expressions (\texttt{<tc>})     & Expressions in the text that provides information about the phenomenon of superconductivity related to a value, interval or variation of \tc \\
         Measurement method (\texttt{<me\_method>}) & Technique used to measure or calculate the presence of superconductivity                                                                                     \\
         Applied pressure (\texttt{<pressure>})      & Applied pressure when superconductivity is recorded                                                                                                            \\
         \bottomrule
@@ -117,7 +120,7 @@ First, the entity is passed through a novel Material ML model to segment and ide
 Then, different processes are applied depending on which information is available: 
 \begin{itemize}
     \item Formulas are decomposed into a structured composition. We identify each element-stoichiometry pair (e.g., ``O'': 7.0) using text2chem~\cite{kononova2019text} and PyMatgen~\cite{Ong2013}; if only the material name is available, we lookup its formula (e.g., hydrogen to \textit{H}),
-    \item Using heuristics, we classify the formula by assigning multiple classes as they are understood from superconductor researchers, for example cuprate, oxides, alloys, etc.
+    \item Using heuristics, we classify the formula by assigning multiple classes as they are understood by superconductor researchers, for example, cuprate, oxides, alloys, etc.
     \item Using the variables and values extracted, we substitute them into partial formulas. For example, in \texttt{La 4 Fe 2 A 1-x O 7 (A=Mg,Co; x=0.1,0.2)}, we substitute \textit{A} and \textit{x} using their parsed values, and applying permutations, we obtain four \textit{resolved formulas}: \texttt{La 4 Fe 2 Mg 0.9 O 7}, \texttt{La 4 Fe 2 Mg 0.8 O 7}, \texttt{La 4 Fe 2 Co 0.9 O 7} and \texttt{La 4 Fe 2 Co 0.8 O 7}.
 \end{itemize}
 
@@ -156,8 +159,8 @@ For example, formula with partial substitutions such as \texttt{La 2 Fe 1-x O 7 
 Relation extraction (RE) links materials and their corresponding properties. 
 We explored different approaches, such as the use of dependency parsing~\cite{yoshikawa:2017acl, Tiktinsky2020pyBARTES, swayamdipta:17, zhou-zhao-2019-head} or machine learning~\cite{lin2016neural,hariharan2019relation}. 
 Unfortunately, these methods were developed or trained using text from news articles, and their performances on scientific text were unsatisfactory. 
-Another aspect is that our dataset was too small, in term of number of relations, to successfully train any of these ML methods. 
-In particular, working with dependency parsers was extremely difficult, due to their inability to districate in such complex writing. 
+Another aspect is that our dataset was too small, in terms of the number of relations, to train any of these ML methods successfully. 
+In particular, working with dependency parsers was extremely difficult due to their inability to districate in such complex writing. 
 Compensating such poor performances resulted in the need to write over-complicated rules. 
 
 We developed a rule-based algorithm that links together pairs of entities:
@@ -175,25 +178,25 @@ Two scenarios are considered. First, if entities to be linked in the sentence ar
 If the word ``respectively'' appears in the sentence, we apply ``order-linking''. 
 For example, consider the following sentence:
 \begin{displayquote}
-    P-or Ba-122  and Co-doped Ba-122 have lower \tc's of about 30 K and 24 K, respectively, which makes helium free operation questionable.
+    P-or Ba-122  and Co-doped Ba-122 have lower \tc's of about 30 K and 24 K, respectively, which makes helium-free operation questionable.
 \end{displayquote}
 It contains the word ``respectively'', and by applying ``order-linking'', \textit{P-or Ba122} is assigned to \textit{30 K} and \textit{Co-doped Ba-122} to \textit{24 K}.
 
 
-If the word ``respectively'' does not appear in the sentence, we apply ``distance linking'' which works by defining the distance measurement \textit{d} as a value calculated as the number of characters between the centroid of each entity, measured in number of characters.
-Entities surrounded by parentheses are expanded to the whole parentheses, and its centroid is updated.
+Suppose the word ``respectively'' does not appear in the sentence. In that case, we apply ``distance linking'' by defining the distance measurement \textit{d} as a value calculated as the number of characters between the centroid of each entity, measured in the number of characters.
+Entities surrounded by parentheses are expanded to the whole parentheses, and their centroid is updated.
 As an example, in the sentence
 \begin{displayquote}
-    We tested two materials MgB2 (Tc = 39 K) and FeSe (Tc = 16 K).
+    We tested two materials, MgB2 (Tc = 39 K) and FeSe (Tc = 16 K).
 \end{displayquote}
 
 \texttt{39 K} is closer to \texttt{FeSe} (\textit{d}=10) than to \texttt{MgB2} (\textit{d}=11). 
-In this example, however, both temperatures entities would be expanded to their containing parenthesis (e.g. ``\texttt{39 K}'' to ``\texttt{(Tc = 39 K)}''. 
-In this case, the centre of the entity ``\texttt{39 K}'' is shifted to the left, from the initial value of 38 to 35 and the distance from \texttt{MgB2} is reduced from \textit{d}=11 to \textit{d}=8.
+In this example, however, both temperature entities would be expanded to their containing parenthesis (e.g. ``\texttt{39 K}'' to ``\texttt{(Tc = 39 K)}''. 
+In this case, the centre of the entity ``\texttt{39 K}'' is shifted to the left, from the initial value of 38 to 35, and the distance from \texttt{MgB2} is reduced from \textit{d}=11 to \textit{d}=8.
 As a result, the \texttt{MgB2} entity is correctly linked to ``\texttt{39 K}''.
 
 Distance calculation is also adjusted with the addition of ``penalties'' by doubling the calculated distance when certain keywords or punctuations (``,'', ``.'', ``;'', ``and'', ``but', ``while', ``whereas', ``which'', ``although'') appear between two entities because they represent a logical separation of predicates ~\cite{oka2021table}.
-In the above example, the distance between \texttt{39 K} and \texttt{FeSe} would be doubled (\textit{d}=20) and the link would not be made.
+In the above example, the distance between \texttt{39 K} and \texttt{FeSe} would be doubled (\textit{d}=20), and the link would not be made.
 
 \section{Results}
 
@@ -204,8 +207,8 @@ We used SuperMat (Chapter~\ref{cha:supermat}) for training and evaluation. The h
 The dataset was divided into a training set corresponding to 132 documents (76\%) and a holdout set comprising 32 documents (24\%). 
 
 Selection must be performed to reproduce the same distribution of entities from the original dataset.
-We assembled the holdout set using stratified sampling and adjusting manually, making sure they had a similar ratio of examples, entities and unique entities. The remaining was used as training set (Figure~\ref{fig:training-holdout-set-distribution}a).
-Maintaining the same rate for the distribution of entities types between the two sets was more challenging: on average, we obtained approximately 15-18\% labels of each type in the holdout set (Figure~\ref{fig:training-holdout-set-distribution}b), except for the \texttt{<material>} label (23\%). 
+We assembled the holdout set using stratified sampling and adjusting manually, ensuring it had a similar ratio of examples, entities and unique entities. The remaining was used as the training set (Figure~\ref{fig:training-holdout-set-distribution}a).
+Maintaining the same rate for the distribution of entity types between the two sets was more challenging. On average, we obtained approximately 15-18\% labels of each type in the holdout set (Figure~\ref{fig:training-holdout-set-distribution}b), except for the \texttt{<material>} label (23\%). 
 
 \begin{figure}[ht]
     \centering

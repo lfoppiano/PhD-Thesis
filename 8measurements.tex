@@ -3,25 +3,25 @@
 % \section{Experiments}
 % \section{Conclusion}
 
-Grobid-quantities is an open-source project aiming to provide a general solution to the extraction of quantities and physical measurements from the scientific literature. 
-At the time it was deployed, it represented a novel implementation based on ML, and, contrary to other works, it was not limited to specific domains or languages. 
-We discuss this application as a contribution to this dissertation with particular attention to materials science, as the extraction model is implemented to support the extraction of properties from text. 
+In our approach to extracting material properties and conditions, we have opted for diverse components to accommodate the intricacies of different domains. 
+For instance, we delve into critical temperature (Tc), applied pressure, and other pertinent factors in handling superconductor articles. 
+Similarly, we focus on properties like coercivity and remanence when dealing with magnetic materials. 
+This tailored approach is essential to capture domain-specific nuances effectively. However, we also recognise the necessity for a more generalised method alongside this specialised handling. Here, we prioritise a generic approach centred on extracting properties expressed through measurable physical quantities. This dual strategy ensures versatility in our material analysis framework while maintaining precision in capturing specific material behaviours across various domains.
 
+For this task, we developed a Grobid module called Grobid-quantities that aims to provide a general solution to extracting quantities and physical measurements from the scientific literature. 
 Grobid-quantities has been used in practical applications in other domains such as Earth observation data analysis~\cite{hundman2017measurement} 
-Moreover, Grobid-quantities incorporates state-of-the-art machine learning (ML) techniques combined with a lexicon that is not limited to a specific subset of units~\cite{aras2014applications}.
-We incorporate a normalisation process to convert measurements to the international system (SI); this step is crucial for harmonising data from various documents, even when they may use different units or formats. 
-Most of the other approaches lack either the generalisation to an extensive corpus or deal mainly with specific languages. 
-\cite{agatonovic2008large} addressed the identification of the numeric properties of patents using GATE (General Architecture for Text Engineering). 
-\cite{am2013processing} investigated issues applied to Russian-derived languages. \cite{berrahou2013extract} described an attempt to recognise units by looking up terms from an ontology, using ML in combination with pattern matching and string metrics. 
-
-During development, we became aware of ML-based approaches, which were limited to certain fields~\cite{dieb2015framework} or domain~\cite{kang_extracting_2013} focused on extracting measurements from experimental results in biology. 
+It combines ML-based techniques and lexicon-based memory that aims to cover most of the existing units, unlike other work~\cite{aras2014applications}. 
+Most other approaches lack the generalisation to an extensive corpus or deal mainly with specific languages. 
+\cite{agatonovic2008large} addressed identifying the numeric properties of patents using GATE (General Architecture for Text Engineering). 
+\cite{am2013processing} investigated issues applied to Russian-derived languages. \cite{berrahou2013extract} described an attempt to recognise units by looking up terms from an ontology, using ML combined with pattern matching and string metrics. 
+At the time of development, other ML-based approaches were limited to certain fields~\cite{dieb2015framework} or domain~\cite{kang_extracting_2013}.
+We incorporate a normalisation process to convert measurements to the base units of the international system (SI), a crucial step in harmonising data from various documents, disciplines and domains.
 
 \section{Proposed solution}
 \label{sec:system}
 
-The system accepts input in the form of text or PDF files. 
-The content is extracted in a structured manner using the Grobid framework. 
-Then it goes through three steps: (a) tokenisation, (b) extraction and parsing of measurements, and (c) normalisation of quantities.
+The system accepts input in text or PDF files similar to the approach described in Chapter~\ref{cha:pdf_extraction}. 
+The extracted content is processed in three steps: (a) tokenisation, (b) extraction and parsing of measurements, and (c) normalisation of quantities.
 
 \subsection{Data model}
 \label{subsec:data-model}
@@ -38,19 +38,19 @@ We defined four \textit{Measurements} types: (a) atomic, in case of a single mea
 \end{figure}
 
 Since data extracted from PDF documents unavoidably present irregular tokens from incorrect UTF-8 encoding or missing fonts, we designed this model to allow partial results. 
-The \textit{Value} and \textit{Unit} entities allow three different representations (Figure \ref{fig:data-model-schema-2}): \textit{Raw} as appear in input, \textit{Parsed} unifies the value into the numerical expression, and the unit with its properties (system, type). Finally, \textit{Normalised} contains the transformed unit and values to the SI system. \textit{Value} object supports four types of representations: numeric (2, 1000), alphabetic (two, thousand), scientific notation ($3\cdot10\textsuperscript{5}$), and time, which is also an expression of measurement. Units objects are organised following the SI, which allows representing units as products of simpler compounds (e.g. m/s to $m \cdot s\textsuperscript{-1}$) further decomposed as triples (prefix, base and power).
+The \textit{Value} and \textit{Unit} entities allow three different representations (Figure \ref{fig:data-model-schema-2}): \textit{Raw} as appear in the input, \textit{Parsed} unifies the value into the numerical expression, and the unit with its properties (system, type). Finally, \textit{Normalised} contains the transformed unit and values to the SI system. \textit{Value} object supports four types of representations: numeric (2, 1000), alphabetic (two, thousand), scientific notation ($3\cdot10\textsuperscript{5}$), and time, which is also an expression of measurement. Units objects are organised following the SI, which allows representing units as products of simpler compounds (e.g. m/s to $m \cdot s\textsuperscript{-1}$) further decomposed as triples (prefix, base and power).
 
 \subsection{Tokenisation}
-This process splits the input data into tokens. Grobid-quantities uses a two-phase tokenisation: (1) first it splits by punctuation marks, then (2) each resulting token is re-tokenised to separate adjacent digits and alphanumeric characters. Given the example \texttt{25m\^{}2}, first returns a list \texttt{[25m, \^{}, 2]} and then recursively divides \texttt{25m} as \texttt{[25, m]}  resulting in \texttt{[25, m, \^{}, 2]}.
+This process splits the input data into tokens. Grobid-quantities uses two-phase tokenisation: (1) first, it splits by punctuation marks, then (2) each resulting token is re-tokenised to separate adjacent digits and alphanumeric characters. Given the example \texttt{25m\^{}2}, first returns a list \texttt{[25m, \^{}, 2]} and then recursively divides \texttt{25m} as \texttt{[25, m]}  resulting in \texttt{[25, m, \^{}, 2]}.
 
 \subsection{Extraction}
 % Quantity model 
-The tokens are passed through three ML models, in cascade: first the \textit{Quantities} parser determines the appropriate unit and value tags. The results are further processed by the respective \textit{Units} and \textit{Values} parsers as illustrated in Figure \ref{fig:schema-cascade}.  
+The tokens are passed through three ML models following the 2-level approach (Section~\ref{sec:two-levels-approach}): first, the \textit{Quantities} parser determines the appropriate unit and value tags. The results are further processed by the respective \textit{Units} and \textit{Values} parsers as illustrated in Figure \ref{fig:schema-cascade}.  
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\linewidth]{figures/quantities/schema-cascade}
-  \caption{The cascade approach of the applied parsers. The Quantities parser recognises value and units which are passed, respectively, to Values and Units parsers for further extraction.}
+  \caption{The cascade approach of the applied parsers. The Quantities parser recognises values and units passed to Values and Units parsers for further extraction.}
   \label{fig:schema-cascade}
 \end{figure}
 
@@ -58,7 +58,7 @@ Table \ref{tab:quantities-model-labels} describes the labels predicted by \texti
 
 \begin{table}[htbp]
 \centering
-  \caption{Labels description for the Quantities parser. In bold are highlighted the value referred by the label.}
+  \caption{Labels description for the Quantities parser. The values referred to by the label are highlighted in bold.}
   \label{tab:quantities-model-labels}
   \begin{tabular}{lll}
     \toprule
@@ -80,10 +80,10 @@ Table \ref{tab:quantities-model-labels} describes the labels predicted by \texti
 % Gazetteers
 Previous work presented extensive use of databases or ontologies. In our solution, we used a similar approach. We created a list of units (in English, French, and German) with their characteristics: system (SI base, SI derived, imperial, etc.) and type (volume, length, etc.) and their representations: notations (m\textsuperscript{3}, \texttt{m\^{}3}), lemmas (cubic meter, cubic metre) and inflexions (cubic meters, cubic metres). We made this list available through the \textit{Unit Lexicon}, which offers unit lookups by properties (such as notation, lemma, and inflexion). A second gazetteer was created to allow the transformation of alphabetic values into numeric ones (for example, 21 to 21).
 
-Features in the \textit{Quantities} model are generated from preceding and following tokens, presence of capital, digits. Orthogonal features are obtained through the \textit{Unit Lexicon}, like a \textit{Boolean} indicating whether a token is a known unit or not. Typographical information (such as format, fonts, subscript and superscript) are ignored. 
+Features in the \textit{Quantities} model are generated from preceding and following tokens, presence of capital, and digits. Orthogonal features are obtained through the \textit{Unit Lexicon}, like a \textit{Boolean} indicating whether a token is a known unit. Typographical information (format, fonts, subscript and superscript) are ignored. 
 
 % Unit model 
-The \textit{Units} parser works at character level and uses the \textit{Unit Lexicon} to highlight known units or prefixes. The input tokens are parsed and transformed into a product of triples (prefix, base, power) as shown in Table \ref{tab:units-model-labels}. For example, \texttt{ Kg / mm\textsuperscript{2}}, corresponds to \texttt{$Kg\cdot mm\textsuperscript{-2}$} and becomes \texttt{[(K, g, 1), (m, m, -2)]} as a product of triples. We define "simple units" all the units that can be decomposed in a single triplet, and complex unit when they are decomposed in multiple triplets. 
+The \textit{Units} parser works at the character level and uses the \textit{Unit Lexicon} to highlight known units or prefixes. The input tokens are parsed and transformed into a product of triples (prefix, base, power) as shown in Table \ref{tab:units-model-labels}. For example, \texttt{ Kg / mm\textsuperscript{2}}, corresponds to \texttt{$Kg\cdot mm\textsuperscript{-2}$} and becomes \texttt{[(K, g, 1), (m, m, -2)]} as a product of triples. We define "simple units" as all the units that can be decomposed in a single triplet and complex units when they are decomposed in multiple triplets. 
 
 \begin{table}[htbp]
 \centering
@@ -128,19 +128,19 @@ In parallel, the \textit{Values} parser unifies the format of the identified val
 
 \subsection{Normalisation}
 
-The measurements extracted are transformed to the base SI unit (grams to kg, Celsius to Kelvin, etc.). We used an external Java library called Units of Measurement~\cite{units_of_measurement}, which provides a set of standard interfaces and implementations to safely handle units and quantities. Manipulation of measurements with transformations often leads to common errors due to wrong rounding and approximations. 
+The measurements extracted are transformed to the base SI unit (grams to kg, Celsius to Kelvin, etc.). We used an external Java library called Units of Measurement~\cite{units_of_measurement}, which provides a set of standard interfaces and implementations to handle units and quantities safely. Manipulating measurements with transformations often leads to common errors due to wrong rounding and approximations. 
 
 \section{Evaluation and results}
 \label{sec:results}
 
 We trained and evaluated our system's models using a dataset based on 32 scientific publications (English, Open Access (OA)) and three patents (with translation in English, French, and German) randomly selected from different domains such as medicine, robotics, astronomy, and physiology. 
-Training data was generated automatically and then corrected and cross-checked by three annotators. The dataset was then divided into two parts for training (26 documents) and evaluation (9 documents).
-We use the holdout dataset partition to evaluate each model and produce precision, recall, and f1 scores, as summarised in Tables~\ref{tab:evaluation-quantities-holdout},~\ref{tab:evaluation-units-holdout}, and~\ref{tab:evaluation-values-holdout}. 
-As presented in Chapter~\ref{cha:extraction-experimental-data}, we report the results of four architectures: CRF, RNN (with and without layout features), and transformers, fine-tuning a pre-trained SciBERT~\cite{Beltagy2019SciBERT}. 
+Training data was generated automatically and then corrected and cross-checked by three annotators. The dataset was then divided into a training set (26 documents) and an evaluation set (9 documents).
+We used the holdout dataset partition to evaluate each model and produce precision, recall, and f1 scores, as summarised in Tables~\ref{tab:evaluation-quantities-holdout},~\ref{tab:evaluation-units-holdout}, and~\ref{tab:evaluation-values-holdout}. 
+As presented in Chapter~\ref{cha:extraction-experimental-data}, we report the results of the three architectures introduced in Section~\ref{sec:ml-architectures}: CRF, RNN (with and without layout features), and transformers, fine-tuning a pre-trained SciBERT~\cite{Beltagy2019SciBERT}. 
 
 \begin{table}[htbp]
     \centering\small
-    \caption{Evaluation scores (\%) of the Quantities ML model with holdout set. Support (Supp) indicates the number of labels in the training data. Values in bold indicate the highest score. P: precision, R: recall. Results for deep learning results are average over five independent runs of training and evaluation. }
+    \caption{Evaluation scores (\%) of the Quantities ML model with holdout set. Support (Supp) indicates the number of labels in the training data. Values in bold indicate the highest score. P: precision, R: recall. Deep learning results are averaged over five independent runs of training and evaluation. }
 
     \scalebox{0.6}{
     \begin{tabular}{l ccc ccc ccc ccc r}
@@ -158,7 +158,7 @@ As presented in Chapter~\ref{cha:extraction-experimental-data}, we report the re
         \texttt{<valueMost>} & 71.62 & 54.64 & 61.99 & 77.64 & 68.25 & 72.61 & 77.25 & \textbf{70.31} & 73.58 & \textbf{81.52} & 67.42 & \textbf{73.71} & 97\\
         \texttt{<valueRange>} & \textbf{100.00} & 97.14 & 98.55 & 96.72 & \textbf{100.00} & \textbf{98.32} & 94.05 & 98.86 & 96.38 & 99.39 & 91.43 & 95.24 & 35\\
         \midrule
-        \textbf{All (micro avg.)} & 80.08 & 75 & 77.45 & 81.81 & 81.73 & 81.76 & 81.76 & 81.94 & 81.85 & \textbf{86.24} & \textbf{83.96} & \textbf{85.08} & \\
+        \textbf{All (micro avg.)} & 80.08 & 75 & \textbf{77.45} & 81.81 & 81.73 & 81.76 & 81.76 & 81.94 & 81.85 & \textbf{86.24} & \textbf{83.96} & \textbf{85.08} & \\
         \bottomrule
     \end{tabular}
     }
@@ -167,19 +167,19 @@ As presented in Chapter~\ref{cha:extraction-experimental-data}, we report the re
 \end{table}
 
 
-% Scores + discussion Quantities CRF model 
+% Scores + discussion Quantities model 
 The best results of the Quantities ML models were achieved by the SciBERT model, for which we recorded an F1 micro-average of 85.14\% with precision and recall of 86.24\% and 83.96\%, respectively. SciBERT outperforms the CRF model by 8\% F1-score.  
-With RNN, we confirmed the same observation reported in Chapter~\ref{cha:extraction-experimental-data}, that layout orthogonal features are not used, or their use does not "help" the model to better generalise. 
-In general, SciBERT performs better than any other model in most labels, only recognising \texttt{<valueRange>} result in a a better F1-score by the CRF model. 
-The support information also suggest that \texttt{<list>} and \texttt{<unitRight>} require more training examples.
+We confirmed the same observation reported in Chapter~\ref{cha:extraction-experimental-data}, that layout orthogonal features do not contribute to helping the model to generalise better. 
+In general, SciBERT performs better than any other model in most labels. The CRF model better recognises only the label \texttt{<valueRange>}. 
+The support information also suggests that \texttt{<list>} and \texttt{<unitRight>} require more training examples.
 
-% Scores + discussion Unit CRF model 
-Unit expressions are generally short (1-3 characters) and with lower variability, which means that each label tends to be more duplicates than in the training datasets of other models. 
+% Scores + discussion Unit model 
+Unit expressions are generally short (1-3 characters) and have lower variability, meaning each label tends to have more duplicates than in the training datasets of other models. 
 For example, the expressions 1\% and 2\% have two different values (1, 2) and the same unit (\%), which would appear twice. 
-For this reason, we evaluated the unit ML model with a separate dataset of 2000 annotated units~\cite{foppiano2019leveraging} that were initially automatically extracted from 3490 articles in the Journal of Applied Physics~\cite{suzuki2018constructing}.
+For this reason, we evaluated the unit ML model with a dataset of 2000 annotated units called UniSCor (Units Segmentation Corpus)~\cite{foppiano2019leveraging}.
 After annotating each unit following the schema discussed in Table~\ref{tab:units-model-labels}, the resulting corpus contains approximately 700 simple and 1300 complex units. 
-As illustrated in Table~\ref{tab:evaluation-units-holdout}) the overall scores for the Units ML model are lower, because the evaluation corpus is larger than the training corpus and contains a substantial percentage of complex units, while in the training dataset the complex units are less frequent.  
-Interestingly, Table~\ref{tab:evaluation-units-holdout} shows that the orthogonal features become relevant and the best scores are obtained by the RNN with features BidLSTM\_CRF\_FEATURES and the CRF. 
+As illustrated in Table~\ref{tab:evaluation-units-holdout}) the overall scores for the Units ML model are lower because the evaluation corpus is larger than the training corpus and contains a substantial percentage of complex units, while in the training dataset, the complex units are less frequent.  
+Table~\ref{tab:evaluation-units-holdout} shows that features impact positively, and both architectures using them (BidLSTM\_CRF\_FEATURES and the CRF) obtain the best scores. 
 
 \begin{table}[htbp]
     \centering\small
@@ -206,8 +206,9 @@ Interestingly, Table~\ref{tab:evaluation-units-holdout} shows that the orthogona
 
 
 % Scores + discussion Values CRF model 
-The Value ML model scores are shown in Table~\ref{tab:evaluation-values-holdout}, and show that SciBERT outperforms the other architectures in almost all labels. SciBERT obtains an F1 score of 99.23\%, with 99.13\% and 99.33\% in precision and recall, respectively.
-We noticed that both \textit{<base>}, \textit{<pow>} and \textit{<time>} have lower f1-score. While \textit{<base>} and \textit{<pow>} require more training data, \textit{<time>} expressions may overlap with \textit{<number>} suggesting more contextual information should be introduced. 
+Table~\ref{tab:evaluation-values-holdout} shows the Value ML model scores.  
+SciBERT outperforms the other architectures in almost all labels with an average F1 score of 99.23\%. Average precision and recall are 99.13\% and 99.33\%, respectively.
+We noticed that both \texttt{<base>}, \texttt{<pow>} and \texttt{<time>} have lower f1-score. While \texttt{<base>} and \texttt{<pow>} require more training data, \texttt{<time>} expressions may overlap with \texttt{<number>} suggesting more contextual information should be introduced. 
 
 \begin{table}[htbp]
     \centering\small
@@ -261,8 +262,9 @@ We noticed that both \textit{<base>}, \textit{<pow>} and \textit{<time>} have lo
 
 \section{Conclusions}
 
-In this contribution, we highlight our Parser for measurements and physical quantities. Although our dissertation discusses a novel application to materials science, we present a tool that is not limited to just that. 
-This contribution is partially reused for our materials science project; however, its application is extensively applied in biology~\cite{hundman2017measurement}
-and other disciplines. 
+Our approach to property and conditions extraction emerges as a comprehensive strategy to address the diverse intricacies across different domains. 
+The development of Grobid-quantities underscores our commitment to providing a versatile solution for extracting properties in a flexible way across diverse materials science domains.
+Our combined approach balances specificity and adaptability, enabling us to navigate the complexities of diverse domains while maintaining a robust foundation.
+As we continue to refine and enhance our methodologies, we anticipate further advancements in our ability to extract, analyse, and interpret material properties, thus contributing to the broader scientific understanding and application of materials science principles.
 
 This contribution was published in the paper "Automatic identification and normalisation of physical quantities from scientific literature"~\cite{foppiano2019quantities}.

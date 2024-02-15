@@ -1,33 +1,38 @@
 \section{Introduction}
 
-The main contribution to this dissertation is the automatic construction of a database of experimental data.
-We created SuperCon\textsuperscript{2} by processing 37770 research articles and obtaining 40324 records of superconductors materials with their respective properties and conditions, including \tc, applied pressure measurement methods. 
-We applied traditional methods such as Machine Learning to a new field, using a novel data flow that ingests PDF documents (Chatpter~\ref{cha:pdf_extraction}), extracts materials and properties (Chapters~\ref{cha:extraction-experimental-data} and~\ref{cha:measurements}) and deliver an aggregated dataset. 
-Our work created a novel TDM flow approach for material informatics. We processed a batch of PDF articles belonging to the category \textit{ cond-mat.supr-cond} in ArXiv. Compared with other methods, our work does not need to be adapted to the data source, whether it is ArXiv, BioRXiv, ChemRXiv, or any proprietary publisher article.  
-Compared to the original SuperCon, SuperCon\textsuperscript{2} was collected in a few days and counted 2052 triplets with applied pressure (\textit{material-\tc-pressure}), and 3602 records with an explicit measurement method (\textit{material-\tc-measurement method}).
-However, given the strict quality requirements that SuperCon must meet, the data must be validated by humans and therefore SuperCon\textsuperscript{2} is not a replacement for SuperCon. 
+This Chapter presents the database we constructed through an automatic process that leverages the work presented in this dissertation. 
+This is the main contribution of our work: SuperCon\textsuperscript{2} Database. 
+We processed 37770 research articles in PDF format belonging to the category \textit{ cond-mat.supr-cond} in ArXiv\footnote{\url{https://arxiv.org/archive/cond-mat}}. We obtained 40324 records of superconductor materials with their respective properties and conditions, including \tc, applied pressure measurement methods. 
+We presented a novel data flow that ingests PDF documents (Chatpter~\ref{cha:pdf_extraction}), combining traditional ML architectures with a novel process that extracts materials and properties (Chapters~\ref{cha:extraction-experimental-data} and~\ref{cha:measurements}) and construct a database automatically.
+This work represents a novel approach to TDM for material informatics. 
+Compared with other methods, our work does not need to be adapted to the data source, whether ArXiv, BioRXiv, ChemRXiv, or any proprietary publisher article.  
+
+SuperCon\textsuperscript{2} Database is an efficient, parallel flow of data ingestion and not a replacement for SuperCon.
+Considering the strict quality requirements that SuperCon must meet and the fact that automatic processes are imperfect, the data must be validated before being accepted in SuperCon.  
+Compared to the original SuperCon construction, SuperCon\textsuperscript{2} Database was collected in a few days. 
+The updated data model counted new properties: 2052 triplets with applied pressure (\textit{material-\tc-pressure}) and 3602 records with an explicit measurement method (\textit{material-\tc-measurement method}).
+
 In this chapter, we discuss how SuperCon\textsuperscript{2} is built, including the technical information about the data format and the processing. 
-In chapter~\ref{cha:curation} we address data quality by discussing our solution to guarantee high data quality with an optimised process. 
 
 
 \section{Database construction}
 \label{sec:ingestion}
 
-The ingestion process (Figure~\ref{fig:map-reduce}) is designed using an Extract-Aggregate approach, implemented through grobid-superconductors (see chapters~\ref{cha:pdf_extraction} and~\ref{cha:extraction-experimental-data}).
+The ingestion process (Figure~\ref{fig:map-reduce}) is designed using an Extract-Aggregate approach, implemented through Grobid-superconductors (see chapters~\ref{cha:pdf_extraction} and~\ref{cha:extraction-experimental-data}).
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{figures/curation/ingestion-schema.png} 
-  \caption{Ingestion process}
+  \caption{Ingestion process. The numbers between parentheses represent the order in which each operation is performed. }
   \label{fig:map-reduce}
 \end{figure}
 
-Storage is implemented using MongoDB~\footnote{\url{https://www.mongodb.com}}, an open source document database, and the collections are designed as different stages in the processing: 
+Storage is implemented using MongoDB~\footnote{\url{https://www.mongodb.com}}, an open-source document database, and the collections are designed as different stages in the processing: 
 \begin{itemize}
     \item the \textbf{binary} collection contains the original PDF documents 
     \item the \textbf{documents} collection contains the structured document
     \item \textbf{tabular} collection stores the summarised records, and finally 
-    \item \textbf{logger} contains detailed information on the status of the process of each document, including eventual errors information. More details are given in Section~\ref{subsec:curation-and-processing-logs}.
+    \item \textbf{logger} contains detailed information on the status of the process of each document, including possible errors. More details are given in Section~\ref{subsec:curation-and-processing-logs}.
     \item \textbf{training\_data} Used to collect training examples in and discussed in Section~\ref{subsec:feedback-loop-training-data}.
 \end{itemize}
 
@@ -37,24 +42,24 @@ The "Extraction Task" takes the PDF documents in input and transforms them into 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8\textwidth]{figures/curation/data-flow-2} 
-  \caption{Example of the information from one single entity from a passage extracted in the "Extraction Task". The different structured information are highlighted: links, attributes, PDF boxes coordinates (to visualise annotations on the PDF document), and annotations references within the passage (to visualise annotations on text).}
+  \caption{Example of the information from one single entity from a passage extracted in the "Extraction Task". The different structured information is highlighted: links, attributes, PDF entities coordinate (to visualise annotations on the PDF document), and annotations references within the passage (to visualise annotations on text).}
   \label{fig:data-flow-2}
 \end{figure}
 
-Each passage is composed of the following attributes: the text of the passage, the type (whether it is a sentence or paragraph), the main section: header, body, and annex, and the subsections: title, abstract, paragraph, caption.
-Furthermore, a passage also contains the list of spans representing the extracted entities and a list of layout tokens. 
+Each passage comprises the following attributes: the text, the type (whether a sentence or paragraph), the main section: header, body, and annexe, and the subsections: title, abstract, paragraph, and caption.
+Furthermore, a passage contains the list of spans representing the extracted entities and a list of layout tokens. 
 The spans are characterised by text, type, attributes, a unique identifier, and other internal information (e.g. from which ML model the entity was extracted). 
-The attributes are stored as a key-value and mainly contain information extracted by the material parser such as, for example, the chemical formula, the structured composition, the material class, and so on.
-The layout tokens contain low-level information coming from the PDF document: font size, font face, superscript, subscript, bold, italic, and coordinates within the PDF document. The coordinates are a couple of x,y numbers that are used to build annotation "boxes" to encapsulate each token independently (see Figure~\ref{fig:pdf-view} in the following chapter, as an example). 
+The attributes are stored as a key-value and mainly contain information extracted by the material parser, such as the chemical formula, the structured composition, the material class, etc.
+The layout tokens contain low-level information coming from the PDF document: font size, font face, superscript, subscript, bold, italic, and coordinates within the PDF document. The coordinates are pairs of "x" and "y" numbers that are used to build annotation "boxes" to encapsulate each token independently (see Figure~\ref{fig:pdf-view} in the following chapter as an example). 
 
-The "Aggregation Task" takes the structured document as input and reduces it to a table format where each row (referred to as a \textit{summarised record}, or, simply \textit{record}) pivots around the relation materials-Tc and attaches additional elements to it. 
+The "Aggregation Task" takes the structured document as input and reduces it to a table format where each row (referred to as a \textit{summarised record}, or, \textit{record}) pivots around the relation materials-Tc and attaches additional elements to it. 
 The number of aggregated records can increase when large entities are extracted and may contain condensed information referring to multiple materials. 
 For example, the raw material "Zn and CU doping La Fe B" will be aggregated as two records (doping: Zn, formula: La Fe B) and (doping: Cu, formula: La Fe B). 
 
-In the following listing, we illustrate an example of aggregated record: lines 2-21 contain the records information such as material name, \tc, pressure, etc. Lines 22-34 represent the list of spans, which are the original annotation information. They are used to link the aggregated records back to the original structure document information. 
+In the following listing, we illustrate an example of an aggregated record: lines 2-21 contain the record information such as material name, \tc, pressure, etc. Lines 22-34 represent the span list, which is the original annotation information. They are used to link the aggregated records back to the original structure document information. 
 Line 35, 'hash' is a unique signature of the original document using the first 10 characters of the MD5 hash function on the binary content. We use this information to link the original document, the structured document, and the summarised records.
-'type', 'timestamp' and 'status' are internal workflow information, discussed in the next chapter. 
-The rest of the lines contains the bibliographic data (39-42).
+'type', 'timestamp' and 'status' are internal workflow information discussed in the next chapter. 
+The rest of the lines contain the bibliographic data (39-42).
 
 \begin{lstlisting}[numbers=left,numbersep=5pt,caption=Example of record related to the FeSe material after the aggregation.]
 {
@@ -105,24 +110,20 @@ The rest of the lines contains the bibliographic data (39-42).
 \end{lstlisting}
 
 
-
-
-
 \section{Results}
 \label{sec:results-supercon2}
 
-SuperCon\textsuperscript{2} represents the result of our effort to build an automatic TDM process to automatically extract experimental data. 
-
 Compared to the original SuperCon, SuperCon\textsuperscript{2} was collected in a few days. There is no information about how SuperCon was constructed, only that it started in 1987~\cite{ishii2023structuring}. 
-When we built the new process to obtain SuperCon\textsuperscript{2}, we were asked to consider two information: ``applied pressure'' and ``measurement method''. 
-``Applied pressure'' is the pressure applied to make the material a superconductor and has gained attention because it can radically change the physical structure of a material. Still, at the time of writing, there have been studies that consider this property for material informatics. 
-On the other hand, ``measurement method'' is the way scientists measured the superconducting transition temperature \tc and can be used to semantically recognise multiple \tc obtained from the same material or sample. In particular, the identification of calculated properties is fundamental when providing data for predictions. 
-These properties were present only for a minority of records in SuperCon and, we hypothesise, that they were not considered in the initial design. The fact that applied pressure was recorded in different fields of the database suggests that such action was more a decision of the curator than a methodological change.
+When we built the new process to obtain SuperCon\textsuperscript{2}, following domain-expert guidance, we considered two pieces of information: ``applied pressure'' and ``measurement method'' that have not been collected systematically in SuperCon.
+``Applied pressure'' is the pressure applied to make the material a superconductor and has gained attention because it can radically change the physical structure of a material. 
+On the other hand, the ``measurement method'' is how scientists measured the superconducting transition temperature \tc~and can be used to semantically recognise multiple \tc~obtained from the same material or sample. 
+In particular, identifying calculated properties is fundamental when providing data for predictions. 
+These properties were present only for a minority of records in SuperCon and, we hypothesise, were not considered in the initial design. The fact that applied pressure was recorded in different database fields suggests that such action was more a curator's decision than a methodological change.
 The resulting SuperCon\textsuperscript{2} counted 2052 triplets with applied pressure (\textit{material-\tc-pressure}), and 3602 records with an explicit measurement method (\textit{material-\tc-measurement method}).
 The SuperCon\textsuperscript{2} schema is discussed in~\ref{sec:results-supercon2} with examples in Table~\ref{tab:supercon2-schema}. 
 
-However, our TDM process is limited to text, whereas the manual process has also been focussing on plots and tables. This limitation reduces the density of the data that is collected, as observed by the amount of information (33,000 records) extracted from only 7227 articles. Such additions should be built as separate projects.
-However, the automatic process cannot be used without manual validation given the high-quality constraints of SuperCon. This gives the opportunity to combine the TDM process with data curation in a homogeneous flow that is described in Chapter~\ref{cha:curation}.
+Our TDM process is limited to text, whereas the manual process focuses on plots and tables. This limitation reduces the density of the collected data, as observed by the amount of information (33,000 records) extracted from only 7227 articles. Such additions should be built as separate projects.
+However, the automatic process cannot be used without manual validation, given the high-quality constraints of SuperCon. This allows combining the TDM process with data curation in a homogeneous flow described in Chapter~\ref{cha:curation}.
 
 \begin{table}[htpb]
     \centering\small
@@ -164,7 +165,7 @@ However, the automatic process cannot be used without manual validation given th
                 \hline[dotted]
                 Formula             & {Material expressed as chemical formula. This                                    \\ includes also formulas with stochiometric variables} & {$Pr_{1.869}Ce_{0.131}CuO_4-\delta$,\\ $MgB_2$, $La_{2-x} Sr_x CuO_4$} \\
                 \hline[dotted]
-                Doping              & {Doping ratio and doping materials                                               \\ that might be adjoined to the material} & {Overdoped, underdopded,\\ optimally doped,\\ bulk, pure, 1\% Zn, Zn\\ (from Zn-doped XYZ)}\\
+                Doping              & {Doping ratio and doping materials                                               \\ that might be adjoined to the material} & {Overdoped, underdoped,\\ optimally doped,\\ bulk, pure, 1\% Zn, Zn\\ (from Zn-doped XYZ)}\\
                 \hline[dotted]
                 Shape               & The shape of the material or the sample          & {Single crystal, polycrystal, \\ wire, powder, film} \\
                 \hline[dotted]
@@ -209,9 +210,5 @@ However, the automatic process cannot be used without manual validation given th
 
 \section{Conclusions}
 
-This contribution represents the main contribution of this dissertation where our efforts are applied in collecting SuperCon\textsuperscript{2}, which is a database with 40324 records of superconductors materials and properties, including the applied pressure and the \tc~measurement method.
-SuperCon\textsuperscript{2}. 
-This database is available in various formats at \url{https://github.com/lfoppiano/supercon}.
-
-SuperCon\textsuperscript{2} should not be considered as a replacement of SuperCon but as a staging are where automatically extracted data is collected. Domain-experts can access this data, correct it and push it to SuperCon. 
-This approach will reduce the amoutn of human labor required and improve the overall quality of the data, as we demosntrate in the next Chapter~\ref{cha:curation}.
+SuperCon\textsuperscript{2} Database represents the result of our effort to build an automatic TDM process to extract experimental data automatically. As a consequence, this is the main contribution of this dissertation. 
+Applying techniques and methodologies described in the previous chapters allowed us to collect a large database in a few days. SuperCon\textsuperscript{2} Database was composed of 40324 records of superconductor materials and properties, including additional properties such as the applied pressure and the \tc~measurement method, which were not systematically collected in SuperCon. This database is available in various formats at \url{https://github.com/lfoppiano/supercon}.

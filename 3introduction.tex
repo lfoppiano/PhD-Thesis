@@ -10,7 +10,7 @@
 % -> ML
 
 % Materials science 
-Materials science is a multidisciplinary field at the intersection of physics, chemistry, and engineering, dedicated to understanding, designing, and manipulating materials for a myriad of real applications. 
+Materials science is a multidisciplinary field at the intersection of physics, chemistry, and engineering, dedicated to understanding, designing, and manipulating materials for many real applications. 
 Central to this discipline is the exploration of the structure, properties, and performance of materials, ranging from metals and ceramics to polymers and composites. By delving into the microscopic and atomic scales, materials scientists seek to uncover the fundamental principles that govern a material's behaviour and tailor its properties to meet specific technological needs. 
 This field plays a critical role in advancing technology and innovation, as discoveries in materials science often lead to the development of new materials with enhanced functionalities, improved performance, and novel applications across industries.
 
@@ -18,8 +18,8 @@ This field plays a critical role in advancing technology and innovation, as disc
 Historically, breakthroughs in materials science often resulted from chance discoveries and unexpected observations, a process driven by serendipity and relying on trial and error. 
 However, with the advent of advanced computational tools, machine learning, and big data analytics, materials informatics (MI) has emerged as a transformative methodology. 
 MI is a multidisciplinary field that leverages computational methods, data science, and informatics techniques to accelerate the discovery and design of new materials, identify patterns, and predict material properties with unprecedented accuracy. 
-MI not only expedites the discovery of novel materials but also enhances our understanding of complex relationships between structure, composition, and performance. 
-This approach allows for more efficient and systematic exploration of the vast material space, potentially leading to breakthroughs in fields such as electronics, energy, healthcare, and beyond. 
+MI expedites the discovery of novel materials and enhances our understanding of complex relationships between structure, composition, and performance. 
+This approach allows for more efficient and systematic exploration of the vast material space, potentially leading to breakthroughs in electronics, energy, healthcare, and beyond. 
 
 % Look at other fields 
 In comparison of MI with well-established fields like computational chemistry and biology, we can discern not only the unique contributions of each discipline but also the collective progression towards harnessing computational power for transformative advancements in science and technology.
@@ -33,35 +33,36 @@ This combined approach, which integrates quantum-level insights with data-driven
 
 Data-driven methods have significantly contributed to the design of new materials across various sub-domains, such as magneto-caloric, thermoelectrics, and superconductor materials. Despite the impactful role of these methods, a notable challenge lies in the limited availability of experimental datasets. 
 Currently, the primary sources of such datasets in inorganic materials are Pauling File~\cite{Blokhin2018ThePF_paulingFile}, Starrydata~\cite{katsura2019data}, and SuperCon~\cite{ishii2023structuring}. 
-The use of these databases highlights the need to broaden and diversify experimental data, improving the effectiveness and applicability of data-driven approaches in materials design. The addition of these datasets is crucial to advance the field, promote innovation, and expand the scope of materials discovery through data-driven methodologies.
-SuperCon is the standard database for superconductor materials and has been developed and manually maintained by NIMS since 1987. 
+The use of these databases highlights the need to broaden and diversify experimental data, improving the effectiveness and applicability of data-driven approaches in materials design. 
+The augmentation of these datasets is crucial to advancing the field, promoting innovation, and expanding the scope of materials discovery through data-driven methodologies.
+SuperCon is the standard superconductor materials database developed and manually maintained by NIMS since 1987. 
 It consists of records of materials reported in scientific experiments and a large set of measured properties. 
 
-A superconductor is a material that, when cooled below a critical temperature, exhibits zero electrical resistance and the expulsion of magnetic fields. This phenomenon, known as superconductivity, occurs in a variety of materials, with many of them requiring extremely low temperatures, often close to absolute zero, to manifest this unique behaviour. The critical temperature at which superconductivity emerges varies depending on the material. 
+A superconductor is a material that, when cooled below a critical temperature, exhibits zero electrical resistance and the expulsion of magnetic fields. This phenomenon, known as superconductivity, occurs in various materials, with many requiring extremely low temperatures, often close to absolute zero, to manifest this unique behaviour. The critical temperature at which superconductivity emerges varies depending on the material. 
 Superconductors have numerous applications, notably in the field of electrical engineering. They are used to create powerful electromagnets for applications such as magnetic resonance imaging (MRI) machines, particle accelerators, and magnetic levitation systems. 
-Superconductors also play a crucial role in the development of high-speed, energy-efficient power transmission lines, since they can carry large currents without any loss. The potential for quantum computing and more efficient electronic devices is another area where superconductors are actively being explored, showcasing the interdisciplinary nature of their applications in physics, materials science, and technology.
+Superconductors also play a crucial role in developing high-speed, energy-efficient power transmission lines since they can carry large currents without any loss. The potential for quantum computing and more efficient electronic devices is another area where superconductors are actively being explored, showcasing the interdisciplinary nature of their applications in physics, materials science, and technology.
 
 SuperCon hosts about 32,000 superconductor material records and a complex schema with about 200 properties. 
-The data available in SuperCon is both sparse and heterogeneous. Some records include properties that are not directly relevant to superconductivity, while other records with important properties have not been consistently gathered~\cite{sommer20223dsc}.
+The data available in SuperCon is both sparse and heterogeneous. Some records include properties that are not directly relevant to superconductivity, while others lack important properties that have not been consistently gathered~\cite{sommer20223dsc}.
 For example, the pressure applied to obtain superconductivity was reported in only 16 records; however, its studies and experiments date back to the 1970s, but it became more popular only at the beginning of the 21st century.  
 Nevertheless, SuperCon has been widely recognised for its quality and has been the data source for many attempts to design models that can predict \tc~\cite{stanev2017machine, le2020critical, Hamlin2019SuperconductivityNR}. 
 
 Using ML to predict \tc~has some criticality that needs to be considered. 
-The models have an intrinsic applicability domain, which means that predictions are limited to the patterns and trends encountered in the training set. 
+The models have an intrinsic applicability domain, meaning predictions are limited to the patterns and trends encountered in the training set. 
 This can lead to significant selection bias, making the models ineffective when applied to materials constituted by different compounds (or belonging to different classes). 
 The variety of training data to be used should contain a relevant amount of non-superconductors materials to avoid training a model biased toward the assumption that a \tc~always exists and renders it ineffective when applied to new materials.
 Now, the definition of nonsuperconductivity is tricky: if no superconducting critical temperature has been found, it does not mean that one does not exist. It might be outside the range of current technological instruments. 
 This leads to a conundrum when delving into the data: ignoring compounds with no reported \tc~and maybe disregarding a potentially important part of the dataset for the sake of simplicity.
 Simplifying too much could lead to an incomplete understanding of the factors that determine superconductivity and limit the ability to predict \tc~accurately. 
 Generally, in addition to these considerations, several SuperCon-related works attempted to integrate complementary data from other datasets. 
-However, at the time of writing, only~\cite{sommer20223dsc} has aimed to directly enhance SuperCon.  
+However, at the time of writing, only~\cite{sommer20223dsc} has aimed to enhance SuperCon.  
 They successfully enhanced 9150 records with crystal structures from experimental results stored in the Inorganic Crystal Structure Database (ICSD). 
 This recent work indicates that the SuperCon dataset continues to play a pivotal role in the landscape of superconductor research.
 
 \section{Motivation}
 
 The number of publications in superconductor research remained stable in the last 10 years\footnote{analysed on arXiv statistics on cond-mat category \url{https://info.arxiv.org/about/reports/submission_category_by_year.html}}.
-It is reasonable to expect that future breakthroughs in superconductor research will be achieved through materials informatics, given its growing importance, and an updated SuperCon is a necessary condition. 
+It is reasonable to expect that future breakthroughs in superconductor research will be achieved through materials informatics, given its growing importance, and for that to happen, a necessary condition will be to have an updated SuperCon. 
 
 Two main challenges that SuperCon is facing motivate our work. 
 The manual approach employed for compiling SuperCon is proving to be increasingly demanding in keeping up with the influx of new publications on time. The reliance on manual labour for dataset curation becomes a growing obstacle, as it demands specialised skills that are not readily available in the market. As the field of superconductor research evolves, the need for more efficient and scalable methods becomes apparent.
