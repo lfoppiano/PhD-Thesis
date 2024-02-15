@@ -13,14 +13,14 @@ The original documents were collected from the following sources: (a) the Open A
 (b) articles provided by domain experts containing suitable items and potential links of material names, \tc~values, measurement methods, and pressures; (c) articles from "condensed matter" category of arXiv (\url{https://arxiv.org/archive/cond-mat}) selected using the search terms of "superconductor", "critical temperature", and "superconductivity". 
 
 Pre-print versions of peer-reviewed articles were obtained using a bibliographic data lookup service called biblio-glutton (\url{https://github.com/kermitt2/biblio-glutton}) that aggregates data from various sources: the Crossref (\url{https://www.crossref.org/}) bibliographic database, the unPaywall (\url{http://unpaywall.org}) service, the PubMed Central repository (\url{https://pubmed.ncbi.nlm.nih.gov/}), and mappings to other databases. 
-We queried \textit{biblio-glutton} using the bibliographic data of each article referenced in Supercon; subsequently, we downloaded the pre-print article associated with the retrieved record, if available. 
+We queried \textit{biblio-glutton} using the bibliographic data of each article referenced in Supercon and subsequently downloaded the pre-print article associated with the retrieved record, if available. 
 Although the published version may differ from the pre-print version of a document, the differences measured by comparing pre-print and peer-reviewed articles in biology~\cite{carneiro_comparing_2020} measured objective differences to be around 5\% %.
 
 
 \section{Preliminary annotation study}
 \label{subsec:preliminary-annotation-study}
 A preliminary annotation study was carried out to assess the effort required from the annotators to reach an acceptable Inter Annotation Agreement (IAA \textgreater 0.7) .
-We annotated two randomly selected OA papers, by using a preliminary version of the guidelines with a limited tag-set of four labels: \texttt{<material>}, \texttt{<tc>} (expression describing the presence or absence of superconductivity), \texttt{<tcValue>} (value of \tc), and \texttt{<doping>} (amounts of substitution, such as stochiometric values, usually expressed as functions of x or y).
+We annotated two randomly selected OA papers by using a preliminary version of the guidelines with a limited tag-set of four labels: \texttt{<material>}, \texttt{<tc>} (expression describing the presence or absence of superconductivity), \texttt{<tcValue>} (value of \tc), and \texttt{<doping>} (amounts of substitution, such as stochiometric values, usually expressed as functions of x or y).
 The process was iterated multiple times.
 Each iteration ended with computing the IAA using Krippendorff's alpha coefficient~\cite{Krippendorff2004ReliabilityIC,Zapf2016MeasuringIR}, while annotators discussed the disagreements and updated the guidelines.
 
@@ -72,7 +72,7 @@ Based on this preliminary study, the following changes were implemented.
 (b) Three more labels were added: measurement methods and pressure (described as parametric conditions in relation to \tc) and class of materials. 
 
 \section{Tag-set design}
-The tag set (also referred to as \textit{labels}) represents the classes of entities and the type of links between them, which were designed to be extracted from the text (Figure~\ref{fig:example-annotations-and-links}).
+The tag set (also referred to as \textit{labels}) represents the classes of entities and the type of relations between them, which were designed to be extracted from the text. There are two layers of tag sets: the first layer identifies entities in the text (Figure~\ref{fig:example-annotations-and-links}), and the second layer defines the parts within material expressions that characterise the different elements.
 
 % example-annotated-corpus-postprocess.png
 \begin{figure}[htbp]
@@ -102,7 +102,7 @@ This label is used to collect the following types of information:
     \item The material's shape (e.g. wire, powder, thin film) or form of material (e.g. single/polycrystal), 
     \item Modification by a dopant (\texttt{Zn-doped}, \texttt{Si-doped}) or by percentage of doping (\texttt{2\%-doped}). We also considered qualitative expressions such as \textit{overdoped}, \textit{lightly doped}, and \textit{pure} as valid information, 
     \item Substrate information (e.g. \texttt{grown on MgO(100) film}) when it was adjacent to the material name or formula in the text,
-    \item Additional information about the sample (e.g. \texttt{as-grown}, \texttt{untwinned}, \texttt{single-layer}) when it was adjacent to the material name or formula in the text. 
+    \item Additional information about the sample when it was adjacent to the material name or formula in the text (e.g. \texttt{as-grown}, \texttt{untwinned}, \texttt{single-layer}). 
 \end{itemize}
 
 \paragraph{Superconducting critical temperature} (tag: \texttt{<tc>}) identifies expressions related to the phenomenon of superconductivity. Any temperature mentioned in the text is not necessarily the \tc. Rather, it could refer to the temperature for other processes/events, such as annealing/sintering temperature, specific measurements, and structural changes.
@@ -157,7 +157,7 @@ The relation types have been introduced in Section~\ref{subsec:re-solution}.
 
 \subsection{Annotation guidelines}
 \label{subsec:annotation-guidelines}
-Annotation guidelines include the principles and the rules that describe what constitutes as desired information for the SuperMat dataset and how to annotate it. They include detailed descriptions of the specific rules that have been defined for each type of information to be annotated, with one or more definitions and examples illustrating what to annotate in different cases, exceptions, and references. We used an online system to track the discussions and decisions when a question or a comment was raised and provided a link to such issues in the respective description or example. 
+Annotation guidelines include the principles and the rules that describe what constitutes all desired information for the SuperMat dataset and how to annotate it. They include detailed descriptions of the specific rules that have been defined for each type of information to be annotated, with one or more definitions and examples illustrating what to annotate in different cases, exceptions, and references. We used an online system to track the discussions and decisions when a question or a comment was raised and provided a link to such issues in the respective description or example. 
 In addition, the guidelines include \textit{linking rules} that provide information on how to connect the entities in a relationship correctly. 
 The guidelines were built using a dynamic markup language (called RestructuredText) and stored in a git (\url{https://git-scm.com/}) version control system repository. We deployed them as HTML files via the web, which were updated automatically after each modification. They can be accessed at \url{https://supermat.readthedocs.io}.
 
